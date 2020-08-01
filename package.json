@@ -1,0 +1,27 @@
+{
+  "name": "dexfifo",
+  "version": "1.0.0",
+  "description": "Phase 1",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc",
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.qq2.ru/Webdevelop.pro/dexfifo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async-mutex": "^0.2.4",
+    "axios": "^0.19.2",
+    "chalk": "^4.1.0",
+    "comander": "0.0.1-security",
+    "moment": "^2.27.0",
+    "read-last-lines": "^1.7.2"
+  }
+}
