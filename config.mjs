@@ -15,6 +15,10 @@ export default {
          viaPassword: '111',
       }
    ],
-   etherscanRestDelayTS: 3000,
+
+   // Here must be 3000 ms according to API documentation. But works with small value too.
+   etherscanRestDelayTS: 300,
+
+   etherscanRequestTimeout: 20000,
    flogMaxLines: 30000,
 }

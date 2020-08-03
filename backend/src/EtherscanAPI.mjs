@@ -68,7 +68,7 @@ class EtherscanAPI
    constructor()
    {
       this.queryDefaults = {
-         timeout: 2000,
+         timeout: opt.etherscanRequestTimeout,
          proxy: null,
       }
       this.accBusyCount = opt.etherscanAccs.length
@@ -230,8 +230,11 @@ class EtherscanAPI
       for (let addr_i = 0; addr_i < ethAddrList.length; addr_i++)
       {
          const addr = ethAddrList[addr_i]
+
+         // wait semaphore unblocking
          const [semphValue, releaseFunc] = await semph.acquire()
          ;
+         // Start collection
          (async (releaseFunc) =>
          {
             //log(`${addr} start`)
@@ -278,7 +281,7 @@ class EtherscanAPI
          })
       }
 
-
+      // Wait while all account queries will be done
       for (; etherscanAcc.getFreeAccCount() < opt.etherscanAccs.length;)
       {
          await xx.timeoutAsync(50)
