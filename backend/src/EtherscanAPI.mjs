@@ -71,7 +71,6 @@ class EtherscanAPI
          timeout: opt.etherscanRequestTimeout,
          proxy: null,
       }
-      this.accBusyCount = opt.etherscanAccs.length
    }
 
 
@@ -79,7 +78,8 @@ class EtherscanAPI
     * Get page list of ETH transactions for specified account
     * @param {Object} options
     * @param {String} options.ethaddr       - ETH address
-    * @param {String} [options.sort=asc]           - sort result
+    * @param {Account} options.acc
+    * @param {String} [options.sort=asc]    - sort result
     * @param {Number} [options.page]        - page number, started at 1
     * @param {Number} [options.limit=2000]  - results on page
     * @return {Object} response
@@ -90,13 +90,12 @@ class EtherscanAPI
     * @return {Account} acc
     * @return {String} queryUrl
     */
-   async getTXListByAddr({ethaddr, page = null, limit = null, sort = 'asc'})
+   async getTXListByAddr({ethaddr, page = null, limit = null, sort = 'asc', acc})
    {
       if (page === null || limit === null)
       {
          [page, limit] = [1, 10000]
       }
-      let acc = await etherscanAcc.takeAcc()
       const url = querystring.encode({
          apikey: acc.apiKey,
          module: "account",
@@ -109,10 +108,7 @@ class EtherscanAPI
          offset: limit,
       })
       const options = Object.assign({}, this.queryDefaults, acc.__opts)
-      this.accBusyCount--
       let res = await Q.get(`https://api.etherscan.io/api?${url}`, options).catch(e => e)
-      this.accBusyCount++
-      etherscanAcc.releaseAcc(acc)
 
       return Object.assign({queryUrl: url}, this.qresult({
          response: res,
@@ -224,7 +220,6 @@ class EtherscanAPI
          .filter(v => v.match(/^0x[0-9a-z]+/i))
 
       log(`Start data collection in ${opt.etherscanAccs.length} threads...`)
-      const semph = new Semaphore(opt.etherscanAccs.length)
       let totalTxs = 0
 
       for (let addr_i = 0; addr_i < ethAddrList.length; addr_i++)
@@ -232,17 +227,18 @@ class EtherscanAPI
          const addr = ethAddrList[addr_i]
 
          // wait semaphore unblocking
-         const [semphValue, releaseFunc] = await semph.acquire()
+         let acc = await etherscanAcc.takeAcc()
          ;
          // Start collection
-         (async (releaseFunc) =>
+         (async (acc) =>
          {
             //log(`${addr} start`)
             const qres = await this.getTXListByAddr({
+               acc,
                ethaddr: addr,
                sort: 'desc',
             })
-            releaseFunc()
+            etherscanAcc.releaseAcc(acc)
             if (qres.response.status === 200 && qres.response.data.status === "1")
             {
                let bufLines = []
@@ -274,7 +270,7 @@ class EtherscanAPI
                process.exit(-2)
             }
 
-         })(releaseFunc).catch(e =>
+         })(acc).catch(e =>
          {
             log.t(e).flog()
             process.exit(-1)
