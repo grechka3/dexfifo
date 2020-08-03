@@ -1,0 +1,16 @@
+{
+  "source": {
+    "include": ["./backend/src"],
+    "includePattern": ".mjs$"
+  },
+  "plugins": [
+    "plugins/markdown"
+  ],
+  "opts": {
+    "encoding": "utf-8",
+    "destination": "./jsdoc/",
+    "readme": "./README.md",
+    "recurse": true,
+    "verbose": true
+  }
+}

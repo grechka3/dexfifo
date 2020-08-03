@@ -8,11 +8,18 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "link-module-alias",
+    "jsdoc": "npx jsdoc -c jsdoc.json && npx nodemon --watch backend/ --watch jsdoc.json --watch README.md --exec npx jsdoc -c jsdoc.json",
+    "export_test": "node bin/export_tx.mjs -i sampleData/ethaddrs.txt -o sampleData/export.csv"
+  },
+  "_moduleAliases": {
+    "~root": ".",
+    "~lib": "lib",
+    "~src": "backend/src"
   },
   "repository": {
     "type": "git",
-    "url": "https://git.qq2.ru/Webdevelop.pro/dexfifo.git"
+    "url": "https://git.qq2.ru/webdevelop.pro/dexfifo.git"
   },
   "author": "",
   "license": "ISC",
@@ -20,8 +27,17 @@
     "async-mutex": "^0.2.4",
     "axios": "^0.19.2",
     "chalk": "^4.1.0",
-    "comander": "0.0.1-security",
+    "commander": "^6.0.0",
+    "csv-writer": "^1.6.0",
+    "https-proxy-agent": "^5.0.0",
+    "link-module-alias": "^1.2.0",
     "moment": "^2.27.0",
     "read-last-lines": "^1.7.2"
+  },
+  "devDependencies": {
+    "grunt": "^1.2.1",
+    "grunt-jsdoc": "^2.4.1",
+    "jsdoc": "^3.6.5",
+    "nodemon": "^2.0.4"
   }
 }
