@@ -18,7 +18,7 @@ npm run export_test
 
 A sample input data eth address file located in sampleData directory.
 
-The exported file placed here [sampleData/export.csv](https://git.qq2.ru/webdevelop.pro/dexfifo/src/branch/master/README.md)
+The exported file placed here [sampleData/export.csv](https://git.qq2.ru/webdevelop.pro/dexfifo/src/branch/master/sampleData/export.csv)
 
 JSDoc can by opened with _**./jsdoc/index.html**_  file.
 
