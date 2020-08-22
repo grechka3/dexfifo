@@ -31,11 +31,11 @@ import xx from "~lib/tools.cjs"
  * @typedef {Object}  EtherscanResponse
  * @property {String} status
  * @property {String} message
- * @property {EtherscanTXResponse[]|EtherscanTokenResponse|null} result
+ * @property {EtherscanTxResponse[]|EtherscanTokenResponse|null} result
  */
 
 /**
- * @typedef {Object} EtherscanTXResponse
+ * @typedef {Object} EtherscanTxResponse
  * @property {Number} blockNumber
  * @property {Number} timeStamp
  * @property {String} hash
@@ -53,6 +53,29 @@ import xx from "~lib/tools.cjs"
  * @property {String} contractAddress
  * @property {Number} cumulativeGasUsed
  * @property {Number} gasUsed
+ * @property {Number} confirmations
+ */
+
+/**
+ * @typedef {Object} EtherscanTxTokenResponse
+ * @property {Number} blockNumber
+ * @property {Number} timeStamp
+ * @property {String} hash
+ * @property {Number} nonce
+ * @property {String} blockHash
+ * @property {String} from
+ * @property {String} contractAddress
+ * @property {String} to
+ * @property {Number} value
+ * @property {String} tokenName
+ * @property {String} tokenSymbol
+ * @property {Number} tokenDecimal
+ * @property {Number} transactionIndex
+ * @property {Number} gas
+ * @property {Number} gasPrice
+ * @property {Number} gasUsed
+ * @property {Number} cumulativeGasUsed
+ * @property {String} input  - deprecated
  * @property {Number} confirmations
  */
 
@@ -76,7 +99,7 @@ class EtherscanAPI
          timeout: opt.etherscanRequestTimeout,
          proxy: null,
       }
-      this.tokenAddrs = Object.create(null)
+      this.contrAddrs = Object.create(null)
    }
 
 
@@ -91,34 +114,32 @@ class EtherscanAPI
     * @return {String} queryUrl
     * @return {EtherscanTokenResponse}
     */
-   async getTokenInfo({tokenAddr, acc})
+   async getContractInfo({addr, acc})
    {
       const url = querystring.encode({
          apikey: acc.apiKey,
          module: "account",
          action: "tokentx",
-         contractaddress: tokenAddr,
+         contractaddress: addr,
          page: 1,
          offset: 1,
       })
       const options = Object.assign({}, this.queryDefaults, acc.__opts)
       let res = await Q.get(`https://api.etherscan.io/api?${url}`, options).catch(e => e)
-      if (xx.isArray(res.data.result) && res.data.result.length === 1)
+
+      if (xx.isArray(res.data?.result) && res.data?.result.length === 1)
       {
-         this.tokenAddrs[tokenAddr] = res.data.result = {
-            tokenName: res.data.result[0].tokenName,
-            tokenSymbol: res.data.result[0].tokenSymbol,
-         }
-         this.tokenAddrs[tokenAddr] = {
-            tokenName: res.data.result.tokenName,
-            tokenSymbol: res.data.result.tokenSymbol
+         this.contrAddrs[addr] = res.data.result = {
+            name: res.data.result[0].tokenName,
+            symbol: res.data.result[0].tokenSymbol,
          }
       }
       else
       {
-         this.tokenAddrs[tokenAddr] = res.data.result = {
-            tokenName: "-",
-            tokenSymbol: "-",
+         if(!res.data) res.data = {}
+         this.contrAddrs[addr] = res.data.result = {
+            name: "",
+            symbol: "",
          }
       }
       return Object.assign({queryUrl: url}, this.qresult({
@@ -129,23 +150,23 @@ class EtherscanAPI
 
 
    /**
-    * Get page list of ETH transactions for specified account
+    * Get page list of ETH transactions for specified address
     * @param {Object} options
     * @param {String} options.ethaddr       - ETH address
     * @param {Account} options.acc
     * @param {String} [options.sort=asc]    - sort result
-    * @param {Number} [options.page]        - page number, started at 1
-    * @param {Number} [options.limit=2000]  - results on page
+    * @param {Number} [options.page=1]        - page number, started at 1
+    * @param {Number} [options.limit=10000]  - results on page
     * @return {Object} response
     * @return {EtherscanResponse} response.data        - etherscan result
-    * @return {EtherscanTXResponse[]} response.data.result - txs array
+    * @return {EtherscanTxResponse[]} response.data.result - txs array
     * @return {Number} response.status      - http or net result code (200  is ok)
     * @return {String} response.statusText  - http or net result text
     * @return {Object} response.request     - response object
     * @return {Account} acc
     * @return {String} queryUrl
     */
-   async getTXListByAddr({ethaddr, page = null, limit = null, sort = 'asc', acc})
+   async getTxListByAddr({ethaddr, page = null, limit = null, sort = 'asc', acc})
    {
       if (page === null || limit === null)
       {
@@ -155,6 +176,49 @@ class EtherscanAPI
          apikey: acc.apiKey,
          module: "account",
          action: "txlist",
+         startblock: 0,
+         endblock: 999999999,
+         sort: sort,
+         address: ethaddr,
+         page: page,
+         offset: limit,
+      })
+      const options = Object.assign({}, this.queryDefaults, acc.__opts)
+      let res = await Q.get(`https://api.etherscan.io/api?${url}`, options).catch(e => e)
+
+      return Object.assign({queryUrl: url}, this.qresult({
+         response: res,
+         acc,
+      }))
+   }
+
+   /**
+    * Get page list of token transactions for specified address
+    * @param {Object} options
+    * @param {String} options.ethaddr       - ETH address
+    * @param {Account} options.acc
+    * @param {String} [options.sort=asc]    - sort result
+    * @param {Number} [options.page=1]        - page number, started at 1
+    * @param {Number} [options.limit=10000]  - results on page
+    * @return {Object} response
+    * @return {EtherscanResponse} response.data        - etherscan result
+    * @return {EtherscanTxTokenResponse[]} response.data.result - txs array
+    * @return {Number} response.status      - http or net result code (200  is ok)
+    * @return {String} response.statusText  - http or net result text
+    * @return {Object} response.request     - response object
+    * @return {Account} acc
+    * @return {String} queryUrl
+    */
+   async getTxTokenListByAddr({ethaddr, page = null, limit = null, sort = 'asc', acc})
+   {
+      if (page === null || limit === null)
+      {
+         [page, limit] = [1, 10000]
+      }
+      const url = querystring.encode({
+         apikey: acc.apiKey,
+         module: "account",
+         action: "tokentx",
          startblock: 0,
          endblock: 999999999,
          sort: sort,
@@ -239,34 +303,40 @@ class EtherscanAPI
          path: outputFile,
          header: [
             {
-               id: "from", title: "from"
+               id: "owner", title: "Owner"
             },
             {
-               id: "to", title: "to"
+               id: "from", title: "From"
             },
             {
-               id: "blockNumber", title: "blockNumber"
+               id: "to", title: "To"
             },
             {
-               id: "timeStamp", title: "timeStamp"
+               id: "blockNumber", title: "Block Number"
             },
             {
-               id: "dateTimeUTC", title: "dateTimeUTC"
+               id: "timeStamp", title: "TimeStamp"
             },
             {
-               id: "value", title: "value"
+               id: "dateTimeUTC", title: "DateTimeUTC"
             },
             {
-               id: "tokenSymbol", title: "tokenSymbol"
+               id: "value", title: "Value"
             },
             {
-               id: "tokenName", title: "tokenName"
+               id: "symbol", title: "Coin Symbol"
             },
             {
-               id: "txHash", title: "TransactionHash"
+               id: "name", title: "Coin Name"
             },
             {
-               id: "contractAddress", title: "contractAddress"
+               id: "memo", title: "Memo"
+            },
+            {
+               id: "txHash", title: "Transaction Hash"
+            },
+            {
+               id: "contractAddress", title: "Contract Address"
             },
          ],
          fieldDelimiter: ";"
@@ -281,6 +351,7 @@ class EtherscanAPI
          .filter(v => v.match(/^0x[0-9a-z]+/i))
 
       log(`Start data collection in ${opt.etherscanAccs.length} threads...`)
+
       let totalTxs = 0
 
       for (let addr_i = 0; addr_i < ethAddrList.length; addr_i++)
@@ -294,7 +365,7 @@ class EtherscanAPI
          (async (acc) =>
          {
             // get all TXs for current ethaddr
-            const qres = await this.getTXListByAddr({
+            let qres = await this.getTxListByAddr({
                acc,
                ethaddr: addr,
                sort: 'desc',
@@ -303,42 +374,71 @@ class EtherscanAPI
             if (qres.response.status === 200 && xx.isArray(qres.response.data.result))
             {
                let bufLines = []
+               let hasTokens = false
+               let dumpedTxs = 0
+               let txs = []
                for (let txline = 0; txline < qres.response.data.result.length; txline++)
                {
                   const v = qres.response.data.result[txline]
-                  let tokenSymbol = "", tokenName = ""
-                  if (v.input !== "0x" && v.to)
+                  let coinInfo = {symbol: "ETH", name: "Ethereum", memo: ""}
+                  if (v.value*1)
                   {
-                     // this addr is  token addr
-                     if (!this.tokenAddrs[v.to])
+                     let checkAddr = ""
+                     let contrAddrInList = true
+                     if (v.to && v.to !== addr)
                      {
-                        acc = await etherscanAcc.takeAcc()
-                        await this.getTokenInfo({tokenAddr: v.to, acc})
-                        etherscanAcc.releaseAcc(acc)
-                        if (this.tokenAddrs[v.to])
+                        checkAddr = v.to
+                     }
+                     else if (v.from && v.from !== addr)
+                     {
+                        checkAddr = v.from
+                     }
+                     if (checkAddr)
+                     {
+                        // this addr is  contract addr
+                        if (!this.contrAddrs[checkAddr])
                         {
-                           ;({tokenName, tokenSymbol} = this.tokenAddrs[v.to])
-                           log(`tokenSymbol=${tokenSymbol} (${tokenName}) resolved for token=${v.to}`)
+                           contrAddrInList = false
+                           acc = await etherscanAcc.takeAcc()
+                           await this.getContractInfo({addr: checkAddr, acc})
+                           etherscanAcc.releaseAcc(acc)
+
+                        }
+                        if (this.contrAddrs[checkAddr])
+                        {
+                           let info = this.contrAddrs[checkAddr]
+                           if (info.symbol)
+                           {
+                              coinInfo.memo = `${info.symbol} (${info.name})`
+                              if (!contrAddrInList)
+                              {
+                                 log(`Memo=${coinInfo.memo}) for addr=${checkAddr}`)
+                              }
+                           }
                         }
                      }
-                     if (this.tokenAddrs[v.to])
-                     {
-                        ;({tokenName, tokenSymbol} = this.tokenAddrs[v.to])
-                     }
+                     bufLines.push({
+                        owner: addr,
+                        from: v.from,
+                        to: v.to,
+                        blockNumber: v.blockNumber,
+                        timeStamp: v.timeStamp,
+                        dateTimeUTC: xx.tss2dt(v.timeStamp * 1),
+                        value: v.value,
+                        symbol: coinInfo.symbol,
+                        name: coinInfo.name,
+                        memo: coinInfo.memo,
+                        txHash: v.hash,
+                        contractAddress: v.contractAddress,
+                     })
+                     dumpedTxs++
+                     totalTxs++
+                     txs.push(v.hash)
                   }
-                  bufLines.push({
-                     from: v.from,
-                     to: v.to,
-                     blockNumber: v.blockNumber,
-                     timeStamp: v.timeStamp,
-                     dateTimeUTC: xx.tss2dt(v.timeStamp * 1),
-                     value: v.value,
-                     tokenSymbol,
-                     tokenName,
-                     txHash: v.hash,
-                     contractAddress: v.contractAddress,
-                  })
-                  totalTxs++
+                  else
+                  {
+                     hasTokens = true
+                  }
                }
                if (bufLines.length)
                {
@@ -348,7 +448,58 @@ class EtherscanAPI
                {
                   log.w(`The ETH address "${addr}" has more than 10000 txs`).flog()
                }
-               log(`${addr} done via ${qres.acc.viaHost}: txs=${qres.response.data.result.length}`)
+               log(`${addr} done via ${qres.acc.viaHost}: total txs=${qres.response.data.result.length}, dumped txs=${dumpedTxs}`)
+
+               if (hasTokens)
+               {
+                  acc = await etherscanAcc.takeAcc()
+                  // get only token TXs for current ethaddr
+                  qres = await this.getTxTokenListByAddr({
+                     acc,
+                     ethaddr: addr,
+                     sort: 'desc',
+                  })
+                  etherscanAcc.releaseAcc(acc)
+                  if (qres.response.status === 200 && xx.isArray(qres.response.data.result))
+                  {
+                     let dumpedTxs = 0
+                     let bufLines = []
+                     for (let txline = 0; txline < qres.response.data.result.length; txline++)
+                     {
+                        const v = qres.response.data.result[txline]
+
+
+                        if(!txs.includes(v.hash)) // dont overwrite on previous step added transaction // check this out https://etherscan.io/tx/0x00e825ecf6e0d9f91256893f7d41eba877252b0d014d0aaa242148067ac62a8a
+                        {
+                           bufLines.push({
+                              owner: addr,
+                              from: v.from,
+                              to: v.to,
+                              blockNumber: v.blockNumber,
+                              timeStamp: v.timeStamp,
+                              dateTimeUTC: xx.tss2dt(v.timeStamp * 1),
+                              value: v.value,
+                              symbol: v.tokenSymbol,
+                              name: v.tokenName,
+                              memo: "",
+                              txHash: v.hash,
+                              contractAddress: v.contractAddress,
+                           })
+                           dumpedTxs++
+                           totalTxs++
+                        }
+                     }
+                     if (bufLines.length)
+                     {
+                        await csvWriter.writeRecords(bufLines)
+                     }
+                     if (qres.response.data.result.length >= 9998)
+                     {
+                        log.w(`The ETH address "${addr}" has more than 10000 token txs`).flog()
+                     }
+                     log(`${addr} done via ${qres.acc.viaHost}: total token txs=${qres.response.data.result.length}, dumped token txs=${dumpedTxs}`)
+                  }
+               }
             }
             else
             {
