@@ -4,7 +4,6 @@ import etherscanAcc from "~src/EtherscanAccount.mjs"
 import csv from "csv-writer"
 import fs from "fs"
 import log from "~lib/log.cjs"
-import {Semaphore} from "async-mutex"
 import opt from "~root/config.mjs"
 import xx from "~lib/tools.cjs"
 
@@ -32,7 +31,7 @@ import xx from "~lib/tools.cjs"
  * @typedef {Object}  EtherscanResponse
  * @property {String} status
  * @property {String} message
- * @property {EtherscanTXResponse[]|null} result
+ * @property {EtherscanTXResponse[]|EtherscanTokenResponse|null} result
  */
 
 /**
@@ -57,6 +56,12 @@ import xx from "~lib/tools.cjs"
  * @property {Number} confirmations
  */
 
+/**
+ * @typedef {Object} EtherscanTokenResponse
+ * @property {String} tokenName
+ * @property {String} tokenSymbol
+ */
+
 
 /**
  * Etherscan multi account parser library
@@ -71,6 +76,55 @@ class EtherscanAPI
          timeout: opt.etherscanRequestTimeout,
          proxy: null,
       }
+      this.tokenAddrs = Object.create(null)
+   }
+
+
+   /**
+    * @return {Object} response
+    * @return {EtherscanResponse} response.data             - etherscan result
+    * @return {EtherscanTokenResponse} response.data.result - token Info
+    * @return {Number} response.status                      - http or net result code (200  is ok)
+    * @return {String} response.statusText                  - http or net result text
+    * @return {Object} response.request                     - response object
+    * @return {Account} acc
+    * @return {String} queryUrl
+    * @return {EtherscanTokenResponse}
+    */
+   async getTokenInfo({tokenAddr, acc})
+   {
+      const url = querystring.encode({
+         apikey: acc.apiKey,
+         module: "account",
+         action: "tokentx",
+         contractaddress: tokenAddr,
+         page: 1,
+         offset: 1,
+      })
+      const options = Object.assign({}, this.queryDefaults, acc.__opts)
+      let res = await Q.get(`https://api.etherscan.io/api?${url}`, options).catch(e => e)
+      if (xx.isArray(res.data.result) && res.data.result.length === 1)
+      {
+         this.tokenAddrs[tokenAddr] = res.data.result = {
+            tokenName: res.data.result[0].tokenName,
+            tokenSymbol: res.data.result[0].tokenSymbol,
+         }
+         this.tokenAddrs[tokenAddr] = {
+            tokenName: res.data.result.tokenName,
+            tokenSymbol: res.data.result.tokenSymbol
+         }
+      }
+      else
+      {
+         this.tokenAddrs[tokenAddr] = res.data.result = {
+            tokenName: "-",
+            tokenSymbol: "-",
+         }
+      }
+      return Object.assign({queryUrl: url}, this.qresult({
+         response: res,
+         acc,
+      }))
    }
 
 
@@ -83,7 +137,8 @@ class EtherscanAPI
     * @param {Number} [options.page]        - page number, started at 1
     * @param {Number} [options.limit=2000]  - results on page
     * @return {Object} response
-    * @return {Object} response.data        - etherscan result
+    * @return {EtherscanResponse} response.data        - etherscan result
+    * @return {EtherscanTXResponse[]} response.data.result - txs array
     * @return {Number} response.status      - http or net result code (200  is ok)
     * @return {String} response.statusText  - http or net result text
     * @return {Object} response.request     - response object
@@ -202,6 +257,12 @@ class EtherscanAPI
                id: "value", title: "value"
             },
             {
+               id: "tokenSymbol", title: "tokenSymbol"
+            },
+            {
+               id: "tokenName", title: "tokenName"
+            },
+            {
                id: "txHash", title: "TransactionHash"
             },
             {
@@ -229,22 +290,42 @@ class EtherscanAPI
          // wait semaphore unblocking
          let acc = await etherscanAcc.takeAcc()
          ;
-         // Start collection
+         // Start parallel task for each ethaddr
          (async (acc) =>
          {
-            //log(`${addr} start`)
+            // get all TXs for current ethaddr
             const qres = await this.getTXListByAddr({
                acc,
                ethaddr: addr,
                sort: 'desc',
             })
             etherscanAcc.releaseAcc(acc)
-            if (qres.response.status === 200 && qres.response.data.status === "1")
+            if (qres.response.status === 200 && xx.isArray(qres.response.data.result))
             {
                let bufLines = []
                for (let txline = 0; txline < qres.response.data.result.length; txline++)
                {
                   const v = qres.response.data.result[txline]
+                  let tokenSymbol = "", tokenName = ""
+                  if (v.input !== "0x" && v.to)
+                  {
+                     // this addr is  token addr
+                     if (!this.tokenAddrs[v.to])
+                     {
+                        acc = await etherscanAcc.takeAcc()
+                        await this.getTokenInfo({tokenAddr: v.to, acc})
+                        etherscanAcc.releaseAcc(acc)
+                        if (this.tokenAddrs[v.to])
+                        {
+                           ;({tokenName, tokenSymbol} = this.tokenAddrs[v.to])
+                           log(`tokenSymbol=${tokenSymbol} (${tokenName}) resolved for token=${v.to}`)
+                        }
+                     }
+                     if (this.tokenAddrs[v.to])
+                     {
+                        ;({tokenName, tokenSymbol} = this.tokenAddrs[v.to])
+                     }
+                  }
                   bufLines.push({
                      from: v.from,
                      to: v.to,
@@ -252,12 +333,17 @@ class EtherscanAPI
                      timeStamp: v.timeStamp,
                      dateTimeUTC: xx.tss2dt(v.timeStamp * 1),
                      value: v.value,
+                     tokenSymbol,
+                     tokenName,
                      txHash: v.hash,
                      contractAddress: v.contractAddress,
                   })
                   totalTxs++
                }
-               await csvWriter.writeRecords(bufLines)
+               if (bufLines.length)
+               {
+                  await csvWriter.writeRecords(bufLines)
+               }
                if (qres.response.data.result.length >= 9998)
                {
                   log.w(`The ETH address "${addr}" has more than 10000 txs`).flog()
