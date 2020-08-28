@@ -1,7 +1,8 @@
-import log from "~lib/log.cjs"
-import tools from "~lib/tools.cjs"
-import opt from "~root/config.mjs"
-import EtherscanAPI from "~src/EtherscanAPI.mjs"
+import log from "../lib/log.cjs"
+import tools from "../lib/tools.cjs"
+import opt from "../config.mjs"
+import EtherscanAPI from "../backend/src/EtherscanAPI.mjs"
+
 import path from "path"
 import URL from "url"
 import cmd from "commander"
