@@ -1,11 +1,11 @@
 import Q from "axios"
 import querystring from "querystring"
-import etherscanAcc from "~src/EtherscanAccount.mjs"
+import etherscanAcc from "../../backend/src/EtherscanAccount.mjs"
 import csv from "csv-writer"
 import fs from "fs"
-import log from "~lib/log.cjs"
-import opt from "~root/config.mjs"
-import xx from "~lib/tools.cjs"
+import log from "../../lib/log.cjs"
+import opt from "../../config.mjs"
+import xx from "../../lib/tools.cjs"
 
 
 /**
@@ -127,7 +127,7 @@ class EtherscanAPI
       const options = Object.assign({}, this.queryDefaults, acc.__opts)
       let res = await Q.get(`https://api.etherscan.io/api?${url}`, options).catch(e => e)
 
-      if (xx.isArray(res.data?.result) && res.data?.result.length === 1)
+      if (res.data && xx.isArray(res.data.result) && res.data.result.length === 1)
       {
          this.contrAddrs[addr] = res.data.result = {
             name: res.data.result[0].tokenName,

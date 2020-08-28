@@ -1,6 +1,6 @@
-import opt from "~root/config.mjs"
-import xx from "~lib/tools.cjs"
-import log from "~lib/log.cjs"
+import opt from "../../config.mjs"
+import xx from "../../lib/tools.cjs"
+import log from "../../lib/log.cjs"
 import {Semaphore} from "async-mutex"
 import HttpsProxyAgent from "https-proxy-agent"
 
