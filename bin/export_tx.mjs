@@ -20,8 +20,13 @@ const etherApi = new EtherscanAPI(opt.etherscanAPIKey)
       .option(`-o, --output <file>`, `csv output file file.`, 'output.csv')
       .parse(process.argv)
 
-   if (cmd.output && cmd.input)
+   if (cmd.output || cmd.input)
    {
+      if(!cmd.input)
+      {
+         log.e(`Input file is not defined. See program options: -h`)
+         process.exit(-1)
+      }
       log(`Input file: ${cmd.input}`)
       log(`Output file: ${cmd.output}`)
       const res = await etherApi.loadTXsToCSV({

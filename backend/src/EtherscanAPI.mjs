@@ -114,7 +114,7 @@ class EtherscanAPI
     * @return {String} queryUrl
     * @return {EtherscanTokenResponse}
     */
-   async getContractInfo({addr, acc})
+   async getTokenInfo({addr, acc})
    {
       const url = querystring.encode({
          apikey: acc.apiKey,
@@ -380,6 +380,11 @@ class EtherscanAPI
                for (let txline = 0; txline < qres.response.data.result.length; txline++)
                {
                   const v = qres.response.data.result[txline]
+                  if(1*v.isError)
+                  {
+                     log.w(`TxHash = ${v.hash} in error state, skipped it`)
+                     continue
+                  }
                   let coinInfo = {symbol: "ETH", name: "Ethereum", memo: ""}
                   if (v.value*1)
                   {
@@ -400,7 +405,7 @@ class EtherscanAPI
                         {
                            contrAddrInList = false
                            acc = await etherscanAcc.takeAcc()
-                           await this.getContractInfo({addr: checkAddr, acc})
+                           await this.getTokenInfo({addr: checkAddr, acc})
                            etherscanAcc.releaseAcc(acc)
 
                         }

@@ -11,11 +11,6 @@
     "jsdoc": "npx jsdoc -c jsdoc.json && npx nodemon --watch backend/ --watch jsdoc.json --watch README.md --exec npx jsdoc -c jsdoc.json",
     "export_test": "node bin/export_tx.mjs -i sampleData/ethaddrs.txt -o sampleData/export.csv"
   },
-  "_moduleAliases": {
-    "~root": ".",
-    "~lib": "lib",
-    "~src": "backend/src"
-  },
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -25,7 +20,6 @@
     "commander": "^6.0.0",
     "csv-writer": "^1.6.0",
     "https-proxy-agent": "^5.0.0",
-    "link-module-alias": "^1.2.0",
     "moment": "^2.27.0",
     "read-last-lines": "^1.7.2"
   },
