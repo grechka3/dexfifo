@@ -9,11 +9,16 @@
   },
   "scripts": {
     "jsdoc": "npx jsdoc -c jsdoc.json && npx nodemon --watch backend/ --watch jsdoc.json --watch README.md --exec npx jsdoc -c jsdoc.json",
-    "export_test": "node bin/export_tx.mjs -i sampleData/ethaddrs.txt -o sampleData/export.csv"
+    "export_test": "npx babel-node bin/export_tx.mjs -i sampleData/ethaddrs.txt -o sampleData/export.csv"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.11.4",
+    "@babel/node": "^7.10.5",
+    "@babel/preset-env": "^7.11.0",
+    "babel-preset-env": "^1.7.0",
     "async-mutex": "^0.2.4",
     "axios": "^0.19.2",
     "chalk": "^4.1.0",
@@ -24,8 +29,6 @@
     "read-last-lines": "^1.7.2"
   },
   "devDependencies": {
-    "grunt": "^1.2.1",
-    "grunt-jsdoc": "^2.4.1",
     "jsdoc": "^3.6.5",
     "nodemon": "^2.0.4"
   }

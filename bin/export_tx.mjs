@@ -24,7 +24,7 @@ const etherApi = new EtherscanAPI(opt.etherscanAPIKey)
    {
       if(!cmd.input)
       {
-         log.e(`Input file is not defined. See program options: -h`)
+         log.e(`Input file is not defined. See program option: -h`)
          process.exit(-1)
       }
       log(`Input file: ${cmd.input}`)
@@ -43,7 +43,8 @@ const etherApi = new EtherscanAPI(opt.etherscanAPIKey)
          log.i(`${res.txCount} txs for ${res.ethAddrCount} accounts OK`)
          process.exit(0)
       }
-
+   }  else {
+      log.e(`Nothing to do. See program option: -h`)
    }
 
 })().catch(e =>
