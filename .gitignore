@@ -13,6 +13,5 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
-/docs/
 
-/jsdoc/
+/jsdoc
