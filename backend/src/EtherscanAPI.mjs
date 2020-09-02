@@ -97,7 +97,7 @@ class EtherscanAPI
    {
       this.queryDefaults = {
          timeout: opt.etherscanRequestTimeout,
-         proxy: null,
+         proxy: null
       }
       this.contrAddrs = Object.create(null)
    }
@@ -122,7 +122,7 @@ class EtherscanAPI
          action: "tokentx",
          contractaddress: addr,
          page: 1,
-         offset: 1,
+         offset: 1
       })
       const options = Object.assign({}, this.queryDefaults, acc.__opts)
       let res = await Q.get(`https://api.etherscan.io/api?${url}`, options).catch(e => e)
@@ -131,20 +131,23 @@ class EtherscanAPI
       {
          this.contrAddrs[addr] = res.data.result = {
             name: res.data.result[0].tokenName,
-            symbol: res.data.result[0].tokenSymbol,
+            symbol: res.data.result[0].tokenSymbol
          }
       }
       else
       {
-         if(!res.data) res.data = {}
+         if (!res.data)
+         {
+            res.data = {}
+         }
          this.contrAddrs[addr] = res.data.result = {
             name: "",
-            symbol: "",
+            symbol: ""
          }
       }
       return Object.assign({queryUrl: url}, this.qresult({
          response: res,
-         acc,
+         acc
       }))
    }
 
@@ -166,7 +169,7 @@ class EtherscanAPI
     * @return {Account} acc
     * @return {String} queryUrl
     */
-   async getTxListByAddr({ethaddr, page = null, limit = null, sort = 'asc', acc})
+   async getTxListByAddr({ethaddr, page = null, limit = null, sort = "asc", acc})
    {
       if (page === null || limit === null)
       {
@@ -181,14 +184,14 @@ class EtherscanAPI
          sort: sort,
          address: ethaddr,
          page: page,
-         offset: limit,
+         offset: limit
       })
       const options = Object.assign({}, this.queryDefaults, acc.__opts)
       let res = await Q.get(`https://api.etherscan.io/api?${url}`, options).catch(e => e)
 
       return Object.assign({queryUrl: url}, this.qresult({
          response: res,
-         acc,
+         acc
       }))
    }
 
@@ -209,7 +212,7 @@ class EtherscanAPI
     * @return {Account} acc
     * @return {String} queryUrl
     */
-   async getTxTokenListByAddr({ethaddr, page = null, limit = null, sort = 'asc', acc})
+   async getTxTokenListByAddr({ethaddr, page = null, limit = null, sort = "asc", acc})
    {
       if (page === null || limit === null)
       {
@@ -224,14 +227,14 @@ class EtherscanAPI
          sort: sort,
          address: ethaddr,
          page: page,
-         offset: limit,
+         offset: limit
       })
       const options = Object.assign({}, this.queryDefaults, acc.__opts)
       let res = await Q.get(`https://api.etherscan.io/api?${url}`, options).catch(e => e)
 
       return Object.assign({queryUrl: url}, this.qresult({
          response: res,
-         acc,
+         acc
       }))
    }
 
@@ -295,7 +298,7 @@ class EtherscanAPI
       if (!fs.existsSync(inputFile))
       {
          return {
-            err: new Error(`Source file "${inputFile}" not found`),
+            err: new Error(`Source file "${inputFile}" not found`)
          }
       }
 
@@ -330,14 +333,23 @@ class EtherscanAPI
                id: "name", title: "Coin Name"
             },
             {
-               id: "memo", title: "Memo"
+               id: "fee", title: "Fee, Ether"
+            },
+            {
+               id: "gas", title: "Gas"
+            },
+            {
+               id: "gasPrice", title: "Gas price, Gwei"
+            },
+            {
+               id: "gasUsed", title: "Gas used"
             },
             {
                id: "txHash", title: "Transaction Hash"
             },
             {
                id: "contractAddress", title: "Contract Address"
-            },
+            }
          ],
          fieldDelimiter: ";"
       })
@@ -368,7 +380,7 @@ class EtherscanAPI
             let qres = await this.getTxListByAddr({
                acc,
                ethaddr: addr,
-               sort: 'desc',
+               sort: "desc"
             })
             etherscanAcc.releaseAcc(acc)
             if (qres.response.status === 200 && xx.isArray(qres.response.data.result))
@@ -380,13 +392,13 @@ class EtherscanAPI
                for (let txline = 0; txline < qres.response.data.result.length; txline++)
                {
                   const v = qres.response.data.result[txline]
-                  if(1*v.isError)
+                  if (1 * v.isError)
                   {
                      log.w(`TxHash = ${v.hash} in error state, skipped it`)
                      continue
                   }
                   let coinInfo = {symbol: "ETH", name: "Ethereum", memo: ""}
-                  if (v.value*1)
+                  if (v.value * 1)
                   {
                      let checkAddr = ""
                      let contrAddrInList = true
@@ -435,6 +447,10 @@ class EtherscanAPI
                         memo: coinInfo.memo,
                         txHash: v.hash,
                         contractAddress: v.contractAddress,
+                        gas: v.gas,
+                        gasPrice: xx.toFixed(v.gasPrice / 1e9),
+                        gasUsed: v.gasUsed,
+                        fee: xx.toFixed(v.gasUsed * v.gasPrice / 1e18)
                      })
                      dumpedTxs++
                      totalTxs++
@@ -462,7 +478,7 @@ class EtherscanAPI
                   qres = await this.getTxTokenListByAddr({
                      acc,
                      ethaddr: addr,
-                     sort: 'desc',
+                     sort: "desc"
                   })
                   etherscanAcc.releaseAcc(acc)
                   if (qres.response.status === 200 && xx.isArray(qres.response.data.result))
@@ -474,7 +490,7 @@ class EtherscanAPI
                         const v = qres.response.data.result[txline]
 
 
-                        if(!txs.includes(v.hash)) // dont overwrite on previous step added transaction // check this out https://etherscan.io/tx/0x00e825ecf6e0d9f91256893f7d41eba877252b0d014d0aaa242148067ac62a8a
+                        if (!txs.includes(v.hash)) // dont overwrite on previous step added transaction // check this out https://etherscan.io/tx/0x00e825ecf6e0d9f91256893f7d41eba877252b0d014d0aaa242148067ac62a8a
                         {
                            bufLines.push({
                               owner: addr,
@@ -489,6 +505,10 @@ class EtherscanAPI
                               memo: "",
                               txHash: v.hash,
                               contractAddress: v.contractAddress,
+                              gas: v.gas,
+                              gasPrice: xx.toFixed(v.gasPrice / 1e9),
+                              gasUsed: v.gasUsed,
+                              fee: xx.toFixed(v.gasUsed * v.gasPrice / 1e18)
                            })
                            dumpedTxs++
                            totalTxs++
@@ -508,7 +528,7 @@ class EtherscanAPI
             }
             else
             {
-               log.e(`[EtherscanAPI.loadTXsToCSV]: API ERROR for ETH address "${addr}" (line ${addr_i + 1}) ::  code=${qres.response.status}, message=${qres.response.statusText}, APIstatus=${qres.response.data ? qres.response.data.status : '---'}, APImessage=${qres.response.data ? qres.response.data.message : '---'} via ${qres.acc.viaHost}`).flog()
+               log.e(`[EtherscanAPI.loadTXsToCSV]: API ERROR for ETH address "${addr}" (line ${addr_i + 1}) ::  code=${qres.response.status}, message=${qres.response.statusText}, APIstatus=${qres.response.data ? qres.response.data.status : "---"}, APImessage=${qres.response.data ? qres.response.data.message : "---"} via ${qres.acc.viaHost}`).flog()
                process.exit(-2)
             }
 
@@ -543,12 +563,12 @@ class EtherscanAPI
     */
    valueCast({value, decimals = null})
    {
-      if( decimals)
+      if (decimals)
       {
-         return value/(`10e${decimals}`)
+         return xx.toFixed(value / (`10e${decimals}`))
       }
 
-      return value/1e18
+      return xx.toFixed(value / 1e18)
    }
 
 
