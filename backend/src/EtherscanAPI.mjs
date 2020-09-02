@@ -429,7 +429,7 @@ class EtherscanAPI
                         blockNumber: v.blockNumber,
                         timeStamp: v.timeStamp,
                         dateTimeUTC: xx.tss2dt(v.timeStamp * 1),
-                        value: v.value,
+                        value: this.valueCast({value: v.value}),
                         symbol: coinInfo.symbol,
                         name: coinInfo.name,
                         memo: coinInfo.memo,
@@ -483,7 +483,7 @@ class EtherscanAPI
                               blockNumber: v.blockNumber,
                               timeStamp: v.timeStamp,
                               dateTimeUTC: xx.tss2dt(v.timeStamp * 1),
-                              value: v.value,
+                              value: this.valueCast({value: v.value, decimals: v.tokenDecimal}),
                               symbol: v.tokenSymbol,
                               name: v.tokenName,
                               memo: "",
@@ -532,6 +532,23 @@ class EtherscanAPI
          ethAddrCount: ethAddrList.length,
          txCount: totalTxs
       }
+   }
+
+   /**
+    * cast value to humman readable state
+    *
+    * @param {Number} value
+    * @param {Number} decimals
+    * @return {number}
+    */
+   valueCast({value, decimals = null})
+   {
+      if( decimals)
+      {
+         return value/(`10e${decimals}`)
+      }
+
+      return value/1e18
    }
 
 
