@@ -1,13 +1,12 @@
 import log from "../lib/log.cjs"
 import tools from "../lib/tools.cjs"
 import opt from "../config.mjs"
-import EtherscanAPI from "../backend/src/EtherscanAPI.mjs"
+import exportEtherTxs from "../backend/src/ExportEtherTxs.mjs"
 
 import path from "path"
 import URL from "url"
 import cmd from "commander"
 
-const etherApi = new EtherscanAPI(opt.etherscanAPIKey)
 
 ;(async () =>
 {
@@ -29,7 +28,7 @@ const etherApi = new EtherscanAPI(opt.etherscanAPIKey)
       }
       log(`Input file: ${cmd.input}`)
       log(`Output file: ${cmd.output}`)
-      const res = await etherApi.loadTXsToCSV({
+      const res = await exportEtherTxs.loadTXsToCSV({
          inputFile: cmd.input,
          outputFile: cmd.output
       })

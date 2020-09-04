@@ -21,4 +21,5 @@ export default {
 
    etherscanRequestTimeout: 20000,
    flogMaxLines: 30000,
+
 }
