@@ -97,8 +97,6 @@ class EtherscanAPI
          timeout: opt.etherscanRequestTimeout,
          proxy: null
       }
-      this.contrAddrs = Object.create(null)
-
       this.accs = opt.etherscanAccs.map(v => Object.assign({}, v, {
          lastHitTS: null,
          lastQueryTS: null,
@@ -185,7 +183,6 @@ class EtherscanAPI
    }
 
 
-
    /**
     * @return {Object} response
     * @return {EtherscanResponse} response.data             - etherscan result
@@ -212,7 +209,7 @@ class EtherscanAPI
 
       if (res.data && xx.isArray(res.data.result) && res.data.result.length === 1)
       {
-         this.contrAddrs[addr] = res.data.result = {
+         res.data.result = {
             name: res.data.result[0].tokenName,
             symbol: res.data.result[0].tokenSymbol
          }
@@ -223,7 +220,7 @@ class EtherscanAPI
          {
             res.data = {}
          }
-         this.contrAddrs[addr] = res.data.result = {
+         res.data.result = {
             name: "",
             symbol: ""
          }
@@ -385,4 +382,4 @@ class EtherscanAPI
 
 }
 
-export default new  EtherscanAPI
+export default new EtherscanAPI

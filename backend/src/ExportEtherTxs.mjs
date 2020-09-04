@@ -6,10 +6,12 @@ import fs from "fs"
 import etherscanAPI from "./EtherscanAPI.mjs"
 
 
-class ExportEtherTxs {
+class ExportEtherTxs
+{
 
    constructor()
    {
+      this.contrAddrs = Object.create(null)
    }
 
    /**
@@ -150,17 +152,17 @@ class ExportEtherTxs {
                      if (checkAddr)
                      {
                         // this addr is  contract addr
-                        if (!etherscanAPI.contrAddrs[checkAddr])
+                        if (!this.contrAddrs[checkAddr])
                         {
                            contrAddrInList = false
                            acc = await etherscanAPI.takeAcc()
-                           await etherscanAPI.getTokenInfo({addr: checkAddr, acc})
+                           const res = await etherscanAPI.getTokenInfo({addr: checkAddr, acc})
+                           this.contrAddrs[checkAddr] = res.response.data.result
                            etherscanAPI.releaseAcc(acc)
-
                         }
-                        if (etherscanAPI.contrAddrs[checkAddr])
+                        if (this.contrAddrs[checkAddr])
                         {
-                           let info = etherscanAPI.contrAddrs[checkAddr]
+                           let info = this.contrAddrs[checkAddr]
                            if (info.symbol)
                            {
                               coinInfo.memo = `${info.symbol} (${info.name})`
@@ -172,7 +174,7 @@ class ExportEtherTxs {
                         }
                      }
                      let fee = 0
-                     if(!txsList.includes(v.hash))
+                     if (!txsList.includes(v.hash))
                      {
                         txsList.push((v.hash))
                         fee = xx.toFixed(v.gasUsed * v.gasPrice / 1e18)
@@ -237,7 +239,7 @@ class ExportEtherTxs {
                         if (!txs.includes(v.hash)) // dont overwrite on previous step added transaction // check this out https://etherscan.io/tx/0x00e825ecf6e0d9f91256893f7d41eba877252b0d014d0aaa242148067ac62a8a
                         {
                            let fee = 0
-                           if(!txsList.includes(v.hash))
+                           if (!txsList.includes(v.hash))
                            {
                               txsList.push((v.hash))
                               fee = xx.toFixed(v.gasUsed * v.gasPrice / 1e18)
