@@ -8,7 +8,9 @@ import URL from "url"
 import cmd from "commander"
 
 
-;(async () =>
+   ;
+
+(async () =>
 {
    const logDir = path.resolve(URL.fileURLToPath(import.meta.url) + '../../../log')
    log.setFileName(logDir + '/exportcsv.log')
@@ -21,16 +23,15 @@ import cmd from "commander"
 
    if (cmd.output || cmd.input)
    {
-      if(!cmd.input)
+      if (!cmd.input)
       {
          log.e(`Input file is not defined. See program option: -h`)
          process.exit(-1)
       }
       log(`Input file: ${cmd.input}`)
       log(`Output file: ${cmd.output}`)
-      const res = await exportEtherTxs.loadTXsToCSV({
+      const res = await exportEtherTxs.getTXsFromFile({
          inputFile: cmd.input,
-         outputFile: cmd.output
       })
 
       if (res.err)
@@ -39,10 +40,16 @@ import cmd from "commander"
       }
       else
       {
-         log.i(`${res.txCount} txs for ${res.ethAddrCount} accounts OK`)
+         await exportEtherTxs.writeCSV({
+            outputFile: cmd.output,
+            memdb: res.memdb
+         })
+         log.i(`${res.txCount} txs for ${res.ethAddrCount} accounts exported OK`)
          process.exit(0)
       }
-   }  else {
+   }
+   else
+   {
       log.e(`Nothing to do. See program option: -h`)
    }
 

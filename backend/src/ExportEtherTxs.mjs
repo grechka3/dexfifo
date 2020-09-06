@@ -4,8 +4,12 @@ import xx from "../../lib/tools.cjs";
 import csv from "csv-writer"
 import fs from "fs"
 import etherscanAPI from "./EtherscanAPI.mjs"
+import lowdb from "lowdb"
+import LowDbMemory from "lowdb/adapters/Memory.js"
 
-
+/**
+ * Export Ether transactions using Etherscan.io API
+ */
 class ExportEtherTxs
 {
 
@@ -23,25 +27,14 @@ class ExportEtherTxs
    }
 
    /**
-    * Read eth addresses from input file and export transactions to CSV file
-    * Works with etherscan API in parallels. Number of parralels requests is equal to number of ehterscan.io accounts.
-    *
+    * Dump lowdb data to CSV file
     * @param {Object} options
-    * @param {String} options.inputFile      - "\n" divided list of eth addresses
+    * @param {Object} options.memdb     - instance of lowdb
     * @param {String} options.outputFile     - output transactions in CSV format
     * @return {Error|null} err
-    * @return {Number} ethAddrCount          - total addresses proceeded
-    * @return {Number} txCount               - total transactions lines exported to file
     */
-   async loadTXsToCSV({inputFile, outputFile})
+   async writeCSV({memdb, outputFile})
    {
-      if (!fs.existsSync(inputFile))
-      {
-         return {
-            err: new Error(`Source file "${inputFile}" not found`)
-         }
-      }
-
       const csvWriter = csv.createObjectCsvWriter({
          path: outputFile,
          header: [
@@ -102,7 +95,40 @@ class ExportEtherTxs
          ],
          fieldDelimiter: ";"
       })
+      const lines = memdb.get("txs").sortBy("timeStamp").value()
+      for (let i = 0; i < lines.length; i++)
+      {
+         await csvWriter.writeRecords([lines[i]])
+      }
 
+      return {
+         err: null
+      }
+   }
+
+   /**
+    * Read eth addresses from input file and export transactions to CSV file
+    * Works with etherscan API in parallels. Number of parralels requests is equal to number of ehterscan.io accounts.
+    *
+    * @param {Object} options
+    * @param {String} options.inputFile      - "\n" divided list of eth addresses
+    * @return {Object} result
+    * @return {Error|null} result.err
+    * @return {Number} result.ethAddrCount          - total addresses proceeded
+    * @return {Number} result.txCount               - total transactions lines exported to file
+    * @return {Object} result.memdb               - instance of lowdb
+    */
+   async getTXsFromFile({inputFile})
+   {
+      if (!fs.existsSync(inputFile))
+      {
+         return {
+            err: new Error(`Source file "${inputFile}" not found`)
+         }
+      }
+
+      const memdb = lowdb(new LowDbMemory())
+      memdb.defaults({txs: []}).write()
 
       let ethAddrList = fs.readFileSync(inputFile)
          .toString()
@@ -135,7 +161,6 @@ class ExportEtherTxs
             etherscanAPI.releaseAcc(acc)
             if (qres.response.status === 200 && xx.isArray(qres.response.data.result))
             {
-               let bufLines = []
                let hasTokens = false
                let dumpedTxs = 0
                let txs = []
@@ -186,7 +211,7 @@ class ExportEtherTxs
                      }
                      txsList.push((v.hash))
                      let fee = xx.toFixed(v.gasUsed * v.gasPrice / 1e18)
-                     bufLines.push({
+                     memdb.get("txs").push({
                         owner: addr,
                         from: v.from,
                         to: v.to,
@@ -206,7 +231,7 @@ class ExportEtherTxs
                         nonce: v.nonce,
                         isToken: "no",
                         txType: this.getTxType({symbol: coinInfo.symbol, isToken: false, from: v.from, to: v.to, owner: addr})
-                     })
+                     }).write()
                      dumpedTxs++
                      totalTxs++
                      txs.push(v.hash)
@@ -215,10 +240,6 @@ class ExportEtherTxs
                   {
                      hasTokens = true
                   }
-               }
-               if (bufLines.length)
-               {
-                  await csvWriter.writeRecords(bufLines)
                }
                if (qres.response.data.result.length >= 9998)
                {
@@ -258,7 +279,7 @@ class ExportEtherTxs
                               // for exclude double calculation
                               fee = `[${xx.toFixed(v.gasUsed * v.gasPrice / 1e18)}]`
                            }
-                           bufLines.push({
+                           memdb.get("txs").push({
                               owner: addr,
                               from: v.from,
                               to: v.to,
@@ -278,14 +299,10 @@ class ExportEtherTxs
                               fee: fee,
                               isToken: "yes",
                               txType: this.getTxType({symbol: v.tokenSymbol, isToken: true, from: v.from, to: v.to, owner: addr})
-                           })
+                           }).write()
                            dumpedTxs++
                            totalTxs++
                         }
-                     }
-                     if (bufLines.length)
-                     {
-                        await csvWriter.writeRecords(bufLines)
                      }
                      if (qres.response.data.result.length >= 9998)
                      {
@@ -319,7 +336,8 @@ class ExportEtherTxs
       return {
          err: null,
          ethAddrCount: ethAddrList.length,
-         txCount: totalTxs
+         txCount: totalTxs,
+         memdb
       }
    }
 
