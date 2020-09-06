@@ -12,6 +12,14 @@ class ExportEtherTxs
    constructor()
    {
       this.contrAddrs = Object.create(null)
+      this.txTypesEnum = {
+         fee: "Fee",
+         buy: "Buy",
+         sell: "Sell",
+         deposit: "Deposit",
+         withdrawal: "Withdrawal",
+         trade: "Trade"
+      }
    }
 
    /**
@@ -50,9 +58,6 @@ class ExportEtherTxs
                id: "isToken", title: "isToken"
             },
             {
-               id: "blockNumber", title: "Block Number"
-            },
-            {
                id: "timeStamp", title: "TimeStamp"
             },
             {
@@ -66,6 +71,9 @@ class ExportEtherTxs
             },
             {
                id: "name", title: "Coin Name"
+            },
+            {
+               id: "txType", title: "Tx type"
             },
             {
                id: "fee", title: "Fee, Ether"
@@ -86,6 +94,9 @@ class ExportEtherTxs
                id: "nonce", title: "nonce"
             },
             {
+               id: "blockNumber", title: "Block Number"
+            },
+            {
                id: "contractAddress", title: "Contract Address"
             }
          ],
@@ -97,7 +108,7 @@ class ExportEtherTxs
          .toString()
          .replace(/[\r]/g, "")
          .split(/[\n]/)
-         .map(v => `${v.trim()}`)
+         .map(v => v.trim().toLowerCase())
          .filter(v => v.match(/^0x[0-9a-z]+/i))
 
       log(`Start data collection in ${opt.etherscanAccs.length} threads...`)
@@ -173,12 +184,8 @@ class ExportEtherTxs
                            }
                         }
                      }
-                     let fee = 0
-                     if (!txsList.includes(v.hash))
-                     {
-                        txsList.push((v.hash))
-                        fee = xx.toFixed(v.gasUsed * v.gasPrice / 1e18)
-                     }
+                     txsList.push((v.hash))
+                     let fee = xx.toFixed(v.gasUsed * v.gasPrice / 1e18)
                      bufLines.push({
                         owner: addr,
                         from: v.from,
@@ -197,6 +204,8 @@ class ExportEtherTxs
                         gasUsed: v.gasUsed,
                         fee,
                         nonce: v.nonce,
+                        isToken: "no",
+                        txType: this.getTxType({symbol: coinInfo.symbol, isToken: false, from: v.from, to: v.to, owner: addr})
                      })
                      dumpedTxs++
                      totalTxs++
@@ -244,6 +253,11 @@ class ExportEtherTxs
                               txsList.push((v.hash))
                               fee = xx.toFixed(v.gasUsed * v.gasPrice / 1e18)
                            }
+                           else
+                           {
+                              // for exclude double calculation
+                              fee = `[${xx.toFixed(v.gasUsed * v.gasPrice / 1e18)}]`
+                           }
                            bufLines.push({
                               owner: addr,
                               from: v.from,
@@ -263,6 +277,7 @@ class ExportEtherTxs
                               nonce: v.nonce,
                               fee: fee,
                               isToken: "yes",
+                              txType: this.getTxType({symbol: v.tokenSymbol, isToken: true, from: v.from, to: v.to, owner: addr})
                            })
                            dumpedTxs++
                            totalTxs++
@@ -306,6 +321,47 @@ class ExportEtherTxs
          ethAddrCount: ethAddrList.length,
          txCount: totalTxs
       }
+   }
+
+   /**
+    *
+    * @param {string} symbol
+    * @param {boolean} isToken
+    * @param {string} from
+    * @param {string} to
+    * @param {string} owner
+    * @return {string}
+    */
+   getTxType({symbol, isToken, from, to, owner})
+   {
+      if (isToken)
+      {
+         if (opt.dropToFeeTargetSymbols.map(v => v.test(symbol)).includes(true))
+         {
+            return this.txTypesEnum.fee
+         }
+         if (from === owner)
+         {
+            return this.txTypesEnum.sell
+         }
+         if (to === owner)
+         {
+            return this.txTypesEnum.buy
+         }
+      }
+      else
+      {
+         if (to === owner)
+         {
+            return this.txTypesEnum.deposit
+         }
+         if (from === owner)
+         {
+            return this.txTypesEnum.withdrawal
+         }
+      }
+
+      return "unknown"
    }
 
 }

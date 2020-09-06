@@ -22,4 +22,9 @@ export default {
    etherscanRequestTimeout: 20000,
    flogMaxLines: 30000,
 
+   // Operations with this symbols will be refer to commissions/fees
+   dropToFeeTargetSymbols: [
+      /UNI-V2/
+   ]
+
 }
