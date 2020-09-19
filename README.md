@@ -27,7 +27,7 @@ npx babel-node bin/export_tx.mjs -h
 A sample input data eth address file located in sampleData directory.
 
 The exported CSV file placed here [sampleData/export.csv](https://github.com/grechka3/dexfifo/blob/master/sampleData/export.csv) \
-Computis JSON file here [sampleData/export.json](ttps://github.com/grechka3/dexfifo/blob/master/sampleData/export.json)
+Computis JSON file here [sampleData/export.json](https://github.com/grechka3/dexfifo/blob/master/sampleData/export.json)
 
 
 
