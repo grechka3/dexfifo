@@ -1,7 +1,7 @@
 import Q from "axios"
 import querystring from "querystring"
 import opt from "../../config.mjs"
-import xx from "../../lib/tools.cjs"
+import xx from "jsm_xx";
 import HttpsProxyAgent from "https-proxy-agent";
 import {Semaphore} from "async-mutex";
 

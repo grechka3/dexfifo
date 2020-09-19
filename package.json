@@ -9,11 +9,14 @@
   },
   "scripts": {
     "jsdoc": "npx jsdoc -c jsdoc.json && npx nodemon --watch backend/ --watch jsdoc.json --watch README.md --exec npx jsdoc -c jsdoc.json",
-    "export_test": "npx babel-node bin/export_tx.mjs -i sampleData/ethaddrs.txt -o sampleData/export.csv"
+    "export_csv": "npx babel-node bin/export_tx.mjs -i sampleData/ethaddrs.txt -o sampleData/export.csv",
+    "export_json": "npx babel-node bin/export_tx.mjs -i sampleData/ethaddrs.txt -o sampleData/export.json"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "jsm_log": "https://github.com/grechka3/jsm_log.git",
+    "jsm_xx": "https://github.com/grechka3/jsm_xx.git#25b31a0f4d43cf447b0bee9805ff33447407bd2d",
     "@babel/cli": "^7.10.5",
     "@babel/core": "^7.11.4",
     "@babel/node": "^7.10.5",

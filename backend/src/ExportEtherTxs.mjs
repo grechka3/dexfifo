@@ -1,6 +1,6 @@
 import opt from "../../config.mjs";
-import log from "../../lib/log.cjs"
-import xx from "../../lib/tools.cjs";
+import log from "jsm_log"
+import xx from "jsm_xx";
 import csv from "csv-writer"
 import fs from "fs"
 import etherscanAPI from "./EtherscanAPI.mjs"
@@ -17,12 +17,84 @@ class ExportEtherTxs
    {
       this.contrAddrs = Object.create(null)
       this.txTypesEnum = {
-         fee: "Fee",
          buy: "Buy",
          sell: "Sell",
          deposit: "Deposit",
          withdrawal: "Withdrawal",
          trade: "Trade"
+      }
+      this.txsListFee = Object.create(null)
+   }
+
+   async writeComputisDataFile({memdb, outputFile})
+   {
+      let line = 0
+      fs.writeFileSync(outputFile, "[\n")
+      const lines = memdb.get("txs").sortBy("timeStamp").value()
+      for (let i = 0; i < lines.length; i++)
+      {
+         const v = lines[i]
+         let row = {
+            "datetime": xx.moment(v.timeStamp, "X").utcOffset(opt.utcOffsetMinutes).format("YYYY-MM-DDTHH:mm:ss") + 'Z',
+            "clientId": opt.computisDefauts.clientId,
+            "txHash": v.txHash,
+            "debitAccount": "",
+            "debitAsset": "",
+            "debitAmount": "",
+            "creditAccount": "",
+            "creditAsset": "",
+            "creditAmount": "",
+            "txFeeAccount": "",
+            "txFeeAsset": "",
+            "txFeeAmount": "",
+            "payee": "",
+            "memo": "",
+            "filledPrice": "",
+            "txType": "",
+            "histFMV": "",
+            "basis": ""
+         }
+
+         if (v.value && !v.isError)
+         {
+            switch (v.txType)
+            {
+               case this.txTypesEnum.deposit:
+                  row.txType = this.txTypesEnum.deposit
+                  row.debitAccount = opt.computisDefauts.debitAccount
+                  row.debitAsset = v.symbol
+                  row.debitAmount = v.value
+                  row.creditAccount = "Transfer"
+                  if (this.txsListFee[v.txHash])
+                  {
+                     row.txFeeAccount = opt.computisDefauts.debitAccount
+                     row.txFeeAmount = this.txsListFee[v.txHash]
+                     row.txFeeAsset = v.symbol
+                  }
+                  break
+
+               case this.txTypesEnum.withdrawal:
+                  row.txType = this.txTypesEnum.withdrawal
+                  row.creditAccount = opt.computisDefauts.debitAccount
+                  row.creditAsset = v.symbol
+                  row.creditAmount = v.value
+                  row.debitAccount = "Transfer"
+                  if (this.txsListFee[v.txHash])
+                  {
+                     row.txFeeAccount = opt.computisDefauts.debitAccount
+                     row.txFeeAmount = this.txsListFee[v.txHash]
+                     row.txFeeAsset = v.symbol
+                  }
+
+                  break
+            }
+            fs.writeFileSync(outputFile, (line++ ? ",\n" : "") + xx.prettyJSON(row), {flag: "a"})
+         }
+      }
+      fs.writeFileSync(outputFile, "\n]", {flag: "a"})
+
+      return {
+         err: null
       }
    }
 
@@ -79,6 +151,9 @@ class ExportEtherTxs
             },
             {
                id: "gasUsed", title: "Gas used"
+            },
+            {
+               id: "isError", title: "In Error State"
             },
             {
                id: "txHash", title: "Transaction Hash"
@@ -140,7 +215,6 @@ class ExportEtherTxs
       log(`Start data collection in ${opt.etherscanAccs.length} threads...`)
 
       let totalTxs = 0
-      let txsList = []
 
       for (let addr_i = 0; addr_i < ethAddrList.length; addr_i++)
       {
@@ -167,13 +241,9 @@ class ExportEtherTxs
                for (let txline = 0; txline < qres.response.data.result.length; txline++)
                {
                   const v = qres.response.data.result[txline]
-                  if (1 * v.isError)
-                  {
-                     log.w(`TxHash = ${v.hash} in error state, skipped it`)
-                     continue
-                  }
+
                   let coinInfo = {symbol: "ETH", name: "Ethereum", memo: ""}
-                  if (v.value * 1)
+                  if (v.value * 1 || v.isError * 1)
                   {
                      let checkAddr = ""
                      let contrAddrInList = true
@@ -209,8 +279,9 @@ class ExportEtherTxs
                            }
                         }
                      }
-                     txsList.push((v.hash))
                      let fee = xx.toFixed(v.gasUsed * v.gasPrice / 1e18)
+                     this.txsListFee[v.hash] = fee
+
                      memdb.get("txs").push({
                         owner: addr,
                         from: v.from,
@@ -230,13 +301,22 @@ class ExportEtherTxs
                         fee,
                         nonce: v.nonce,
                         isToken: "no",
-                        txType: this.getTxType({symbol: coinInfo.symbol, isToken: false, from: v.from, to: v.to, owner: addr})
+                        isError: v.isError * 1 ? "yes" : "",
+                        txType: this.getTxType({
+                           symbol: coinInfo.symbol,
+                           isToken: false,
+                           from: v.from,
+                           to: v.to,
+                           owner: addr,
+                           isError: v.isError,
+                           value: v.value,
+                        })
                      }).write()
                      dumpedTxs++
                      totalTxs++
                      txs.push(v.hash)
                   }
-                  else
+                  if (!(v.value * 1) && !(v.isError * 1))
                   {
                      hasTokens = true
                   }
@@ -260,7 +340,6 @@ class ExportEtherTxs
                   if (qres.response.status === 200 && xx.isArray(qres.response.data.result))
                   {
                      let dumpedTxs = 0
-                     let bufLines = []
                      for (let txline = 0; txline < qres.response.data.result.length; txline++)
                      {
                         const v = qres.response.data.result[txline]
@@ -268,17 +347,9 @@ class ExportEtherTxs
 
                         if (!txs.includes(v.hash)) // dont overwrite on previous step added transaction // check this out https://etherscan.io/tx/0x00e825ecf6e0d9f91256893f7d41eba877252b0d014d0aaa242148067ac62a8a
                         {
-                           let fee = 0
-                           if (!txsList.includes(v.hash))
-                           {
-                              txsList.push((v.hash))
-                              fee = xx.toFixed(v.gasUsed * v.gasPrice / 1e18)
-                           }
-                           else
-                           {
-                              // for exclude double calculation
-                              fee = `[${xx.toFixed(v.gasUsed * v.gasPrice / 1e18)}]`
-                           }
+                           let fee = xx.toFixed(v.gasUsed * v.gasPrice / 1e18)
+                           this.txsListFee[v.hash] = fee
+
                            memdb.get("txs").push({
                               owner: addr,
                               from: v.from,
@@ -298,7 +369,16 @@ class ExportEtherTxs
                               nonce: v.nonce,
                               fee: fee,
                               isToken: "yes",
-                              txType: this.getTxType({symbol: v.tokenSymbol, isToken: true, from: v.from, to: v.to, owner: addr})
+                              isError: v.isError * 1 ? "yes" : "",
+                              txType: this.getTxType({
+                                 symbol: v.tokenSymbol,
+                                 isToken: true,
+                                 from: v.from,
+                                 to: v.to,
+                                 owner: addr,
+                                 isError: v.isError,
+                                 value: v.value,
+                              })
                            }).write()
                            dumpedTxs++
                            totalTxs++
@@ -348,35 +428,29 @@ class ExportEtherTxs
     * @param {string} from
     * @param {string} to
     * @param {string} owner
+    * @param {boolean} isError
+    * @param {number} value
     * @return {string}
     */
-   getTxType({symbol, isToken, from, to, owner})
+   getTxType({symbol, isToken, from, to, owner, isError, value})
    {
+      if (1 * isError || !(1 * value))
+      {
+         return "unknown"
+      }
       if (isToken)
       {
-         if (opt.dropToFeeTargetSymbols.map(v => v.test(symbol)).includes(true))
+         if (opt.DepositOrWithdrawlSymbols.map(v => v.test(symbol)).includes(true))
          {
-            return this.txTypesEnum.fee
+            return from === owner ? this.txTypesEnum.withdrawal : this.txTypesEnum.deposit
          }
-         if (from === owner)
-         {
-            return this.txTypesEnum.sell
-         }
-         if (to === owner)
-         {
-            return this.txTypesEnum.buy
-         }
+
+         return from === owner ? this.txTypesEnum.withdrawal : this.txTypesEnum.deposit
+
       }
       else
       {
-         if (to === owner)
-         {
-            return this.txTypesEnum.deposit
-         }
-         if (from === owner)
-         {
-            return this.txTypesEnum.withdrawal
-         }
+         return from === owner ? this.txTypesEnum.withdrawal : this.txTypesEnum.deposit
       }
 
       return "unknown"

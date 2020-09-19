@@ -5,10 +5,19 @@ Phase 1
 npm install
 ```
 
-#### ****Run****
+
+#### ****How to run****
+
+Export to CSV format 
 ```
 npx babel-node bin/export_tx.mjs -i sampleData/ethaddrs.txt -o sampleData/export.csv
 ```
+
+Export to Computis JSON format 
+```
+npx babel-node bin/export_tx.mjs -i sampleData/ethaddrs.txt -o sampleData/export.json
+```
+
 
 #### ****Program options**** ####
 ```
@@ -17,9 +26,9 @@ npx babel-node bin/export_tx.mjs -h
 
 A sample input data eth address file located in sampleData directory.
 
-The exported file placed here [sampleData/export.csv](https://github.com/grechka3/dexfifo/blob/master/sampleData/export.csv)
+The exported CSV file placed here [sampleData/export.csv](https://github.com/grechka3/dexfifo/blob/master/sampleData/export.csv)
+Computis JSON file here [sampleData/export.json](ttps://github.com/grechka3/dexfifo/blob/master/sampleData/export.json)
 
-![](https://qq2.ru/shots/Video_2020-08-03_061704.gif)
 
 
 Generate jsdoc documentation:
