@@ -8,8 +8,10 @@
     "lib": "lib"
   },
   "scripts": {
+    "jest": "npx jest --verbose true",
     "jsdoc": "npx jsdoc -c jsdoc.json && npx nodemon --watch backend/ --watch jsdoc.json --watch README.md --exec npx jsdoc -c jsdoc.json",
     "export_csv": "npx babel-node bin/export_tx.mjs -i sampleData/ethaddrs.txt -o sampleData/export.csv",
+    "export_csv_debug": "npx babel-node bin/export_tx.mjs --debug -i sampleData/ethaddrs.txt -o sampleData/export.csv",
     "export_json": "npx babel-node bin/export_tx.mjs -i sampleData/ethaddrs.txt -o sampleData/export.json"
   },
   "author": "",
@@ -22,17 +24,22 @@
     "@babel/node": "^7.10.5",
     "@babel/preset-env": "^7.11.0",
     "async-mutex": "^0.2.4",
-    "axios": "^0.19.2",
     "babel-preset-env": "^1.7.0",
     "chalk": "^4.1.0",
+    "cheerio": "^1.0.0-rc.3",
     "commander": "^6.0.0",
     "csv-writer": "^1.6.0",
+    "got": "^11.7.0",
     "https-proxy-agent": "^5.0.0",
+    "jsm_log": "https://github.com/grechka3/jsm_log.git",
+    "jsm_xx": "https://github.com/grechka3/jsm_xx.git#25b31a0f4d43cf447b0bee9805ff33447407bd2d",
     "lowdb": "^1.0.0",
     "moment": "^2.27.0",
     "read-last-lines": "^1.7.2"
   },
   "devDependencies": {
+    "babel-jest": "^26.3.0",
+    "jest": "^26.4.2",
     "jsdoc": "^3.6.5",
     "nodemon": "^2.0.4"
   }

@@ -17,9 +17,15 @@ export default {
    ],
 
    // Here must be 3000 ms according to API documentation. But works with small value too.
-   etherscanRestDelayTS: 300,
+   etherscanAPIRestDelayTS: 300,
 
-   etherscanRequestTimeout: 20000,
+   etherscanAPIRequestTimeout: 20000,
+
+   etherscanParserRestDelayTS: 300,
+
+   etherscanParseRequestTimeout: 20000,
+
+   // max lines on log file
    flogMaxLines: 30000,
 
 

@@ -18,8 +18,10 @@ import cmd from "commander"
    cmd
       .option(`-i, --input <file>`, 'text input file. One ETH address in line')
       .option(`-o, --output <file>`, `csv/json output file. Json will be in Computis API format`, 'output.csv')
+      .option(`-d, --debug`, `debug mode ON`)
       .parse(process.argv)
 
+   if(cmd.debug) exportEtherTxs.setDebug(true)
    if (cmd.output || cmd.input)
    {
       if (!cmd.input)
@@ -46,7 +48,7 @@ import cmd from "commander"
       const res = await exportEtherTxs.getTXsFromFile({
          inputFile: cmd.input,
       })
-      log.i(`${res.txCount} txs for ${res.ethAddrCount} accounts exported OK`)
+      log.i(`${res.txCount} txs for ${res.ethAddrCount} accounts`)
 
       if (res.err)
       {

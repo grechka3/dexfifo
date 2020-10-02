@@ -1,9 +1,10 @@
-import opt from "../../config.mjs";
 import log from "jsm_log"
 import xx from "jsm_xx";
 import csv from "csv-writer"
 import fs from "fs"
+import opt from "../../config.mjs";
 import etherscanAPI from "./EtherscanAPI.mjs"
+import etherscanParser from "./EtherscanParser.mjs"
 import lowdb from "lowdb"
 import LowDbMemory from "lowdb/adapters/Memory.js"
 
@@ -15,7 +16,6 @@ class ExportEtherTxs
 
    constructor()
    {
-      this.contrAddrs = Object.create(null)
       this.txTypesEnum = {
          buy: "Buy",
          sell: "Sell",
@@ -23,7 +23,12 @@ class ExportEtherTxs
          withdrawal: "Withdrawal",
          trade: "Trade"
       }
-      this.txsListFee = Object.create(null)
+   }
+
+   setDebug(debugOn)
+   {
+      etherscanParser.setDebug(debugOn)
+      etherscanAPI.setDebug(debugOn)
    }
 
    async writeComputisDataFile({memdb, outputFile})
@@ -31,8 +36,7 @@ class ExportEtherTxs
       let line = 0
       fs.writeFileSync(outputFile, "[\n")
       const lines = memdb.get("txs").sortBy("timeStamp").value()
-      for (let i = 0; i < lines.length; i++)
-      {
+      for (let i = 0; i < lines.length; i++) {
          const v = lines[i]
          let row = {
             "datetime": xx.moment(v.timeStamp, "X").utcOffset(opt.utcOffsetMinutes).format("YYYY-MM-DDTHH:mm:ss") + 'Z',
@@ -55,22 +59,14 @@ class ExportEtherTxs
             "basis": ""
          }
 
-         if (v.value && !v.isError)
-         {
-            switch (v.txType)
-            {
+         if (v.value && !v.isError) {
+            switch (v.txType) {
                case this.txTypesEnum.deposit:
                   row.txType = this.txTypesEnum.deposit
                   row.debitAccount = opt.computisDefauts.debitAccount
                   row.debitAsset = v.symbol
                   row.debitAmount = v.value
                   row.creditAccount = "Transfer"
-                  if (this.txsListFee[v.txHash])
-                  {
-                     row.txFeeAccount = opt.computisDefauts.debitAccount
-                     row.txFeeAmount = this.txsListFee[v.txHash]
-                     row.txFeeAsset = v.symbol
-                  }
                   break
 
                case this.txTypesEnum.withdrawal:
@@ -79,12 +75,6 @@ class ExportEtherTxs
                   row.creditAsset = v.symbol
                   row.creditAmount = v.value
                   row.debitAccount = "Transfer"
-                  if (this.txsListFee[v.txHash])
-                  {
-                     row.txFeeAccount = opt.computisDefauts.debitAccount
-                     row.txFeeAmount = this.txsListFee[v.txHash]
-                     row.txFeeAsset = v.symbol
-                  }
 
                   break
             }
@@ -110,69 +100,39 @@ class ExportEtherTxs
       const csvWriter = csv.createObjectCsvWriter({
          path: outputFile,
          header: [
-            {
-               id: "owner", title: "Owner"
-            },
-            {
-               id: "from", title: "From"
-            },
-            {
-               id: "to", title: "To"
-            },
-            {
-               id: "isToken", title: "isToken"
-            },
-            {
-               id: "timeStamp", title: "TimeStamp"
-            },
-            {
-               id: "dateTimeUTC", title: "DateTimeUTC"
-            },
-            {
-               id: "value", title: "Value"
-            },
-            {
-               id: "symbol", title: "Coin Symbol"
-            },
-            {
-               id: "name", title: "Coin Name"
-            },
-            {
-               id: "txType", title: "Tx type"
-            },
-            {
-               id: "fee", title: "Fee, Ether"
-            },
-            {
-               id: "gas", title: "Gas"
-            },
-            {
-               id: "gasPrice", title: "Gas price, Gwei"
-            },
-            {
-               id: "gasUsed", title: "Gas used"
-            },
-            {
-               id: "isError", title: "In Error State"
-            },
-            {
-               id: "txHash", title: "Transaction Hash"
-            },
-            {
-               id: "nonce", title: "nonce"
-            },
-            {
-               id: "blockNumber", title: "Block Number"
-            },
-            {
-               id: "contractAddress", title: "Contract Address"
-            }
+            {id: "txHash", title: "Transaction Hash"},
+            {id: "ownerAddr", title: "Owner"},
+            {id: "fromAddr", title: "From addr"},
+            {id: "fromName", title: "From name"},
+            {id: "toAddr", title: "To"},
+            {id: "toName", title: "To name"},
+            {id: "timeStamp", title: "TimeStamp"},
+            {id: "dateTimeUTC", title: "DateTimeUTC"},
+            {id: "isError", title: "In Error State"},
+            {id: "tokenTrans", title: "tokenTrans"},
+
+            {id: "tokenSymbol", title: "Token Symbol"},
+            {id: "tokenValue", title: "Token Value"},
+            {id: "tokenFromName", title: "Token From Name"},
+            {id: "tokenToName", title: "Token To Name"},
+
+            {id: "etherValue", title: "Value, Ether"},
+            {id: "txFee", title: "TX Fee, Ether"},
+            {id: "gas", title: "Gas"},
+            {id: "gasPrice", title: "Gas price, Gwei"},
+            {id: "gasUsed", title: "Gas used"},
+            {id: "nonce", title: "nonce"},
+            {id: "blockNumber", title: "Block Number"},
+            {id: "ethPrice", title: "ETH price, USD"},
+
+            {id: "tokenAddr", title: "Token Contract Address"},
+            {id: "tokenFromAddr", title: "Token From Address"},
+            {id: "tokenToAddr", title: "Token To Address"},
          ],
          fieldDelimiter: ";"
       })
       const lines = memdb.get("txs").sortBy("timeStamp").value()
-      for (let i = 0; i < lines.length; i++)
-      {
+      for (let i = 0; i < lines.length; i++) {
          await csvWriter.writeRecords([lines[i]])
       }
 
@@ -190,13 +150,12 @@ class ExportEtherTxs
     * @return {Object} result
     * @return {Error|null} result.err
     * @return {Number} result.ethAddrCount          - total addresses proceeded
-    * @return {Number} result.txCount               - total transactions lines exported to file
+    * @return {Number} result.txCount               - total transactions for all eth addrs
     * @return {Object} result.memdb               - instance of lowdb
     */
    async getTXsFromFile({inputFile})
    {
-      if (!fs.existsSync(inputFile))
-      {
+      if (!fs.existsSync(inputFile)) {
          return {
             err: new Error(`Source file "${inputFile}" not found`)
          }
@@ -216,198 +175,109 @@ class ExportEtherTxs
 
       let totalTxs = 0
 
-      for (let addr_i = 0; addr_i < ethAddrList.length; addr_i++)
-      {
-         const addr = ethAddrList[addr_i]
+      for (let addr_i = 0; addr_i < ethAddrList.length; addr_i++) {
+         const ownerAddress = ethAddrList[addr_i]
 
          // wait semaphore unblocking
          let acc = await etherscanAPI.takeAcc()
-         ;
          // Start parallel task for each ethaddr
-         (async (acc) =>
-         {
+         void async function (acc) {
             // get all TXs for current ethaddr
             let qres = await etherscanAPI.getTxListByAddr({
                acc,
-               ethaddr: addr,
+               ethaddr: ownerAddress,
                sort: "desc"
             })
             etherscanAPI.releaseAcc(acc)
-            if (qres.response.status === 200 && xx.isArray(qres.response.data.result))
-            {
-               let hasTokens = false
-               let dumpedTxs = 0
-               let txs = []
-               for (let txline = 0; txline < qres.response.data.result.length; txline++)
-               {
-                  const v = qres.response.data.result[txline]
+            if (!qres.response.error && xx.isArray(qres.data.result)) {
+               for (let txline = 0; txline < qres.data.result.length; txline++) {
+                  const v = qres.data.result[txline]
 
-                  let coinInfo = {symbol: "ETH", name: "Ethereum", memo: ""}
-                  if (v.value * 1 || v.isError * 1)
-                  {
-                     let checkAddr = ""
-                     let contrAddrInList = true
-                     if (v.to && v.to !== addr)
-                     {
-                        checkAddr = v.to
-                     }
-                     else if (v.from && v.from !== addr)
-                     {
-                        checkAddr = v.from
-                     }
-                     if (checkAddr)
-                     {
-                        // this addr is  contract addr
-                        if (!this.contrAddrs[checkAddr])
-                        {
-                           contrAddrInList = false
-                           acc = await etherscanAPI.takeAcc()
-                           const res = await etherscanAPI.getTokenInfo({addr: checkAddr, acc})
-                           this.contrAddrs[checkAddr] = res.response.data.result
-                           etherscanAPI.releaseAcc(acc)
-                        }
-                        if (this.contrAddrs[checkAddr])
-                        {
-                           let info = this.contrAddrs[checkAddr]
-                           if (info.symbol)
-                           {
-                              coinInfo.memo = `${info.symbol} (${info.name})`
-                              if (!contrAddrInList)
-                              {
-                                 log(`Memo=${coinInfo.memo}) for addr=${checkAddr}`)
-                              }
-                           }
-                        }
-                     }
-                     let fee = xx.toFixed(v.gasUsed * v.gasPrice / 1e18)
-                     this.txsListFee[v.hash] = fee
+                  // wait semaphore unblocking
+                  let acc = await etherscanParser.takeAcc()
+                  // Start parallel task for each tx
+                  void async function (acc) {
 
-                     memdb.get("txs").push({
-                        owner: addr,
-                        from: v.from,
-                        to: v.to,
+                     const txd = await etherscanParser.getDataFromTxPage(v.hash, {proxy: acc.v.proxy})
+                     etherscanParser.releaseAcc(acc)
+
+                     let txv = {
+                        txHash: v.hash,
                         blockNumber: v.blockNumber,
                         timeStamp: v.timeStamp,
                         dateTimeUTC: xx.tss2dt(v.timeStamp * 1),
-                        value: etherscanAPI.valueCast({value: v.value}),
-                        symbol: coinInfo.symbol,
-                        name: coinInfo.name,
-                        memo: coinInfo.memo,
-                        txHash: v.hash,
-                        contractAddress: v.contractAddress,
-                        gas: v.gas,
+                        ownerAddr: ownerAddress,
+                        contractAddressApi: v.contractAddress,
+                        gas: v.gas * 1,
                         gasPrice: xx.toFixed(v.gasPrice / 1e9),
-                        gasUsed: v.gasUsed,
-                        fee,
+                        gasUsed: v.gasUsed * 1,
                         nonce: v.nonce,
-                        isToken: "no",
                         isError: v.isError * 1 ? "yes" : "",
-                        txType: this.getTxType({
-                           symbol: coinInfo.symbol,
-                           isToken: false,
-                           from: v.from,
-                           to: v.to,
-                           owner: addr,
-                           isError: v.isError,
-                           value: v.value,
+                        txFee: txd.txFee,
+                        fromAddr: txd.from,
+                        toAddr: txd.to,
+                        fromName: txd.fromName,
+                        toName: txd.toName,
+                        etherValue: txd.etherValue,
+                        ethPrice: txd.etherUsdPrice,
+                        tokenFromAddr: "",
+                        tokenToAddr: "",
+                        tokenFromName: "",
+                        tokenToName: "",
+                        tokenSymbol: "",
+                        tokenAddr: "",
+                        tokenValue: "",
+                        tokenTrans: "no",
+                     }
+                     if (txv.txFee !== txd.txFee) {
+                        log.w(`[getTXsFromFile]: api_tx_fee != html_tx_fee :: tx=${v.hash}`)
+                     }
+
+                     if (txd.tokens) {
+                        txd.tokens.forEach(v => {
+                           const row = Object.assign({}, txv, {
+                              tokenSymbol: v.for.symbol,
+                              tokenAddr: v.for.tokenAddr,
+                              tokenValue: v.for.value,
+                              tokenFromAddr: v.from.addr,
+                              tokenToAddr: v.to.addr,
+                              tokenFromName: v.from.name,
+                              tokenToName: v.to.name,
+                              tokenTrans: "yes"
+                           })
+                           memdb.get("txs").push(row).write()
                         })
-                     }).write()
-                     dumpedTxs++
+                     }
+                     else {
+                        memdb.get("txs").push(txv).write()
+                     }
+
+
                      totalTxs++
-                     txs.push(v.hash)
-                  }
-                  if (!(v.value * 1) && !(v.isError * 1))
-                  {
-                     hasTokens = true
-                  }
+
+                  }(acc)
+
+
                }
-               if (qres.response.data.result.length >= 9998)
-               {
-                  log.w(`The ETH address "${addr}" has more than 10000 txs`).flog()
+               if (qres.data.result.length >= 9998) {
+                  log.w(`The ETH address "${ownerAddress}" has more than 10000 txs`).flog()
                }
-               log(`${addr} done via ${qres.acc.viaHost}: total txs=${qres.response.data.result.length}, dumped txs=${dumpedTxs}`)
+               log(`${ownerAddress} done via ${qres.acc.viaHost}: total txs=${qres.data.result.length}`)
 
-               if (hasTokens)
-               {
-                  acc = await etherscanAPI.takeAcc()
-                  // get only token TXs for current ethaddr
-                  qres = await etherscanAPI.getTxTokenListByAddr({
-                     acc,
-                     ethaddr: addr,
-                     sort: "desc"
-                  })
-                  etherscanAPI.releaseAcc(acc)
-                  if (qres.response.status === 200 && xx.isArray(qres.response.data.result))
-                  {
-                     let dumpedTxs = 0
-                     for (let txline = 0; txline < qres.response.data.result.length; txline++)
-                     {
-                        const v = qres.response.data.result[txline]
-
-
-                        if (!txs.includes(v.hash)) // dont overwrite on previous step added transaction // check this out https://etherscan.io/tx/0x00e825ecf6e0d9f91256893f7d41eba877252b0d014d0aaa242148067ac62a8a
-                        {
-                           let fee = xx.toFixed(v.gasUsed * v.gasPrice / 1e18)
-                           this.txsListFee[v.hash] = fee
-
-                           memdb.get("txs").push({
-                              owner: addr,
-                              from: v.from,
-                              to: v.to,
-                              blockNumber: v.blockNumber,
-                              timeStamp: v.timeStamp,
-                              dateTimeUTC: xx.tss2dt(v.timeStamp * 1),
-                              value: etherscanAPI.valueCast({value: v.value, decimals: v.tokenDecimal}),
-                              symbol: v.tokenSymbol,
-                              name: v.tokenName,
-                              memo: "",
-                              txHash: v.hash,
-                              contractAddress: v.contractAddress,
-                              gas: v.gas,
-                              gasPrice: xx.toFixed(v.gasPrice / 1e9),
-                              gasUsed: v.gasUsed,
-                              nonce: v.nonce,
-                              fee: fee,
-                              isToken: "yes",
-                              isError: v.isError * 1 ? "yes" : "",
-                              txType: this.getTxType({
-                                 symbol: v.tokenSymbol,
-                                 isToken: true,
-                                 from: v.from,
-                                 to: v.to,
-                                 owner: addr,
-                                 isError: v.isError,
-                                 value: v.value,
-                              })
-                           }).write()
-                           dumpedTxs++
-                           totalTxs++
-                        }
-                     }
-                     if (qres.response.data.result.length >= 9998)
-                     {
-                        log.w(`The ETH address "${addr}" has more than 10000 token txs`).flog()
-                     }
-                     log(`${addr} done via ${qres.acc.viaHost}: total token txs=${qres.response.data.result.length}, dumped token txs=${dumpedTxs}`)
-                  }
-               }
             }
-            else
-            {
-               log.e(`[EtherscanAPI.loadTXsToCSV]: API ERROR for ETH address "${addr}" (line ${addr_i + 1}) ::  code=${qres.response.status}, message=${qres.response.statusText}, APIstatus=${qres.response.data ? qres.response.data.status : "---"}, APImessage=${qres.response.data ? qres.response.data.message : "---"} via ${qres.acc.viaHost}`).flog()
+            else {
+               log.e(`[EtherscanAPI.loadTXsToCSV]: API ERROR for ETH address "${ownerAddress}" (line ${addr_i + 1}) ::  code=${qres.response.errorCode}, message=${qres.response.errorMessage}, APIstatus=${qres.data.status ? qres.data.status : "---"}, APImessage=${qres.data.message ? qres.data.message : "---"}, APIResult=${qres.data.result ? qres.data.result : "---"} via ${qres.acc.viaHost}`).flog();
                process.exit(-2)
             }
 
-         })(acc).catch(e =>
-         {
+         }(acc).catch(e => {
             log.t(e).flog()
             process.exit(-1)
          })
       }
 
       // Wait while all account queries will be done
-      for (; etherscanAPI.getFreeAccCount() < opt.etherscanAccs.length;)
-      {
+      for (; etherscanAPI.someTaskInProgress() || etherscanParser.someTaskInProgress();) {
          await xx.timeoutAsync(50)
       }
 
@@ -424,7 +294,7 @@ class ExportEtherTxs
    /**
     *
     * @param {string} symbol
-    * @param {boolean} isToken
+    * @param {boolean} tokenTrans
     * @param {string} from
     * @param {string} to
     * @param {string} owner
@@ -432,24 +302,20 @@ class ExportEtherTxs
     * @param {number} value
     * @return {string}
     */
-   getTxType({symbol, isToken, from, to, owner, isError, value})
+   getTxType({symbol, tokenTrans, from, to, owner, isError, value})
    {
-      if (1 * isError || !(1 * value))
-      {
+      if (1 * isError || !(1 * value)) {
          return "unknown"
       }
-      if (isToken)
-      {
-         if (opt.DepositOrWithdrawlSymbols.map(v => v.test(symbol)).includes(true))
-         {
+      if (tokenTrans) {
+         if (opt.DepositOrWithdrawlSymbols.map(v => v.test(symbol)).includes(true)) {
             return from === owner ? this.txTypesEnum.withdrawal : this.txTypesEnum.deposit
          }
 
          return from === owner ? this.txTypesEnum.withdrawal : this.txTypesEnum.deposit
 
       }
-      else
-      {
+      else {
          return from === owner ? this.txTypesEnum.withdrawal : this.txTypesEnum.deposit
       }
 

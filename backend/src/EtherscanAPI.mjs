@@ -1,8 +1,8 @@
-import Q from "axios"
+import request from "./Request.mjs"
 import querystring from "querystring"
 import opt from "../../config.mjs"
 import xx from "jsm_xx";
-import HttpsProxyAgent from "https-proxy-agent";
+import log from "jsm_log"
 import {Semaphore} from "async-mutex";
 
 
@@ -13,15 +13,6 @@ import {Semaphore} from "async-mutex";
  * @property {String} viaPort   - Proxy port
  * @property {String} [viaUser]
  * @property {String} [viaPassword]
- */
-
-/**
- * @typedef {Object} AxiosResponse
- * @property {Number} status
- * @property {String} statusText
- * @property {Object} headers
- * @property {Object} request
- * @property {String} data
  */
 
 
@@ -94,7 +85,7 @@ class EtherscanAPI
    constructor()
    {
       this.queryDefaults = {
-         timeout: opt.etherscanRequestTimeout,
+         timeout: opt.etherscanAPIRequestTimeout,
          proxy: null
       }
       this.accs = opt.etherscanAccs.map(v => Object.assign({}, v, {
@@ -103,27 +94,50 @@ class EtherscanAPI
          lastReleaseTS: null,
          releaseFunc: null,
          v: null,
-         __opts: (() =>
-         {
+         __opts: (() => {
             let res = {}
-            if (v.viaHost.toLowerCase() !== 'localhost')
-            {
-               res.httpsAgent = new HttpsProxyAgent(`http://${v.viaUser && v.viaPassword ? `${v.viaUser}:${v.viaPassword}@` : ""}${v.viaHost}:${v.viaPort}`)
+            if (v.viaHost.toLowerCase() !== 'localhost') {
+               res.proxy = `http://${v.viaUser && v.viaPassword ? `${v.viaUser}:${v.viaPassword}@` : ""}${v.viaHost}:${v.viaPort}`
             }
             return res
          })()
       }))
       this.accFreeCount = this.accs.length
       this.accFreeSemph = new Semaphore(this.accs.length)
+      this.debug = false
+   }
 
+   /**
+    * cast value to humman readable state
+    *
+    * @param {Number} value
+    * @param {Number} decimals
+    * @return {number}
+    */
+   static valueCast(value, decimals = null)
+   {
+      if (decimals) {
+         return xx.toFixed(value / (`1e${decimals}`))
+      }
+
+      return xx.toFixed(value / 1e18)
+   }
+
+   setDebug(debugOn)
+   {
+      this.debug = debugOn
+      return this
+   }
+
+   someTaskInProgress()
+   {
+      return this.accFreeCount < opt.etherscanAccs.length
    }
 
    getFreeAcc()
    {
-      for (let i = 0; i < this.accs.length; i++)
-      {
-         if (this.accs[i].v === null)
-         {
+      for (let i = 0; i < this.accs.length; i++) {
+         if (this.accs[i].v === null) {
             return this.accs[i]
          }
       }
@@ -134,11 +148,10 @@ class EtherscanAPI
 
    async takeAcc()
    {
-      //log(`wanna take acc, accCount=${this.accFreeCount}`)
+      if (this.debug) log.d(`[EtherscanAPI.takeAcc]: wanna take acc, accCount=${this.accFreeCount}`)
       const [value, releaseFunc] = await this.accFreeSemph.acquire()
       let acc = this.getFreeAcc()
-      if (!acc)
-      {
+      if (!acc) {
          throw new Error(`[EtherscanAPI.takeAcc]: no free account`)
 
       }
@@ -147,13 +160,12 @@ class EtherscanAPI
       acc.releaseFunc = releaseFunc
       const ts = xx.tsNow()
 
-      if ((ts - acc.lastQueryTS) < opt.etherscanRestDelayTS)
-      {
+      if ((ts - acc.lastQueryTS) < opt.etherscanAPIRestDelayTS) {
          throw new Error(`[EtherscanAPI.takeAcc]: account '${acc.viaHost}' still not rested, delta=${ts - acc.lastQueryTS}`, acc)
       }
       acc.lastHitTS = ts
 
-      //log(`took acc(${acc.viaHost}), accCount=${this.accFreeCount} :: v = ${acc.v} :: after ${ts - acc.lastQueryTS} ms`)
+      if (this.debug) log.d(`[EtherscanAPI.takeAcc]: took acc(${acc.viaHost}), accCount=${this.accFreeCount} :: v = ${acc.v} :: after ${ts - acc.lastQueryTS} ms`)
 
       return acc
 
@@ -167,36 +179,33 @@ class EtherscanAPI
    async releaseAcc(acc)
    {
       acc.lastQueryTS = xx.tsNow()
-      //log(`going to rest ${acc.viaHost}`).flog()
-      await xx.timeoutAsync(opt.etherscanRestDelayTS + 300)
+      if (this.debug) log.d(`[EtherscanAPI.releaseAcc]: going to rest ${acc.viaHost}`).flog()
+      await xx.timeoutAsync(opt.etherscanAPIRestDelayTS + 300)
       acc.v = null
       acc.releaseFunc()
       acc.releaseFunc = null
       this.accFreeCount++
       acc.lastReleaseTS = xx.tsNow()
-      //log(`released acc(${acc.viaHost}), accCount=${this.accFreeCount}`)
+      if (this.debug) log.d(`[EtherscanAPI.releaseAcc]: released acc(${acc.viaHost}), accCount=${this.accFreeCount}`)
    }
-
-   getFreeAccCount()
-   {
-      return this.accFreeCount
-   }
-
 
    /**
+    * @param {string} addr
+    * @param {Account} acc
     * @return {Object} response
     * @return {EtherscanResponse} response.data             - etherscan result
     * @return {EtherscanTokenResponse} response.data.result - token Info
     * @return {Number} response.status                      - http or net result code (200  is ok)
     * @return {String} response.statusText                  - http or net result text
     * @return {Object} response.request                     - response object
-    * @return {Account} acc
-    * @return {String} queryUrl
-    * @return {EtherscanTokenResponse}
+    * @return {Object} ret
+    * @return {QResponse} ret.response
+    * @return {Account} ret.acc
+    * @return {EtherscanTokenResponse} ret.data
     */
-   async getTokenInfo({addr, acc})
+   async getTokenInfo(addr, acc)
    {
-      const url = querystring.encode({
+      const params = querystring.encode({
          apikey: acc.apiKey,
          module: "account",
          action: "tokentx",
@@ -205,32 +214,27 @@ class EtherscanAPI
          offset: 1
       })
       const options = Object.assign({}, this.queryDefaults, acc.__opts)
-      let res = await Q.get(`https://api.etherscan.io/api?${url}`, options).catch(e => e)
+      let response = await request.get(`https://api.etherscan.io/api?${params}`, options)
 
-      if (res.data && xx.isArray(res.data.result) && res.data.result.length === 1)
-      {
-         res.data.result = {
-            name: res.data.result[0].tokenName,
-            symbol: res.data.result[0].tokenSymbol
+      let data = {
+         name: "",
+         symbol: ""
+      }
+      if(!response.error) response.body = JSON.parse(response.body)
+      if (response.body.result && xx.isArray(response.body.result) && response.body.result.length === 1) {
+         data = {
+            name: response.body.result[0].tokenName,
+            symbol: response.body.result[0].tokenSymbol
          }
       }
-      else
-      {
-         if (!res.data)
-         {
-            res.data = {}
-         }
-         res.data.result = {
-            name: "",
-            symbol: ""
-         }
+
+      return {
+         response,
+         acc,
+         data
       }
-      return Object.assign({queryUrl: url}, this.qresult({
-         response: res,
-         acc
-      }))
+
    }
-
 
    /**
     * Get page list of ETH transactions for specified address
@@ -240,19 +244,14 @@ class EtherscanAPI
     * @param {String} [options.sort=asc]    - sort result
     * @param {Number} [options.page=1]        - page number, started at 1
     * @param {Number} [options.limit=10000]  - results on page
-    * @return {Object} response
-    * @return {EtherscanResponse} response.data        - etherscan result
-    * @return {EtherscanTxResponse[]} response.data.result - txs array
-    * @return {Number} response.status      - http or net result code (200  is ok)
-    * @return {String} response.statusText  - http or net result text
-    * @return {Object} response.request     - response object
-    * @return {Account} acc
-    * @return {String} queryUrl
+    * @return {Object} ret
+    * @return {QResponse} ret.response
+    * @return {object} ret.data    - decoded json etherscan response
+    * @return {Account} ret.acc
     */
    async getTxListByAddr({ethaddr, page = null, limit = null, sort = "asc", acc})
    {
-      if (page === null || limit === null)
-      {
+      if (page === null || limit === null) {
          [page, limit] = [1, 10000]
       }
       const url = querystring.encode({
@@ -267,12 +266,13 @@ class EtherscanAPI
          offset: limit
       })
       const options = Object.assign({}, this.queryDefaults, acc.__opts)
-      let res = await Q.get(`https://api.etherscan.io/api?${url}`, options).catch(e => e)
+      let response = await request.get(`https://api.etherscan.io/api?${url}`, options)
 
-      return Object.assign({queryUrl: url}, this.qresult({
-         response: res,
-         acc
-      }))
+      return {
+         response,
+         acc,
+         data: response.error ? {} : JSON.parse(response.body)
+      }
    }
 
    /**
@@ -294,8 +294,7 @@ class EtherscanAPI
     */
    async getTxTokenListByAddr({ethaddr, page = null, limit = null, sort = "asc", acc})
    {
-      if (page === null || limit === null)
-      {
+      if (page === null || limit === null) {
          [page, limit] = [1, 10000]
       }
       const url = querystring.encode({
@@ -309,74 +308,15 @@ class EtherscanAPI
          page: page,
          offset: limit
       })
+
       const options = Object.assign({}, this.queryDefaults, acc.__opts)
-      let res = await Q.get(`https://api.etherscan.io/api?${url}`, options).catch(e => e)
-
-      return Object.assign({queryUrl: url}, this.qresult({
-         response: res,
-         acc
-      }))
-   }
-
-   /**
-    * Reduce {AxiosResponse} and {AsiosError} response to one structure
-    *
-    * @param {Object} options
-    * @param {AxiosResponse} options.response
-    * @param {Account} options.acc
-    * @return {Object} response
-    * @return {EtherscanResponse} response.data
-    * @return {Number} response.status       - http or net result code (200  is ok)
-    * @return {String} response.statusText   - http or net result text
-    * @return {Object} response.request      - response object
-    * @return {Account} acc
-    */
-   qresult({response, acc})
-   {
-      if (response.code)
-      {
-         // net error
-         response = {
-            status: response.code,
-            statusText: response.message,
-            request: response.request,
-            data: {result: null}
-         }
-
-      }
-      else if (response.status !== 200)
-      {
-         // web error
-         response = {
-            status: response.response.status,
-            statusText: response.response.statusText,
-            request: response.request,
-            data: {result: response.response.data}
-         }
-      }
+      let response = await request.get(`https://api.etherscan.io/api?${url}`, options)
 
       return {
          response,
-         acc
+         acc,
+         data: response.error ? {} : JSON.parse(response.body)
       }
-   }
-
-
-   /**
-    * cast value to humman readable state
-    *
-    * @param {Number} value
-    * @param {Number} decimals
-    * @return {number}
-    */
-   valueCast({value, decimals = null})
-   {
-      if (decimals)
-      {
-         return xx.toFixed(value / (`1e${decimals}`))
-      }
-
-      return xx.toFixed(value / 1e18)
    }
 
 
