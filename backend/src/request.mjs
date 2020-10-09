@@ -7,7 +7,7 @@ import HttpsProxyAgent from "https-proxy-agent";
  */
 
 /**
- * proxy peer conf here _result.socket._peername
+ * proxy peer conf here _response.socket._peername
  *
  * @typedef QResponse
  * @property {boolean} error
@@ -15,7 +15,7 @@ import HttpsProxyAgent from "https-proxy-agent";
  * @property {string} errorMessage
  * @property {number} totalTime
  * @property {string} body
- * @property {Object} _result
+ * @property {Object} _response
  */
 
 /**
@@ -45,7 +45,7 @@ class Request
          errorMessage: "",
          totalTime: 0,
          body: "",
-         _result: res
+         _response: res
       }
       if (res.statusMessage === 'OK') {
          ret.error = false

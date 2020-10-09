@@ -8,26 +8,30 @@ npm install
 
 #### ****How to run****
 
-Export to CSV format 
+Export transaction to files 
 ```
-npx babel-node bin/export_tx.mjs -i sampleData/ethaddrs.txt -o sampleData/export.csv
-```
-
-Export to Computis JSON format 
-```
-npx babel-node bin/export_tx.mjs -i sampleData/ethaddrs.txt -o sampleData/export.json
+npx babel-node bin/export-tx.mjs -i data/conf.txt -o data/exported
 ```
 
+In data/exported directory will be tree files:\
+*computis.json* -  json file in Computis format\
+*transfers.csv* - Excel file with same data as *computis.json*\
+*db.json*  - all collected data from Etherscan API 
+
+#### ****Tests****
+```
+npx jest
+```
 
 #### ****Program options**** ####
 ```
-npx babel-node bin/export_tx.mjs -h
+npx babel-node bin/export-tx.mjs -h
 ```
 
-A sample input data eth address file located in sampleData directory.
+A sample input data eth address file located in ./data/ directory:
 
-The exported CSV file placed here [sampleData/export.csv](https://github.com/grechka3/dexfifo/blob/master/sampleData/export.csv) \
-Computis JSON file here [sampleData/export.json](https://github.com/grechka3/dexfifo/blob/master/sampleData/export.json)
+[data/exported/transfers.csv](https://github.com/grechka3/dexfifo/blob/master/data/exported/transfers.csv) \
+[data/export/computis.json](https://github.com/grechka3/dexfifo/blob/master/data/exported/computis.json)
 
 
 

@@ -1,5 +1,5 @@
 import opt from "../config.mjs";
-import etherApi from "../backend/src/EtherscanAPI.mjs";
+import etherApi from "../backend/src/etherscan-api.mjs";
 
 
 describe("[[ EtherscanAPI.getTxListByAddr ]]", () => {

@@ -1,4 +1,4 @@
-import request from "../backend/src/Request.mjs"
+import request from "../backend/src/request.mjs"
 
 
 

@@ -29,17 +29,6 @@ export default {
    flogMaxLines: 30000,
 
 
-   DepositOrWithdrawlSymbols: [
-      /UNI-V2/
-   ],
-
-   computisDefauts: {
-      creditAccount: "Kraken",
-      debitAccount: "Kraken",
-      txFeeAccount : "Kraken",
-      clientId: 11111,
-   },
-
    // UTC+-[this value] in minutes.  Set it for your geo location. For ex.: New York = -320, Moscow = 180
    utcOffsetMinutes: 180,
 

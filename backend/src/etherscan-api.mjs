@@ -1,4 +1,4 @@
-import request from "./Request.mjs"
+import request from "./request.mjs"
 import querystring from "querystring"
 import opt from "../../config.mjs"
 import xx from "jsm_xx";
@@ -78,7 +78,7 @@ import {Semaphore} from "async-mutex";
 /**
  * Etherscan multi account parser library
  */
-class EtherscanAPI
+class EtherscanApi
 {
 
 
@@ -179,7 +179,7 @@ class EtherscanAPI
    async releaseAcc(acc)
    {
       acc.lastQueryTS = xx.tsNow()
-      if (this.debug) log.d(`[EtherscanAPI.releaseAcc]: going to rest ${acc.viaHost}`).flog()
+      if (this.debug) log.d(`[EtherscanAPI.releaseAcc]: going to rest ${acc.viaHost}`)
       await xx.timeoutAsync(opt.etherscanAPIRestDelayTS + 300)
       acc.v = null
       acc.releaseFunc()
@@ -322,4 +322,4 @@ class EtherscanAPI
 
 }
 
-export default new EtherscanAPI
+export default new EtherscanApi

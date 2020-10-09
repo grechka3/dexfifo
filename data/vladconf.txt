@@ -1,0 +1,6 @@
+
+
+etheraddr=  0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085
+
+
+ClientID = 11111

@@ -8,11 +8,11 @@
     "lib": "lib"
   },
   "scripts": {
-    "jest": "npx jest --verbose true",
+    "jest": "npx jest",
     "jsdoc": "npx jsdoc -c jsdoc.json && npx nodemon --watch backend/ --watch jsdoc.json --watch README.md --exec npx jsdoc -c jsdoc.json",
-    "export_csv": "npx babel-node bin/export_tx.mjs -i sampleData/ethaddrs.txt -o sampleData/export.csv",
-    "export_csv_debug": "npx babel-node bin/export_tx.mjs --debug -i sampleData/ethaddrs.txt -o sampleData/export.csv",
-    "export_json": "npx babel-node bin/export_tx.mjs -i sampleData/ethaddrs.txt -o sampleData/export.json"
+    "exporttx": "npx babel-node bin/export-tx.mjs -i data/conf.txt -o data/exported",
+    "exporttx-vlad": "npx babel-node bin/export-tx.mjs -i data/vladconf.txt -o data/vlad",
+    "exporttx-vlad-debug": "npx babel-node bin/export-tx.mjs --debug -i data/vladconf.txt -o data/vlad"
   },
   "author": "",
   "license": "ISC",

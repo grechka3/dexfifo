@@ -3,13 +3,51 @@ import xx from "jsm_xx"
 import opt from "../../config.mjs"
 import {Semaphore} from "async-mutex";
 import querystring from "querystring"
-import request from "./Request.mjs"
+import request from "./request.mjs"
 import cheerio from "cheerio"
 
 /**
  * Etherscan.io HTML praser
  */
 
+
+/**
+ *  @typedef EtherTxRow {
+ *    @property {string} txHash
+ *    @property {number} pos
+ *    @property {number} timeStamp
+ *    @property {string} ownAddr
+ *    @property {number} txFee
+ *    @property {boolean} isError
+ *    @property {string} fromAddr
+ *    @property {string} toAddr
+ *    @property {string} fromName
+ *    @property {string} toName
+ *    @property {number} etherValue
+ *    @property {number} etherPriceUsd
+ *    @property {boolean} tokenTrans
+ *    @property {string[]} memo
+ *    @property {Object[]} tokens
+ *    @property {Object[]} tokens.from
+ *    @property {Object[]} tokens.to
+ *    @property {Object[]} tokens.for
+ *    @property {string} tokens.from.addr
+ *    @property {string} tokens.to.addr
+ *    @property {string} tokens.from.name
+ *    @property {string} tokens.to.name
+ *    @property {number} tokens.for.value
+ *    @property {string} tokens.for.symbol
+ *    @property {string} tokens.for.tokenAddr
+ *    @property {Object[]} events
+ *    @property {string} events.type
+ *    @property {number} events.fromValue
+ *    @property {string} events.fromName
+ *    @property {number} events.toValue
+ *    @property {string} events.toName
+ *    @property {string} events.on
+ * }
+
+ */
 
 /**
  * @typedef QResponse
@@ -46,34 +84,15 @@ class EtherscanParser
     *
     * @param {string} txhash
     * @param {RequestOpts} [requestOpts]
-    * @return {Object} ret
-    * @return {number} ret.etherValue
-    * @return {number} ret.etherUsdPrice
-    * @return {number} ret.txFee
-    * @return {string} ret.from
-    * @return {string} ret.fromName
-    * @return {string} ret.to
-    * @return {string} ret.toName
-    * @return {object[]} ret.tokens
-    * @return {object} ret.tokens.from
-    * @return {string} ret.tokens.from.addr
-    * @return {string} ret.tokens.from.name
-    * @return {object} ret.tokens.to
-    * @return {string} ret.to.from.addr
-    * @return {string} ret.to.from.name
-    * @return {object} ret.tokens.for
-    * @return {number} ret.tokens.for.value
-    * @return {string} ret.tokens.for.symbol
-    * @return {string} ret.tokens.for.tokenAddr
+    * @return {EtherTxRow}
     */
    async getDataFromTxPage(txhash, requestOpts = {})
    {
-      if(this.debug) log.d(`[EtherscanParser.getDataFromTxPage]: start tx="${txhash}" via '${requestOpts.proxy ? requestOpts.proxy : "localhost"}'`)
+      if (this.debug) log.d(`[EtherscanParser.getDataFromTxPage]: start tx="${txhash}" via '${requestOpts.proxy ? requestOpts.proxy : "localhost"}'`)
       const url = `https://etherscan.io/tx/${txhash}`
       const options = Object.assign({}, this.queryDefaults, requestOpts)
       let res = await request.get(url, options)
-      if (res.error) return res
-      res._result = null
+      if (res.error) throw new Error(`[EtherscanParser.getDataFromTxPage]: errorCode=${res.errorCode},  errorMessage="${res.errorMessage}"`)
       const $ = cheerio.load(res.body)
       res = {}
       let $tmp
@@ -95,9 +114,9 @@ class EtherscanParser
       res.toName = $contractCopy.siblings("span.mr-1").text().replace(/[\(\)]/g, "")
 
 
+      res.tokens = []
       $tmp = $(`.row i[data-content*="token transferred"]`)
       if ($tmp.length) {
-         res.tokens = []
          $tmp = $tmp.closest(`div.row`).find(`#wrapperContent li`)
 
          $tmp.each((k, li) => {
@@ -126,14 +145,46 @@ class EtherscanParser
             if (!token.for.symbol) token.for.symbol = $tmp.text().trim()
             // "Dai Stableco... (DAI)"  => DAI
             vv = token.for.symbol.match(/\(([^\)]+)\)/)
-            if(vv) token.for.symbol = vv[1]
-
+            if (vv) token.for.symbol = vv[1]
+            $tmp = $($cols[5]).find(`[data-original-title]`)
+            if ($tmp.length) {
+               token.for.currentPriceUsd = $($cols[5]).find(`[data-original-title]`).attr(`data-original-title`).match(/\$([0-9\.]+)/)[1] * 1
+            }
 
             res.tokens.push(token)
          })
       }
 
-      if(this.debug) log.d(`[EtherParser.getDataFromTxPage]: finish tx=${txhash.substr(0,10)} via '${requestOpts.proxy || "localhost"}'`)
+      res.events = []
+      res.memo = []
+      $tmp = $(`.row i[data-content*="events of the transaction"]`)
+      if ($tmp.length) {
+         $tmp = $tmp.closest(`div.row`).find(`#wrapperContent li`)
+         $tmp.each((k, li) => {
+            $(li).find('.media-body > *').each((k, el) => {
+               $(el).append(" ")
+            })
+            let swapRow = $(li).find('.media-body').text()
+               .replace(',', '')
+               .match(/Swap ([0-9\.]+) (.+?) For ([0-9\.]+) (.+?) On (.*)/)
+            if (swapRow !== null) {
+               res.events.push({
+                  type: "swap",
+                  fromValue: swapRow[1] * 1,
+                  fromName: swapRow[2].trim(),
+                  toValue: swapRow[3] * 1,
+                  toName: swapRow[4].trim(),
+                  on: swapRow[5].trim()
+               })
+            }
+            else {
+               res.memo.push($(li).find('.media-body').text().trim())
+            }
+         })
+      }
+
+
+      if (this.debug) log.d(`[EtherParser.getDataFromTxPage]: finish tx=${txhash.substr(0, 10)} via '${requestOpts.proxy || "localhost"}'`)
 
       return res
    }
