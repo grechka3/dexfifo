@@ -468,8 +468,8 @@ class ExportEtherTxs
                         txType: txTranserTypes.FEE,
                         debitAsset: "",
                         creditAsset: "ETH",
-                        debitAmount: 0,
-                        creditAmount: 0,
+                        debitAmount: "",
+                        creditAmount: "",
                         memo: ""
                      }))
                   }
@@ -479,8 +479,8 @@ class ExportEtherTxs
                         txType: txTranserTypes.FEE,
                         debitAsset: "",
                         creditAsset: "ETH",
-                        debitAmount: 0,
-                        creditAmount: 0,
+                        debitAmount: "",
+                        creditAmount: "",
                         memo: ""
                      }))
                   }
