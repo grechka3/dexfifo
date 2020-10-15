@@ -1,6 +1,7 @@
 ClientID = 11111
 LPDistrSymbol=UNI-V2
 LPDistrSymbol=SLP
-DecimalSeparator=,
+DecimalSeparator=.
+
 etheraddr=0x9ad227d56a36b33407916f3293db2d298095dca9
 etheraddr=0xc666aba09c01ccd324c0db5540d50e536952c4e2

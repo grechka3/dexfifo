@@ -35,16 +35,26 @@ void async function () {
 
       if (cmd.debug) exportEtherTxs.setDebug(true)
 
-      const res = await exportEtherTxs.getTXsFromFile(cmd.input)
-      if (res.err) {
-         log.e(res.err.message)
+      const confr = exportEtherTxs.loadConfFromFile(cmd.input)
+      if (confr.err) {
+         log.e(confr.err.message)
          process.exit(-3)
       }
-
-      log.i(`${res.txCount} txs with ${res.transfersCount} transfers for ${res.ethAddrCount} accounts`)
+      log(`Use ether addresses =`, confr.addrs)
+      if (confr.LPDistrSymbols.length) log(`Set LP token distrubution contract addresses =`, confr.LPDistrSymbols)
+      const txr = await exportEtherTxs.retriveTxs(confr.addrs)
+      if (txr.err) {
+         log.e(txr.err.message)
+         process.exit(-3)
+      }
+      log.i(`${txr.txCount} txs with ${txr.transfersCount} transfers for ${confr.addrs.length} accounts`)
 
       await exportEtherTxs.writeTransfersCSV(`${cmd.output}/transfers.csv`)
       await exportEtherTxs.writeComputisDataFile(`${cmd.output}/computis.json`)
+      const balr = await exportEtherTxs.writeBalances(`${cmd.output}/balances`)
+      if(balr.err) {
+         log.e(`Couldn't write balance CSv file: ${balr.err.message}`)
+      }
    }
    else {
       log.e(`Nothing to do. See program option: -h`)

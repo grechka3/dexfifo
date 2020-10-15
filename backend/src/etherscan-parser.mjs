@@ -26,11 +26,11 @@ import cheerio from "cheerio"
  *    @property {number} etherValue
  *    @property {number} etherPriceUsd
  *    @property {boolean} tokenTrans
- *    @property {string[]} memo
- *    @property {Object[]} tokens
- *    @property {Object[]} tokens.from
- *    @property {Object[]} tokens.to
- *    @property {Object[]} tokens.for
+ *    @property {[string]} memo
+ *    @property {[Object]} tokens
+ *    @property {Object} tokens.from
+ *    @property {Object} tokens.to
+ *    @property {Object} tokens.for
  *    @property {string} tokens.from.addr
  *    @property {string} tokens.to.addr
  *    @property {string} tokens.from.name
@@ -38,13 +38,26 @@ import cheerio from "cheerio"
  *    @property {number} tokens.for.value
  *    @property {string} tokens.for.symbol
  *    @property {string} tokens.for.tokenAddr
- *    @property {Object[]} events
+ *    @property {number} tokens.for.currentPriceUsd
+ *    @property {[object]} events
  *    @property {string} events.type
  *    @property {number} events.fromValue
  *    @property {string} events.fromName
  *    @property {number} events.toValue
  *    @property {string} events.toName
  *    @property {string} events.on
+ *    @property {[object]} transfers
+ *    @property {string} transfers.txHash
+ *    @property {string} transfers.txType
+ *    @property {string} transfers.debitAsset
+ *    @property {number} transfers.debitAmount
+ *    @property {string} transfers.creditAsset
+ *    @property {number} transfers.creditAmount
+ *    @property {number} transfers.txFeeAmount
+ *    @property {string} transfers.memo
+ *    @property {string} transfers.debitAccount
+ *    @property {string} transfers.creditAccount
+ *    @property {string} transfers.txFeeAccount
  * }
 
  */
@@ -133,12 +146,14 @@ class EtherscanParser
             token.to.name = $el.text().replace(token.to.addr, "").replace("()", "").trim()
 
             token.for = {value: null, symbol: null, tokenAddr: null,}
-            let vv = $($cols[5]).find(`span`).html()
-            if (vv) token.for.value = vv.match(/([^\s]+)/)[1].replace(",", "") * 1
+            let $vv = $($cols[5]).find(`span`)
+            $vv.find("*").remove()
+            let vv = $vv.text()
+            if (vv) token.for.value = vv.match(/([^\s]+)/)[1].replace(/,/g, "") * 1
 
             if (token.for.value === null) {
                // last two token lines case: https://etherscan.io/tx/0xbbda9afb27b2720cfcd9e462507daae6684c18bc88bdd909ffad3aba0d0ca533
-               token.for.value = $($cols[5]).text().match(/([^\s]+)/)[1].replace(",", "") * 1
+               token.for.value = $($cols[5]).text().match(/([^\s]+)/)[1].replace(/,/g, "") * 1
             }
             $tmp = $($cols[5]).next().next()
             token.for.tokenAddr = "0x" + $tmp.attr("href").replace(/(.*)0x/, "")
