@@ -1,4 +1,5 @@
 import log from "jsm_log"
+import xx from "jsm_xx"
 import opt from "../config.mjs"
 import ExportEtherTxs from "../backend/src/export-ether-txs.mjs"
 import path from "path"
@@ -8,12 +9,13 @@ import fs from "fs"
 
 
 void async function () {
+   log.setGlobalName(xx.random(1000,9999))
    const logDir = path.resolve(URL.fileURLToPath(import.meta.url) + '../../../log')
    log.setFileName(logDir + '/export-tx.log')
    log.logRotate(opt.flogMaxLines)
 
    cmd
-      .option(`-i, --input <file>`, 'text input file. One ETH address in line')
+      .option(`-i, --input <file>`, `text input file. One ETH address in line`)
       .option(`-o, --output <directory>`, `directory for result files`)
       .option(`-d, --debug`, `debug mode ON. Extended console log output`)
       .parse(process.argv)
@@ -40,14 +42,14 @@ void async function () {
          log.e(confr.err.message)
          process.exit(-3)
       }
+      log(`UTC offset (in minutes) =`, confr.utcOffsetMinutes)
       log(`Use ether addresses =`, confr.addrs)
-      if (confr.LPDistrSymbols.length) log(`Set LP token distrubution contract addresses =`, confr.LPDistrSymbols)
-      const txr = await exportEtherTxs.retriveTxs(confr.addrs)
+      const txr = await exportEtherTxs.retriveTxs()
       if (txr.err) {
          log.e(txr.err.message)
          process.exit(-3)
       }
-      log.i(`${txr.txCount} txs with ${txr.transfersCount} transfers for ${confr.addrs.length} accounts`)
+      log.i(`${txr.txCount} txs (incl. ${txr.tokenTxCount} txs via EtherscanTokenAPI) with ${txr.transfersCount} transfers for ${confr.addrs.length} accounts`)
 
       await exportEtherTxs.writeTransfersCSV(`${cmd.output}/transfers.csv`)
       await exportEtherTxs.writeComputisDataFile(`${cmd.output}/computis.json`)

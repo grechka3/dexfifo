@@ -1,0 +1,513 @@
+{
+   "0x9ad227d56a36b33407916f3293db2d298095dca9_Ether": {
+      "addr": "0x9ad227d56a36b33407916f3293db2d298095dca9",
+      "asset": "Ether",
+      "debit": 134.21565867165083,
+      "credit": 134.0555007650835,
+      "balance": 0.16015790656732065
+   },
+   "0x59a5208b32e627891c389ebafc644145224006e8 (HitBTC 2)_Ether": {
+      "addr": "0x59a5208b32e627891c389ebafc644145224006e8 (HitBTC 2)",
+      "asset": "Ether",
+      "debit": 0,
+      "credit": 44.15818841,
+      "balance": -44.15818841
+   },
+   "_": {
+      "addr": "",
+      "asset": "",
+      "debit": 0,
+      "credit": 0,
+      "balance": 0
+   },
+   "0x9ad227d56a36b33407916f3293db2d298095dca9_": {
+      "addr": "0x9ad227d56a36b33407916f3293db2d298095dca9",
+      "asset": "Ether",
+      "debit": 0,
+      "credit": 0,
+      "balance": 0
+   },
+   "0x9ad227d56a36b33407916f3293db2d298095dca9_HEX": {
+      "addr": "0x9ad227d56a36b33407916f3293db2d298095dca9",
+      "asset": "HEX",
+      "debit": 4721292.464676799,
+      "credit": 4721292.4646768,
+      "balance": -9.313225746154785e-10
+   },
+   "0x05cde89ccfa0ada8c88d5a23caaa79ef129e7883 (Uniswap: HEX)_HEX": {
+      "addr": "0x05cde89ccfa0ada8c88d5a23caaa79ef129e7883 (Uniswap: HEX)",
+      "asset": "HEX",
+      "debit": 596466.87289649,
+      "credit": 2526055.32436815,
+      "balance": -1929588.4514716598
+   },
+   "0x05cde89ccfa0ada8c88d5a23caaa79ef129e7883 (Uniswap: HEX)_Ether": {
+      "addr": "0x05cde89ccfa0ada8c88d5a23caaa79ef129e7883 (Uniswap: HEX)",
+      "asset": "Ether",
+      "debit": 54.23539674408977,
+      "credit": 12.857392202539419,
+      "balance": 41.378004541550354
+   },
+   "0x0000000000000000000000000000000000000000_HEX": {
+      "addr": "0x0000000000000000000000000000000000000000",
+      "asset": "HEX",
+      "debit": 2316620.55891114,
+      "credit": 66.10550776,
+      "balance": 2316554.4534033802
+   },
+   "0x61fc4c21b78b67d0408da673a90e4e22a0bc1342_HEX": {
+      "addr": "0x61fc4c21b78b67d0408da673a90e4e22a0bc1342",
+      "asset": "HEX",
+      "debit": 0,
+      "credit": 488469.20163329004,
+      "balance": -488469.20163329004
+   },
+   "0xc666aba09c01ccd324c0db5540d50e536952c4e2_HEX": {
+      "addr": "0xc666aba09c01ccd324c0db5540d50e536952c4e2",
+      "asset": "HEX",
+      "debit": 49973.37922952,
+      "credit": 49973.37922952,
+      "balance": 0
+   },
+   "0xc666aba09c01ccd324c0db5540d50e536952c4e2_Ether": {
+      "addr": "0xc666aba09c01ccd324c0db5540d50e536952c4e2",
+      "asset": "Ether",
+      "debit": 4.32509456967276,
+      "credit": 4.1458806610000005,
+      "balance": 0.1792139086727591
+   },
+   "0x61fc4c21b78b67d0408da673a90e4e22a0bc1342_Ether": {
+      "addr": "0x61fc4c21b78b67d0408da673a90e4e22a0bc1342",
+      "asset": "Ether",
+      "debit": 0,
+      "credit": 2.02,
+      "balance": -2.02
+   },
+   "0x84eed3d40edf5f700a65893f92fcc27626d3a864_Ether": {
+      "addr": "0x84eed3d40edf5f700a65893f92fcc27626d3a864",
+      "asset": "Ether",
+      "debit": 0.009,
+      "credit": 0,
+      "balance": 0.009
+   },
+   "0x96a55b0c130535f17086810a34214bc85a04d3b4_HEX": {
+      "addr": "0x96a55b0c130535f17086810a34214bc85a04d3b4",
+      "asset": "HEX",
+      "debit": 11000,
+      "credit": 0,
+      "balance": 11000
+   },
+   "0x55d5c232d921b9eaa6b37b5845e439acd04b4dba (Uniswap V2: HEX 3)_HEX": {
+      "addr": "0x55d5c232d921b9eaa6b37b5845e439acd04b4dba (Uniswap V2: HEX 3)",
+      "asset": "HEX",
+      "debit": 1847177.41209869,
+      "credit": 497762.43993062,
+      "balance": 1349414.9721680698
+   },
+   "0x9ad227d56a36b33407916f3293db2d298095dca9_UNI-V2": {
+      "addr": "0x9ad227d56a36b33407916f3293db2d298095dca9",
+      "asset": "UNI-V2",
+      "debit": 72403.59576931673,
+      "credit": 72403.59576931671,
+      "balance": 1.4551915228366852e-11
+   },
+   "0x0000000000000000000000000000000000000000_UNI-V2": {
+      "addr": "0x0000000000000000000000000000000000000000",
+      "asset": "UNI-V2",
+      "debit": 0,
+      "credit": 73170.01110937395,
+      "balance": -73170.01110937395
+   },
+   "0xf164fc0ec4e93095b804a4795bbe1e041497b92a (Uniswap V2: Router)_Ether": {
+      "addr": "0xf164fc0ec4e93095b804a4795bbe1e041497b92a (Uniswap V2: Router)",
+      "asset": "Ether",
+      "debit": 38.84546866717783,
+      "credit": 55.40219899854733,
+      "balance": -16.556730331369494
+   },
+   "0x55d5c232d921b9eaa6b37b5845e439acd04b4dba (Uniswap V2: HEX 3)_UNI-V2": {
+      "addr": "0x55d5c232d921b9eaa6b37b5845e439acd04b4dba (Uniswap V2: HEX 3)",
+      "asset": "UNI-V2",
+      "debit": 0.054439962763756816,
+      "credit": 0,
+      "balance": 0.054439962763756816
+   },
+   "0xf164fc0ec4e93095b804a4795bbe1e041497b92a (Uniswap V2: Router)_HEX": {
+      "addr": "0xf164fc0ec4e93095b804a4795bbe1e041497b92a (Uniswap V2: Router)",
+      "asset": "HEX",
+      "debit": 0,
+      "credit": 1256422.61083587,
+      "balance": -1256422.61083587
+   },
+   "0x912fd21d7a69678227fe6d08c64222db41477ba0_Ether": {
+      "addr": "0x912fd21d7a69678227fe6d08c64222db41477ba0",
+      "asset": "Ether",
+      "debit": 0,
+      "credit": 1.1706996766334368,
+      "balance": -1.1706996766334368
+   },
+   "0x0cd9988ec4b1a499b7951a79644d5aa23d3aacbf_Ether": {
+      "addr": "0x0cd9988ec4b1a499b7951a79644d5aa23d3aacbf",
+      "asset": "Ether",
+      "debit": 16.21,
+      "credit": 0,
+      "balance": 16.21
+   },
+   "0x3f5ce5fbfe3e9af3971dd833d26ba9b5c936f0be (Binance)_Ether": {
+      "addr": "0x3f5ce5fbfe3e9af3971dd833d26ba9b5c936f0be (Binance)",
+      "asset": "Ether",
+      "debit": 0,
+      "credit": 4.55611574,
+      "balance": -4.55611574
+   },
+   "0x9ad227d56a36b33407916f3293db2d298095dca9_USDC": {
+      "addr": "0x9ad227d56a36b33407916f3293db2d298095dca9",
+      "asset": "USDC",
+      "debit": 325.02754899999996,
+      "credit": 325.027549,
+      "balance": -5.684341886080802e-14
+   },
+   "0x688d976c46ba022ab5f930a4996274fb46950a73_USDC": {
+      "addr": "0x688d976c46ba022ab5f930a4996274fb46950a73",
+      "asset": "USDC",
+      "debit": 0,
+      "credit": 162.44313699999998,
+      "balance": -162.44313699999998
+   },
+   "0x11111254369792b2ca5d084ab5eea397ca8fa48b (1inch.exchange)_HEX": {
+      "addr": "0x11111254369792b2ca5d084ab5eea397ca8fa48b (1inch.exchange)",
+      "asset": "HEX",
+      "debit": 0,
+      "credit": 413.18751057,
+      "balance": -413.18751057
+   },
+   "0x11111254369792b2ca5d084ab5eea397ca8fa48b (1inch.exchange)_Ether": {
+      "addr": "0x11111254369792b2ca5d084ab5eea397ca8fa48b (1inch.exchange)",
+      "asset": "Ether",
+      "debit": 0.009075785872457356,
+      "credit": 0,
+      "balance": 0.009075785872457356
+   },
+   "0x9ad227d56a36b33407916f3293db2d298095dca9_BNT": {
+      "addr": "0x9ad227d56a36b33407916f3293db2d298095dca9",
+      "asset": "BNT",
+      "debit": 3.2500329810208344,
+      "credit": 0,
+      "balance": 3.2500329810208344
+   },
+   "0x3ab6564d5c214bc416ee8421e05219960504eead_BNT": {
+      "addr": "0x3ab6564d5c214bc416ee8421e05219960504eead",
+      "asset": "BNT",
+      "debit": 0,
+      "credit": 3.2500329810208344,
+      "balance": -3.2500329810208344
+   },
+   "0x3ab6564d5c214bc416ee8421e05219960504eead_Ether": {
+      "addr": "0x3ab6564d5c214bc416ee8421e05219960504eead",
+      "asset": "Ether",
+      "debit": 0.009,
+      "credit": 0,
+      "balance": 0.009
+   },
+   "0x3ab6564d5c214bc416ee8421e05219960504eead_HEX": {
+      "addr": "0x3ab6564d5c214bc416ee8421e05219960504eead",
+      "asset": "HEX",
+      "debit": 1,
+      "credit": 0,
+      "balance": 1
+   },
+   "0x9ad227d56a36b33407916f3293db2d298095dca9_HEX2T": {
+      "addr": "0x9ad227d56a36b33407916f3293db2d298095dca9",
+      "asset": "HEX2T",
+      "debit": 3193729098.054883,
+      "credit": 3193729097.760285,
+      "balance": 0.2945981025695801
+   },
+   "0xedaedd22e653c504ff6806bf61664292848eb26e (Uniswap V2: HEX2T 2)_HEX2T": {
+      "addr": "0xedaedd22e653c504ff6806bf61664292848eb26e (Uniswap V2: HEX2T 2)",
+      "asset": "HEX2T",
+      "debit": 2916068488.2252707,
+      "credit": 2192959818.973941,
+      "balance": 723108669.2513299
+   },
+   "0x9ad227d56a36b33407916f3293db2d298095dca9_HXY": {
+      "addr": "0x9ad227d56a36b33407916f3293db2d298095dca9",
+      "asset": "HXY",
+      "debit": 738.06785366,
+      "credit": 56,
+      "balance": 682.06785366
+   },
+   "0x604d4f69e121178f6a91262edeb54c19c5e3b539 (Uniswap: HXY)_HXY": {
+      "addr": "0x604d4f69e121178f6a91262edeb54c19c5e3b539 (Uniswap: HXY)",
+      "asset": "HXY",
+      "debit": 0,
+      "credit": 56.51361886,
+      "balance": -56.51361886
+   },
+   "0x604d4f69e121178f6a91262edeb54c19c5e3b539 (Uniswap: HXY)_Ether": {
+      "addr": "0x604d4f69e121178f6a91262edeb54c19c5e3b539 (Uniswap: HXY)",
+      "asset": "Ether",
+      "debit": 1,
+      "credit": 0,
+      "balance": 1
+   },
+   "0x44f00918a540774b422a1a340b75e055ff816d83_HXY": {
+      "addr": "0x44f00918a540774b422a1a340b75e055ff816d83",
+      "asset": "HXY",
+      "debit": 56,
+      "credit": 0,
+      "balance": 56
+   },
+   "0x0d38bce0ef4241ef8a6994459182df4c63fd27d1_Ether": {
+      "addr": "0x0d38bce0ef4241ef8a6994459182df4c63fd27d1",
+      "asset": "Ether",
+      "debit": 0.05,
+      "credit": 6.65634951,
+      "balance": -6.60634951
+   },
+   "0x9ad227d56a36b33407916f3293db2d298095dca9_PAMP": {
+      "addr": "0x9ad227d56a36b33407916f3293db2d298095dca9",
+      "asset": "PAMP",
+      "debit": 999.9459574779193,
+      "credit": 999.9459574779193,
+      "balance": 0
+   },
+   "0xbbb68aa436d5f636981c581bbda279e48ed17b22 (Uniswap V2: PAMP 5)_PAMP": {
+      "addr": "0xbbb68aa436d5f636981c581bbda279e48ed17b22 (Uniswap V2: PAMP 5)",
+      "asset": "PAMP",
+      "debit": 999.9459574779193,
+      "credit": 999.9459574779193,
+      "balance": 0
+   },
+   "0xedaedd22e653c504ff6806bf61664292848eb26e (Uniswap V2: HEX2T 2)_UNI-V2": {
+      "addr": "0xedaedd22e653c504ff6806bf61664292848eb26e (Uniswap V2: HEX2T 2)",
+      "asset": "UNI-V2",
+      "debit": 72403.54132935396,
+      "credit": 0,
+      "balance": 72403.54132935396
+   },
+   "0xf164fc0ec4e93095b804a4795bbe1e041497b92a (Uniswap V2: Router)_HEX2T": {
+      "addr": "0xf164fc0ec4e93095b804a4795bbe1e041497b92a (Uniswap V2: Router)",
+      "asset": "HEX2T",
+      "debit": 0,
+      "credit": 816806251.2532883,
+      "balance": -816806251.2532883
+   },
+   "0x7d68c0321cf6b3a12e6e5d5abbaa8f2a13d77fdd_HEX": {
+      "addr": "0x7d68c0321cf6b3a12e6e5d5abbaa8f2a13d77fdd",
+      "asset": "HEX",
+      "debit": 0,
+      "credit": 2076.97412006,
+      "balance": -2076.97412006
+   },
+   "0xb1c05e7e2458d52202d5bf85f0c8a864806ebe37_Ether": {
+      "addr": "0xb1c05e7e2458d52202d5bf85f0c8a864806ebe37",
+      "asset": "Ether",
+      "debit": 1.25,
+      "credit": 0,
+      "balance": 1.25
+   },
+   "0x28697b4a1618a77b1d61a85e99174616b519f629_HEX2T": {
+      "addr": "0x28697b4a1618a77b1d61a85e99174616b519f629",
+      "asset": "HEX2T",
+      "debit": 100000000,
+      "credit": 87323820.53305675,
+      "balance": 12676179.46694325
+   },
+   "0x0000000000000000000000000000000000000000_HEX2T": {
+      "addr": "0x0000000000000000000000000000000000000000",
+      "asset": "HEX2T",
+      "debit": 96639207,
+      "credit": 96639207.29459724,
+      "balance": -0.29459723830223083
+   },
+   "0x2b9ced840d9072f2f3d6d66275381aba530c6420_Ether": {
+      "addr": "0x2b9ced840d9072f2f3d6d66275381aba530c6420",
+      "asset": "Ether",
+      "debit": 9.459999999999999,
+      "credit": 0,
+      "balance": 9.459999999999999
+   },
+   "0x7a250d5630b4cf539739df2c5dacb4c659f2488d (Uniswap V2: Router 2)_Ether": {
+      "addr": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d (Uniswap V2: Router 2)",
+      "asset": "Ether",
+      "debit": 10.4,
+      "credit": 10.969808703603432,
+      "balance": -0.5698087036034316
+   },
+   "0x7cf22917643f15520121a6eece65be4a609cce5b_Ether": {
+      "addr": "0x7cf22917643f15520121a6eece65be4a609cce5b",
+      "asset": "Ether",
+      "debit": 5.643763680419122,
+      "credit": 0.75,
+      "balance": 4.893763680419122
+   },
+   "0x9ad227d56a36b33407916f3293db2d298095dca9_WBTC": {
+      "addr": "0x9ad227d56a36b33407916f3293db2d298095dca9",
+      "asset": "WBTC",
+      "debit": 0.07500163,
+      "credit": 0.07500163,
+      "balance": 0
+   },
+   "0xbb2b8038a1640196fbe3e38816f3e67cba72d940 (Uniswap V2: WBTC 2)_WBTC": {
+      "addr": "0xbb2b8038a1640196fbe3e38816f3e67cba72d940 (Uniswap V2: WBTC 2)",
+      "asset": "WBTC",
+      "debit": 0.07500163,
+      "credit": 0.07500163,
+      "balance": 0
+   },
+   "0xfc0713dd0aefa5a1b6a6f24e53605a885ca6b441_HXY": {
+      "addr": "0xfc0713dd0aefa5a1b6a6f24e53605a885ca6b441",
+      "asset": "HXY",
+      "debit": 0,
+      "credit": 58.20902740000001,
+      "balance": -58.20902740000001
+   },
+   "0x39aa39c021dfbae8fac545936693ac917d5e7563 (Compound USD Coin)_USDC": {
+      "addr": "0x39aa39c021dfbae8fac545936693ac917d5e7563 (Compound USD Coin)",
+      "asset": "USDC",
+      "debit": 162.443137,
+      "credit": 162.584412,
+      "balance": -0.14127499999997895
+   },
+   "0x9ad227d56a36b33407916f3293db2d298095dca9_cUSDC": {
+      "addr": "0x9ad227d56a36b33407916f3293db2d298095dca9",
+      "asset": "cUSDC",
+      "debit": 7713.08874806,
+      "credit": 7713.08874806,
+      "balance": 0
+   },
+   "0x39aa39c021dfbae8fac545936693ac917d5e7563 (Compound USD Coin)_cUSDC": {
+      "addr": "0x39aa39c021dfbae8fac545936693ac917d5e7563 (Compound USD Coin)",
+      "asset": "cUSDC",
+      "debit": 7713.08874806,
+      "credit": 7713.08874806,
+      "balance": 0
+   },
+   "0x9ad227d56a36b33407916f3293db2d298095dca9_COMP": {
+      "addr": "0x9ad227d56a36b33407916f3293db2d298095dca9",
+      "asset": "COMP",
+      "debit": 0.001345122765157046,
+      "credit": 0,
+      "balance": 0.001345122765157046
+   },
+   "0x3d9819210a31b4961b30ef54be2aed79b9c9cd3b (Compound: Comptroller)_COMP": {
+      "addr": "0x3d9819210a31b4961b30ef54be2aed79b9c9cd3b (Compound: Comptroller)",
+      "asset": "COMP",
+      "debit": 0,
+      "credit": 0.001345122765157046,
+      "balance": -0.001345122765157046
+   },
+   "0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc (Uniswap V2: USDC 3)_USDC": {
+      "addr": "0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc (Uniswap V2: USDC 3)",
+      "asset": "USDC",
+      "debit": 162.584412,
+      "credit": 0,
+      "balance": 162.584412
+   },
+   "0x8530261684c0549d5e85a30934e30d60c46aa8a1_HXY": {
+      "addr": "0x8530261684c0549d5e85a30934e30d60c46aa8a1",
+      "asset": "HXY",
+      "debit": 0,
+      "credit": 623.3452073999999,
+      "balance": -623.3452073999999
+   },
+   "0x8c1a220506190f34c035f7fdb95a975f1f67732e_HEX2T": {
+      "addr": "0x8c1a220506190f34c035f7fdb95a975f1f67732e",
+      "asset": "HEX2T",
+      "debit": 81021402.53501415,
+      "credit": 0,
+      "balance": 81021402.53501415
+   },
+   "0xc666aba09c01ccd324c0db5540d50e536952c4e2_": {
+      "addr": "0xc666aba09c01ccd324c0db5540d50e536952c4e2",
+      "asset": "Ether",
+      "debit": 0,
+      "credit": 0,
+      "balance": 0
+   },
+   "0xc666aba09c01ccd324c0db5540d50e536952c4e2_UNI": {
+      "addr": "0xc666aba09c01ccd324c0db5540d50e536952c4e2",
+      "asset": "UNI",
+      "debit": 400,
+      "credit": 400,
+      "balance": 0
+   },
+   "0x090d4613473dee047c3f2706764f49e0821d256e (Uniswap: Token Distributor)_UNI": {
+      "addr": "0x090d4613473dee047c3f2706764f49e0821d256e (Uniswap: Token Distributor)",
+      "asset": "UNI",
+      "debit": 0,
+      "credit": 801.6480349999999,
+      "balance": -801.6480349999999
+   },
+   "0x9ad227d56a36b33407916f3293db2d298095dca9_UNI": {
+      "addr": "0x9ad227d56a36b33407916f3293db2d298095dca9",
+      "asset": "UNI",
+      "debit": 401.648035,
+      "credit": 401.648035,
+      "balance": 0
+   },
+   "0xd3d2e2692501a5c9ca623199d38826e513033a17 (Uniswap V2: UNI 30)_UNI": {
+      "addr": "0xd3d2e2692501a5c9ca623199d38826e513033a17 (Uniswap V2: UNI 30)",
+      "asset": "UNI",
+      "debit": 801.6480349999999,
+      "credit": 0,
+      "balance": 801.6480349999999
+   },
+   "0xc666aba09c01ccd324c0db5540d50e536952c4e2_eRSDL": {
+      "addr": "0xc666aba09c01ccd324c0db5540d50e536952c4e2",
+      "asset": "eRSDL",
+      "debit": 5311916.0824262295,
+      "credit": 280390.14251639694,
+      "balance": 5031525.939909833
+   },
+   "0xfc633b4776ecc6299efb597a9c6cfcfba20ba398 (UnFederalReserve: Deployer)_eRSDL": {
+      "addr": "0xfc633b4776ecc6299efb597a9c6cfcfba20ba398 (UnFederalReserve: Deployer)",
+      "asset": "eRSDL",
+      "debit": 0,
+      "credit": 300000,
+      "balance": -300000
+   },
+   "0x7ba9b94127d434182287de708643932ec036d365 (Uniswap V2: eRSDL 2)_eRSDL": {
+      "addr": "0x7ba9b94127d434182287de708643932ec036d365 (Uniswap V2: eRSDL 2)",
+      "asset": "eRSDL",
+      "debit": 280390.14251639694,
+      "credit": 0,
+      "balance": 280390.14251639694
+   },
+   "0xc666aba09c01ccd324c0db5540d50e536952c4e2_UNI-V2": {
+      "addr": "0xc666aba09c01ccd324c0db5540d50e536952c4e2",
+      "asset": "UNI-V2",
+      "debit": 766.4153400572317,
+      "credit": 766.4153400572317,
+      "balance": 0
+   },
+   "0xf8377270af0c864d2b3bab73bb16c65b05767549_UNI-V2": {
+      "addr": "0xf8377270af0c864d2b3bab73bb16c65b05767549",
+      "asset": "UNI-V2",
+      "debit": 766.4153400572317,
+      "credit": 0,
+      "balance": 766.4153400572317
+   },
+   "0xf8377270af0c864d2b3bab73bb16c65b05767549_eRSDL": {
+      "addr": "0xf8377270af0c864d2b3bab73bb16c65b05767549",
+      "asset": "eRSDL",
+      "debit": 0,
+      "credit": 3011916.082426229,
+      "balance": -3011916.082426229
+   },
+   "0x996e90d4d81a8677cf95cb987a5eb0d2ade3aca5_eRSDL": {
+      "addr": "0x996e90d4d81a8677cf95cb987a5eb0d2ade3aca5",
+      "asset": "eRSDL",
+      "debit": 0,
+      "credit": 2000000,
+      "balance": -2000000
+   },
+   "0xe94edb8c32d55321701edb65ee45bf5ed08aef1b_Ether": {
+      "addr": "0xe94edb8c32d55321701edb65ee45bf5ed08aef1b",
+      "asset": "Ether",
+      "debit": 0.15,
+      "credit": 0,
+      "balance": 0.15
+   }
+}

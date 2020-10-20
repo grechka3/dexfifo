@@ -28,14 +28,20 @@ npx jest
 npx babel-node bin/export-tx.mjs -h
 ```
 
-A sample input data eth address file located in ./data/ directory:
+A sample data file is located in ./data/ directory.
 
-[data/exported/transfers.csv](https://github.com/grechka3/dexfifo/blob/master/data/exported/transfers.csv) \
+Config input file:\
+[data/input.conf](https://github.com/grechka3/dexfifo/blob/master/data/input.conf)
+
+Computed data in CSV format:\
+[data/exported/transfers.csv](https://github.com/grechka3/dexfifo/blob/master/data/exported/transfers.csv)
+
+Computed data in Computis json format:\
 [data/export/computis.json](https://github.com/grechka3/dexfifo/blob/master/data/exported/computis.json)
 
 
 
-Generate jsdoc documentation:
+#####Generate jsdoc documentation:
 
 ````npx jsdoc -c jsdoc.json```` 
 

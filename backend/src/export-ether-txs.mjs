@@ -49,20 +49,14 @@ const txTranserTypes = {
 class ExportEtherTxs
 {
 
-   export
-   default
-   ExportEtherTxs
 
    constructor(dbFile = null)
    {
       this.memdb = dbFile ? lowdb(new LowDbFileAdapter(dbFile)) : null
-      this.defaults = {
+      this.computisDefaults = {
          clientId: "",
       }
-      // array of string a db[].tokens.for.symbol
-      this.LPDistrSymbols = []
       this.balances = {}
-      this.decimalSeparator = "."
    }
 
    setDebug(debugOn)
@@ -80,63 +74,77 @@ class ExportEtherTxs
 
    async writeBalances(outputFileBase)
    {
-      const trs = this.memdb.get("trans").sortBy("timeStamp").value()
-      if (!trs) return {err: new Error(`transfers datalog not exists`)}
+      let lines = []
       const csvWriter = csv.createObjectCsvWriter({
          fieldDelimiter: ";",
          path: outputFileBase + '.csv',
          header: [
-            {id: "addr", title: "Ether address"},
+            {id: "addr", title: "Ether account"},
             {id: "asset", title: "Asset"},
             {id: "debit", title: "Debit"},
             {id: "credit", title: "Credit"},
             {id: "balance", title: "Balance"},
          ]
       })
-      let lines = []
+      this.balances = {}
+      const trs = this.memdb.get("trans").sortBy("timeStamp").value()
+      const inputAddrs = this.memdb.get("inputAddresses").value()
       trs.forEach(tr => {
-         const deltaDebit = {
-            id: `${tr.debitAccount}_${tr.debitAsset}`,
-            addr: tr.debitAccount,
-            asset: tr.debitAsset,
-            v: tr.debitAmount
-         }
-         const deltaCredit = {
-            id: `${tr.creditAccount}_${tr.creditAsset}`,
-            addr: tr.creditAccount,
-            asset: tr.creditAsset,
-            v: tr.creditAmount
-         }
-         if (deltaDebit.v) {
-            if (!this.balances[deltaDebit.id]) {
-               this.balances[deltaDebit.id] = {debit: deltaDebit.v, credit: 0, asset: deltaDebit.asset, addr:deltaDebit.addr}
-            }
-            else {
-               this.balances[deltaDebit.id].debit += parseFloat(deltaDebit.v)
-            }
-         }
+         const debit_v = parseFloat(tr.debitAmount)
+         const credit_v = parseFloat(tr.creditAmount)
+         const fee = parseFloat(tr.txFeeAmount)
 
-         if (deltaCredit.v) {
-            if (!this.balances[deltaCredit.id]) {
-               this.balances[deltaCredit.id] = {debit: 0, credit: deltaCredit.v, asset:deltaCredit.asset,addr:deltaCredit.addr}
+         let debit_bk = `${tr.debitAccount}_${tr.debitAsset}`
+         if (!xx.isDefined(this.balances[debit_bk])) {
+            this.balances[debit_bk] = {
+               addr: tr.debitAccount,
+               asset: tr.debitAsset,
+               debit: 0,
+               credit: 0,
             }
-            else {
-               this.balances[deltaCredit.id].credit += parseFloat(deltaCredit.v)
+         }
+         this.balances[debit_bk].debit += debit_v
+
+         let credit_bk = `${tr.creditAccount}_${tr.debitAsset}`
+         if (!xx.isDefined(this.balances[credit_bk])) {
+            this.balances[credit_bk] = {
+               addr: tr.creditAccount,
+               asset: tr.creditAsset,
+               debit: 0,
+               credit: 0,
             }
+         }
+         this.balances[credit_bk].credit += credit_v
+
+
+         if (fee) {
+            const bk_ether = `${tr.txFeeAccount}_Ether`
+            if (!xx.isDefined(this.balances[bk_ether])) {
+               this.balances[bk_ether] = {
+                  addr: tr.txFeeAccount,
+                  asset: "Ether",
+                  debit: 0,
+                  credit: 0,
+               }
+            }
+            this.balances[bk_ether].credit += fee
          }
       })
-      Object.keys(this.balances).forEach(id => {
-         lines.push({
-            addr:this.balances[id].addr,
-            asset:this.balances[id].asset,
-            debit: this.balances[id].debit.toString().replace('.', this.decimalSeparator),
-            credit: this.balances[id].credit.toString().replace('.', this.decimalSeparator),
-            balance: (parseFloat(this.balances[id].debit) - parseFloat(this.balances[id].credit)).toString().replace('.', this.decimalSeparator)
-         })
-      })
 
+      const decimalSeparator = this.memdb.get("decimalSeparator").value()
+
+      Object.keys(this.balances).forEach(k => {
+         this.balances[k].balance = this.balances[k].debit - this.balances[k].credit
+         if (this.balances[k].balance !== 0 && inputAddrs.includes(this.balances[k].addr)) {
+            lines.push(Object.assign({}, this.balances[k], {
+               credit: this.balances[k].credit.toString().replace('.', decimalSeparator),
+               debit: this.balances[k].debit.toString().replace('.', decimalSeparator),
+               balance: this.balances[k].balance.toString().replace('.', decimalSeparator),
+            }))
+         }
+      })
       await csvWriter.writeRecords(lines)
-      //fs.writeFileSync(outputFileBase + '.json', xx.prettyJSON(this.balances))
+      fs.writeFileSync(outputFileBase + '.json', xx.prettyJSON(this.balances))
 
       return {
          err: null,
@@ -147,17 +155,19 @@ class ExportEtherTxs
    {
       let json = []
       const txs = this.memdb.get("txs").sortBy("timeStamp").value()
+      const utcOffsetMinutes = this.memdb.get("utcOffsetMinutes").value()
+      const computisClientId = this.memdb.get("computisClientId").value()
       txs.forEach(txd => {
          txd.transfers.forEach(tr => {
             json.push(Object.assign({}, {
-               datetime: xx.moment(txd.timeStamp, "X").utcOffset(opt.utcOffsetMinutes).format("YYYY-MM-DDTHH:mm:ss") + 'Z',
-               clientId: this.defaults.clientId,
-               "debitAccount": "",
-               "debitAsset": "",
-               "debitAmount": "",
+               datetime: xx.moment(txd.timeStamp, "X").utcOffset(utcOffsetMinutes).format("YYYY-MM-DDTHH:mm:ss") + 'Z',
+               clientId: computisClientId,
                "creditAccount": "",
                "creditAsset": "",
                "creditAmount": "",
+               "debitAccount": "",
+               "debitAsset": "",
+               "debitAmount": "",
                "txFeeAccount": "",
                "txFeeAsset": "",
                "txFeeAmount": "",
@@ -190,38 +200,36 @@ class ExportEtherTxs
             {id: "txHash", title: "txHash"},
             {id: "etherscanUrl", title: "EtherscanUrl"},
             {id: "txType", title: "txType"},
-            {id: "debitAsset", title: "debitAsset"},
-            {id: "debitAmount", title: "debitAmount"},
-            {id: "creditAsset", title: "creditAsset"},
             {id: "creditAmount", title: "creditAmount"},
-            {id: "txFeeAccount", title: "txFeeAccount"},
+            {id: "creditAsset", title: "creditAsset"},
+            {id: "debitAmount", title: "debitAmount"},
+            {id: "debitAsset", title: "debitAsset"},
+            {id: "memo", title: "Memo"},
+            {id: "creditAccount", title: "creditAccount"},
+            {id: "debitAccount", title: "debitAccount"},
             {id: "txFeeAsset", title: "txFeeAsset"},
             {id: "txFeeAmount", title: "txFeeAmount"},
-            {id: "memo", title: "Memo"},
-            // {id: "approxUsdAmount1", title: "FirstAsset Approx.USD Amount"},
-            // {id: "approxUsdAmount2", title: "SecondAsset Approx.USD Amount"},
-            // {id: "tokenPriceUSD", title: "Memo"},
-            {id: "debitAccount", title: "debitAccount"},
-            {id: "creditAccount", title: "creditAccount"},
             {id: "txFeeAccount", title: "txFeeAccount"},
-            {id: "timestamp", title: "timestamp"},
             {id: "dateTime", title: "dateTime"},
+            {id: "timestamp", title: "timestamp"},
          ],
          fieldDelimiter: ";"
       })
       let lines = []
       const txs = this.memdb.get("txs").sortBy("timeStamp").value()
+      const decimalSeparator = this.memdb.get("decimalSeparator").value()
+      const utcOffsetMinutes = this.memdb.get("utcOffsetMinutes").value()
       txs.forEach(async (txd) => {
          txd.transfers.forEach(async (tr) => {
-            Object.assign(tr, {
-               dateTime: xx.moment(txd.timeStamp, "X").utcOffset(opt.utcOffsetMinutes).format("YYYY-MM-DD\THH:mm:ss") + 'Z',
+            const rr = Object.assign({}, tr, {
+               dateTime: xx.moment(txd.timeStamp, "X").utcOffset(utcOffsetMinutes).format("YYYY-MM-DD\THH:mm:ss") + 'Z',
                timestamp: txd.timeStamp,
                etherscanUrl: `https://etherscan.io/tx/${tr.txHash}`,
-               debitAmount: tr.debitAmount.toString().replace('.', this.decimalSeparator),
-               creditAmount: tr.creditAmount.toString().replace('.', this.decimalSeparator),
-               txFeeAmount: tr.txFeeAmount.toString().replace('.', this.decimalSeparator),
+               debitAmount: tr.debitAmount.toString().replace('.', decimalSeparator),
+               creditAmount: tr.creditAmount.toString().replace('.', decimalSeparator),
+               txFeeAmount: tr.txFeeAmount.toString().replace('.', decimalSeparator),
             })
-            lines.push(tr)
+            lines.push(rr)
 
          })
       })
@@ -263,7 +271,7 @@ class ExportEtherTxs
    /**
     *
     * @param {string} inputFile
-    * @return {{err: Error, addrs: []}}
+    * @return {{err: Error, addr:[], decimalSeparator: number, computisClientId: string}}
     */
    loadConfFromFile(inputFile)
    {
@@ -279,25 +287,35 @@ class ExportEtherTxs
          .split(/[\n]/)
          .map(v => v.trim())
 
+      let utcOffsetMinutes = 0
+      let decimalSeparator = "."
+      let computisClientId = ""
       let addrs = []
       conf.forEach(v => {
          let res
-         res = v.match(/etheraddr[\s]*=[\s]*(0x[0-9a-z]+)/i)
-         if (res !== null) addrs.push(res[1])
-         res = v.match(/clientid[\s]*=[\s]*([0-9]+)/i)
-         if (res !== null) this.defaults.clientId = res[1]
-         res = v.match(/decimalseparator[\s]*=[\s]*([\.\,]{1})/i)
-         if (res !== null) this.decimalSeparator = res[1]
-         res = v.match(/lpdistrsymbol[\s]*=[\s]*(.+)/i)
-         if (res !== null) this.LPDistrSymbols.push(res[1].trim())
+         res = v.match(/^etheraddr[\s]*=[\s]*(0x[0-9a-z]+)/i)
+         if (res !== null) addrs.push(res[1].toLowerCase())
+         res = v.match(/^clientid[\s]*=[\s]*([0-9]+)/i)
+         if (res !== null) computisClientId = res[1]
+         res = v.match(/^decimalseparator[\s]*=[\s]*([\.\,]{1})/i)
+         if (res !== null) decimalSeparator = res[1]
+         res = v.match(/^utcoffsetminutes[\s]*=[\s]*([0-9]+)/i)
+         if (res !== null) utcOffsetMinutes = res[1] * 1
       })
       if (!addrs.length) return {err: new Error(`Ether addresses not found in "${inputFile}"`)}
-      if (!this.defaults.clientId) log.w(`clientId not found in "${inputFile}"`)
+      if (!computisClientId) log.w(`clientId not found in "${inputFile}"`)
+
+      this.memdb.set("inputAddresses", addrs).write()
+      this.memdb.set("utcOffsetMinutes", utcOffsetMinutes).write()
+      this.memdb.set("decimalSeparator", decimalSeparator).write()
+      this.memdb.set("computisClientId", computisClientId).write()
 
       return {
          res: null,
          addrs,
-         LPDistrSymbols: this.LPDistrSymbols
+         utcOffsetMinutes,
+         decimalSeparator,
+         computisClientId
       }
    }
 
@@ -307,108 +325,160 @@ class ExportEtherTxs
     * @param {[]} ethAddrList
     * @return {Object} result
     * @return {Error|null} result.err
-    * @return {Number} result.txCount               - total transactions for all eth addrs
+    * @return {Number} result.txCount
+    * @return {Number} result.tokenTxCount
+    * @return {Number} result.transfersCount
     */
    async retriveTxs(ethAddrList = [])
    {
-
+      if (ethAddrList.length) {
+         this.memdb.set("inputAddresses", ethAddrList).write()
+      }
+      else {
+         ethAddrList = this.memdb.get("inputAddresses").value()
+      }
+      this.memdb.set("txsraw", []).write()
       this.memdb.set("txs", []).write()
       this.memdb.set("trans", []).write()
+      const txsraw = this.memdb.get("txsraw")
       const memdb_txs = this.memdb.get("txs")
       const memdb_trans = this.memdb.get("trans")
 
 
       log(`Start data collection in ${opt.etherscanAccs.length} threads...`)
 
-      let totalTxs = 0, totalTransfers = 0
+      let totalTxs = 0, totalTransfers = 0, tokenTxCount = 0, txHashes = []
 
       for (let addr_i = 0; addr_i < ethAddrList.length; addr_i++) {
-         const ownAddress = ethAddrList[addr_i]
-
+         const inputAddress = ethAddrList[addr_i]
          // wait semaphore unblocking
          let acc = await etherscanAPI.takeAcc()
+
          // Start parallel task for each ethaddr
-         void async function (acc) {
+         void async function (acc, inputAddr) {
+
             // get all TXs for current ethaddr
             let qres = await etherscanAPI.getTxListByAddr({
                acc,
-               ethaddr: ownAddress,
+               ethaddr: inputAddr,
                sort: "desc"
             })
-            etherscanAPI.releaseAcc(acc)
+
             if (!qres.response.error && xx.isArray(qres.data.result)) {
-               for (let txline = 0; txline < qres.data.result.length; txline++) {
-                  const v = qres.data.result[txline]
-
-                  // wait semaphore unblocking
-                  let acc = await etherscanParser.takeAcc()
-                  // Start parallel task for each tx
-                  void async function (acc) {
-
-                     const txd = await etherscanParser.getDataFromTxPage(v.hash, {proxy: acc.v.proxy})
-                     etherscanParser.releaseAcc(acc)
-
-                     let txv = {
-                        txHash: v.hash,
-                        blockNumber: v.blockNumber,
-                        timeStamp: v.timeStamp * 1,
-                        dateTimeUTC: xx.tss2dt(v.timeStamp * 1),
-                        ownAddr: ownAddress,
-                        internal: true,
-                        contractAddressApi: v.contractAddress,
-                        gas: v.gas * 1,
-                        gasPrice: xx.toFixed(v.gasPrice / 1e9),
-                        gasUsed: v.gasUsed * 1,
-                        nonce: v.nonce * 1,
-                        isError: !!(v.isError * 1),
-                        txFee: txd.txFee,
-                        fromAddr: txd.from,
-                        toAddr: txd.to,
-                        fromName: txd.fromName,
-                        toName: txd.toName,
-                        etherValue: txd.etherValue,
-                        etherPriceUsd: txd.etherUsdPrice,
-                        tokenTrans: false,
-                     }
-                     if (txv.txFee !== txd.txFee) {
-                        log.w(`[getTXsFromFile]: api_tx_fee != html_tx_fee :: tx=${v.hash}`)
-                     }
-
-                     Object.assign(txv, txd)
-                     if (txd.tokens.length) txv.tokenTrans = true
-                     const transfs = this.getTxTransforms(txv)
-                     txv.transfers = transfs
-                     memdb_trans.push(...transfs).write()
-                     memdb_txs.push(txv).write()
+               for (let k = 0; k < qres.data.result.length; k++) {
+                  const v = qres.data.result[k]
+                  if (!txHashes.includes(v.hash)) {
+                     txsraw.push(v).write()
+                     txHashes.push(v.hash)
                      totalTxs++
-                     totalTransfers += transfs.length
-
-                  }.call(this, acc).catch(e => {
-                     log.t(`tx=${v.hash}`, e).flog()
-                     process.exit(-1)
-                  })
-
-
+                  }
                }
                if (qres.data.result.length >= 9998) {
-                  log.w(`The ETH address "${ownAddress}" has more than 10000 txs`).flog()
+                  log.w(`[ExportEtherTxs.retriveTxs]: getTxListByAddr: The ETH address "${inputAddr}" has more than 10000 txs`).flog()
                }
-               log(`${ownAddress} done. txs=${qres.data.result.length}`)
-
             }
             else {
-               log.e(`[ExportEtherTxs.loadTXsToCSV]: API ERROR for ETH address "${ownAddress}" (line ${addr_i + 1}) ::  code=${qres.response.errorCode}, message=${qres.response.errorMessage}, APIstatus=${qres.data.status ? qres.data.status : "---"}, APImessage=${qres.data.message ? qres.data.message : "---"}, APIResult=${qres.data.result ? qres.data.result : "---"} via ${qres.acc.viaHost}`).flog();
+               log.e(`[ExportEtherTxs.retriveTxs]: getTxListByAddr: API ERROR for ETH address "${inputAddr}" ::  code=${qres.response.errorCode}, message=${qres.response.errorMessage}, APIstatus=${qres.data.status ? qres.data.status : "---"}, APImessage=${qres.data.message ? qres.data.message : "---"}, APIResult=${qres.data.result ? qres.data.result : "---"} via ${qres.acc.viaHost}`).flog()
                process.exit(-2)
             }
 
-         }.call(this, acc).catch(e => {
-            log.t(`tx=${v.hash}`, e).flog()
+            // get all tokens TXs for current ethaddr
+            qres = await etherscanAPI.getTxTokenListByAddr({
+               acc,
+               ethaddr: inputAddr,
+               sort: "desc"
+            })
+
+            if (!qres.response.error && xx.isArray(qres.data.result)) {
+               for (let k = 0; k < qres.data.result.length; k++) {
+                  const v = qres.data.result[k]
+
+                  if (!txHashes.includes(v.hash)) {
+                     txsraw.push(v).write()
+                     tokenTxCount++
+                     totalTxs++
+                     txHashes.push(v.hash)
+                     //log.d(`[ExportEtherTxs.retriveTxs]: ttx="${v.hash}"`).flog()
+                  }
+               }
+               if (qres.data.result.length >= 9998) {
+                  log.w(`[ExportEtherTxs.retriveTxs]: getTxTokenListByAddr: The ETH address "${inputAddr}" has more than 10000 txs`).flog()
+               }
+            }
+            else {
+               log.e(`[ExportEtherTxs.retriveTxs]: getTxTokenListByAddr: API ERROR for ETH address "${inputAddr}" ::  code=${qres.response.errorCode}, message=${qres.response.errorMessage}, APIstatus=${qres.data.status ? qres.data.status : "---"}, APImessage=${qres.data.message ? qres.data.message : "---"}, APIResult=${qres.data.result ? qres.data.result : "---"} via ${qres.acc.viaHost}`).flog()
+               process.exit(-3)
+            }
+
+            etherscanAPI.releaseAcc(acc)
+
+
+         }.call(this, acc, inputAddress).catch(e => {
+            log.t(`EEE[inputAddress="${inputAddress}"]`, e).flog()
             process.exit(-1)
          })
+
+
       }
 
       // Wait while all account queries will be done
-      for (; etherscanAPI.someTaskInProgress() || etherscanParser.someTaskInProgress();) {
+      for (; etherscanAPI.someTaskInProgress();) {
+         await xx.timeoutAsync(50)
+      }
+
+      // parse html Tx data
+      const txs = txsraw.sortBy("timeStamp").value()
+      for (let txi = 0; txi < txs.length; txi++) {
+         const txraw = txs[txi]
+
+
+         // wait semaphore unblocking
+         let acc = await etherscanParser.takeAcc()
+
+         // Start parallel task for each tx
+         void async function (acc, txraw) {
+            const txd = await etherscanParser.getDataFromTxPage(txraw.hash, acc.__opts)
+            etherscanParser.releaseAcc(acc)
+
+            let txv = {
+               txHash: txraw.hash,
+               blockNumber: txraw.blockNumber,
+               timeStamp: txraw.timeStamp * 1,
+               dateTimeUTC: xx.tss2dt(txraw.timeStamp * 1),
+               contractAddressApi: txraw.contractAddress,
+               gas: txraw.gas * 1,
+               gasPrice: xx.toFixed(txraw.gasPrice / 1e9),
+               gasUsed: txraw.gasUsed * 1,
+               nonce: txraw.nonce * 1,
+               isError: txraw.isError ? !!(txraw.isError * 1) : false,
+               txFee: txd.txFee,
+               fromAddr: txd.from,
+               toAddr: txd.to,
+               fromName: txd.fromName,
+               toName: txd.toName,
+               etherValue: txd.etherValue,
+               etherUsdPrice: txd.etherUsdPrice,
+            }
+
+            Object.assign(txv, txd)
+            const transfs = this.getTxTransforms(txv)
+            txv.transfers = transfs
+            memdb_trans.push(...transfs).write()
+            memdb_txs.push(txv).write()
+
+            totalTransfers += transfs.length
+
+         }.call(this, acc, txraw).catch(e => {
+            log.t(`tx="${txraw.hash}"`, e).flog()
+            process.exit(-1)
+         })
+
+
+      }
+
+
+      // Wait while all account queries will be done
+      for (; etherscanParser.someTaskInProgress();) {
          await xx.timeoutAsync(50)
       }
 
@@ -417,9 +487,11 @@ class ExportEtherTxs
       return {
          err: null,
          txCount: totalTxs,
+         tokenTxCount: tokenTxCount,
          transfersCount: totalTransfers,
       }
    }
+
 
    /**
     * return array index if from[own] higher then to[own]
@@ -429,11 +501,14 @@ class ExportEtherTxs
     */
    getPosSwapTokens(txrow)
    {
-
+      const inputAddrs = this.memdb.get("inputAddresses").value()
       for (let k = 0; k < txrow.tokens.length - 1; k++) {
-         if (txrow.tokens[k].from.addr === txrow.ownAddr && !this.LPDistrSymbols.includes(txrow.tokens[k].for.symbol)) {
+         if (inputAddrs.includes(txrow.tokens[k].from.addr)) {
             for (let j = k + 1; j < txrow.tokens.length; j++) {
-               if (txrow.tokens[j].to.addr === txrow.ownAddr && txrow.tokens[k].to.addr === txrow.tokens[j].from.addr && !this.LPDistrSymbols.includes(txrow.tokens[j].for.symbol)) return [k, j]
+               if (inputAddrs.includes(txrow.tokens[j].to.addr) && txrow.tokens[k].to.addr === txrow.tokens[j].from.addr) return [k, j]
+               //
+               // Checking to.addr !== from.addr but seems like swap this https://etherscan.io/tx/0x3edf8395c89c3903bd625865462e1dc0d20b6170556d105b116e7506157a7372
+               // to.addr === from.addr  here https://etherscan.io/tx/0x7fc71b0a603d51cbc6cb457dd1e343a6a408d201c1380267d21302c6c14eff32
             }
          }
       }
@@ -449,9 +524,10 @@ class ExportEtherTxs
     */
    getPosOwnFromTokens(txrow)
    {
+      const inputAddrs = this.memdb.get("inputAddresses").value()
       let res = []
       for (let k in txrow.tokens) {
-         if (txrow.tokens[k].from.addr === txrow.ownAddr && !this.LPDistrSymbols.includes(txrow.tokens[k].for.symbol)) res.push(k)
+         if (inputAddrs.includes(txrow.tokens[k].from.addr)) res.push(k)
       }
       return res
    }
@@ -464,9 +540,10 @@ class ExportEtherTxs
     */
    getPosOwnToTokens(txrow)
    {
+      const inputAddrs = this.memdb.get("inputAddresses").value()
       let res = []
       for (let k in txrow.tokens) {
-         if (txrow.tokens[k].to.addr === txrow.ownAddr && !this.LPDistrSymbols.includes(txrow.tokens[k].for.symbol)) res.push(k)
+         if (inputAddrs.includes(txrow.tokens[k].to.addr)) res.push(k)
       }
       return res
    }
@@ -475,29 +552,17 @@ class ExportEtherTxs
    /**
     *
     * @param {TxTranserTypes} txrow
-    * @return {array}
+    * @return {[]}
     */
-   getPosOwnFromLP(txrow)
+   getPosOwnFromInternalTxs(txrow)
    {
+      const inputAddrs = this.memdb.get("inputAddresses").value()
       let res = []
-      for (let k in txrow.tokens) {
-         if (txrow.tokens[k].from.addr === txrow.ownAddr && this.LPDistrSymbols.includes(txrow.tokens[k].for.symbol)) res.push(k)
+      for (let k in txrow.internalTxs) {
+         if (inputAddrs.includes(txrow.internalTxs[k].toAddr)) res.push(k)
       }
       return res
-   }
 
-   /**
-    *
-    * @param {TxTranserTypes} txrow
-    * @return {array}
-    */
-   getPosOwnToLP(txrow)
-   {
-      let res = []
-      for (let k in txrow.tokens) {
-         if (txrow.tokens[k].to.addr === txrow.ownAddr && this.LPDistrSymbols.includes(txrow.tokens[k].for.symbol)) res.push(k)
-      }
-      return res
    }
 
    /**
@@ -507,7 +572,8 @@ class ExportEtherTxs
     */
    getTxTransforms(txrow)
    {
-      if (!xx.isDefined(txrow.ownAddr)) throw new Error(`[ExportEtherTxs.getTxTransforms]: property "ownAddr" not defined `)
+      const inputAddrs = this.memdb.get("inputAddresses").value()
+      if (!inputAddrs) throw new Error(`[ExportEtherTxs.getTxTransforms]: input addresses not defined`)
       let entry = {
          txHash: txrow.txHash,
          txType: "",
@@ -523,36 +589,43 @@ class ExportEtherTxs
          memo: "",
       }
       let res = []
-      let feePushed = false
+
+      const fromAddrIsOwn = inputAddrs.includes(txrow.fromAddr)
+      const toAddrIsOwn = inputAddrs.includes(txrow.toAddr)
 
       // fail tx || no tokens && zero ether value && have fee
-      if (txrow.isError || !txrow.etherValue && !txrow.tokens.length && txrow.txFee) {
-         res.push(Object.assign(entry, {
-            txType: txTranserTypes.FEE,
-            creditAsset: "Ether",
-            creditAccount: txrow.ownAddr,
-            creditAmount: 0,
-            debitAccount: "",
-            debitAsset: "",
-            debitAmount: 0,
-            memo: txrow.isError ? "Loss on fail transaction" : (txrow.memo.length ? txrow.memo.join(", ") : "")
-         }))
+      if (txrow.isError) {
+         if (txrow.txFee && fromAddrIsOwn) {
+            res.push(Object.assign(entry, {
+               txType: txTranserTypes.FEE,
+               creditAsset: "Ether",
+               creditAccount: txrow.fromAddr,
+               creditAmount: 0,
+               debitAccount: "",
+               debitAsset: "",
+               debitAmount: 0,
+               memo: txrow.isError ? "Loss on fail transaction" : (txrow.memo.length ? txrow.memo.join(", ") : "")
+            }))
+         }
+         else {
+            log.e(`[ExportEtherTxs.getTxTransforms]: EE[8] fail TX misses :: tx="${txrow.txHash}"`).flog()
+         }
       }
 
       // without tokens
-      else if (!txrow.tokenTrans && txrow.etherValue) {
+      else if (!txrow.tokens.length) {
          // deposit/withdrawal
          if (txrow.etherValue) {
-            if (txrow.ownAddr === txrow.fromAddr) {
+            if (fromAddrIsOwn) {
                res.push(Object.assign(entry, {
                   txType: txTranserTypes.WITHDRAWAL,
-                  creditAccount: txrow.ownAddr,
+                  creditAccount: txrow.fromAddr,
                   creditAsset: "Ether",
                   creditAmount: txrow.etherValue,
                   debitAccount: txrow.toAddr + (txrow.toName ? ` (${txrow.toName})` : ""),
                   debitAsset: "Ether",
                   debitAmount: txrow.etherValue,
-                  memo: txrow.memo.length ? txrow.memo.join(", ") : ""
+                  memo: txrow.memo.length ? txrow.memo.join(", ") : `Withdrawal ${txrow.etherValue} Ether To ${txrow.toName ? txrow.toName : txrow.toAddr}`
                }))
             }
             else {
@@ -561,10 +634,10 @@ class ExportEtherTxs
                   creditAccount: txrow.fromAddr + (txrow.fromName ? ` (${txrow.fromName})` : ""),
                   creditAsset: "Ether",
                   creditAmount: txrow.etherValue,
-                  debitAccount: txrow.ownAddr,
+                  debitAccount: txrow.toAddr,
                   debitAsset: "Ether",
                   debitAmount: txrow.etherValue,
-                  memo: txrow.memo.length ? txrow.memo.join(", ") : ""
+                  memo: txrow.memo.length ? txrow.memo.join(", ") : `Deposit ${txrow.etherValue} Ether From ${txrow.fromName ? txrow.fromName : txrow.fromAddr}`
                }))
             }
          }
@@ -573,162 +646,130 @@ class ExportEtherTxs
       // With token transfers
       else {
 
-         // have events block
-         if (txrow.events.length) {
-            txrow.events.forEach((v, k) => {
-               if (v.type === "swap") {
-                  res.push(Object.assign({}, entry, {
-                     txType: txTranserTypes.TRADE,
-                     creditAccount: txrow.ownAddr,
-                     creditAsset: v.fromName,
-                     creditAmount: v.fromValue,
-                     debitAccount: txrow.ownAddr,
-                     debitAsset: v.toName,
-                     debitAmount: v.toValue,
-                     memo: `Swap ${v.fromValue} ${v.fromName} for ${v.toValue} ${v.toName} on ${v.on}`
-                  }))
-               }
-               else {
-                  log.e(`[ExportEtherTxs.getTxTransforms]: EE[1] unknown Event.Type "${v.type}"  for tx="${txrow.txHash}"`).flog()
-               }
-            })
+         // Swap operation
+         //const [posFrom, posTo] = this.getPosSwapTokens(txrow)
+         if (false && posFrom !== false && posTo !== false) {
+
+            /*
+                        // trade token=>token
+                        if (posFrom < posTo) {
+                           if (txrow.tokens[posFrom].for.value && txrow.tokens[posTo].for.value) {
+                              res.push(Object.assign({}, entry, {
+                                 txType: txTranserTypes.TRADE,
+                                 creditAccount: txrow.tokens[posFrom].from.addr,
+                                 creditAsset: txrow.tokens[posFrom].for.symbol,
+                                 creditAmount: txrow.tokens[posFrom].for.value,
+                                 debitAccount: txrow.tokens[posFrom].to.addr,
+                                 debitAsset: txrow.tokens[posTo].for.symbol,
+                                 debitAmount: txrow.tokens[posTo].for.value,
+                                 memo: `Swap ${txrow.tokens[posFrom].for.value} ${txrow.tokens[posFrom].for.symbol} for ${txrow.tokens[posTo].for.value} ${txrow.tokens[posTo].for.symbol}`
+                              }))
+                           }
+                           else {
+                              log.e(`[ExportEtherTxs.getTxTransforms]: EE[2] zero sum operation :: tx="${txrow.txHash}"`).flog()
+                           }
+                        }
+            */
          }
 
-         // haven't events block => look at tokens block
          else {
 
-            const [posFrom, posTo] = this.getPosSwapTokens(txrow)
+            const [posFrom, posTo] = [this.getPosOwnFromTokens(txrow), this.getPosOwnToTokens(txrow)]
 
-
-            if (posFrom !== false && posTo !== false) {
-
-               // trade token=>token
-               //ex. https://etherscan.io/tx/0x7fc71b0a603d51cbc6cb457dd1e343a6a408d201c1380267d21302c6c14eff32
-               if (posFrom < posTo) {
-                  if (txrow.tokens[posFrom].for.value && txrow.tokens[posTo].for.value) {
-                     res.push(Object.assign({}, entry, {
-                        txType: txTranserTypes.TRADE,
-                        creditAccount: txrow.ownAddr,
-                        creditAsset: txrow.tokens[posFrom].for.symbol,
-                        creditAmount: txrow.tokens[posFrom].for.value,
-                        debitAccount: txrow.ownAddr,
-                        debitAsset: txrow.tokens[posTo].for.symbol,
-                        debitAmount: txrow.tokens[posTo].for.value,
-                        memo: `Swap ${txrow.tokens[posFrom].for.value} ${txrow.tokens[posFrom].for.symbol} for ${txrow.tokens[posTo].for.value} ${txrow.tokens[posTo].for.symbol}`
-                     }))
-                  }
-                  else {
-                     log.e(`[ExportEtherTxs.getTxTransforms]: EE[2] zero sum operation :: tx="${txrow.txHash}"`).flog()
-                  }
+            posFrom.forEach(k => {
+               if (txrow.tokens[k].for.value) {
+                  res.push(Object.assign({}, entry, {
+                     txType: txTranserTypes.WITHDRAWAL,
+                     creditAccount: txrow.tokens[k].from.addr,
+                     creditAsset: txrow.tokens[k].for.symbol,
+                     creditAmount: txrow.tokens[k].for.value,
+                     debitAccount: `${txrow.tokens[k].to.addr} ${txrow.tokens[k].to.name ? `(${txrow.tokens[k].to.name})` : ""}`.trim(),
+                     debitAsset: txrow.tokens[k].for.symbol,
+                     debitAmount: txrow.tokens[k].for.value,
+                     memo: `Withdrawal ${txrow.tokens[k].for.value} ${txrow.tokens[k].for.symbol} To ${txrow.tokens[k].to.name ? txrow.tokens[k].to.name : txrow.tokens[k].to.addr}`.trim()
+                  }))
                }
-            }
+            })
 
-            else {
-
-               const [posFrom, posTo] = [this.getPosOwnFromTokens(txrow), this.getPosOwnToTokens(txrow)]
-
-               posFrom.forEach(k => {
-                  if (txrow.tokens[k].for.value) {
-                     res.push(Object.assign({}, entry, {
-                        txType: txTranserTypes.WITHDRAWAL,
-                        creditAccount: txrow.ownAddr,
-                        creditAsset: txrow.tokens[k].for.symbol,
-                        creditAmount: txrow.tokens[k].for.value,
-                        debitAccount: `${txrow.tokens[k].to.addr} ${txrow.tokens[k].to.name ? `(${txrow.tokens[k].to.name})` : ""}`.trim(),
-                        debitAsset: txrow.tokens[k].for.symbol,
-                        debitAmount: txrow.tokens[k].for.value,
-                        memo: `Withdrawal ${txrow.tokens[k].for.value} ${txrow.tokens[k].for.symbol} ${txrow.tokens[k].to.name ? `to ${txrow.tokens[k].to.name}` : ""}`.trim()
-                     }))
-                  }
-                  else {
-                     log.e(`[ExportEtherTxs.getTxTransforms]: EE[3] zero sum operation :: tx="${txrow.txHash}"`).flog()
-                  }
-               })
-
-               posTo.forEach(k => {
-                  if (txrow.tokens[k].for.value) {
-                     res.push(Object.assign({}, entry, {
-                        txType: txTranserTypes.DEPOSIT,
-                        creditAccount: `${txrow.tokens[k].from.addr} ${txrow.tokens[k].from.name ? `(${txrow.tokens[k].from.name})` : ""}`.trim(),
-                        creditAsset: txrow.tokens[k].for.symbol,
-                        creditAmount: txrow.tokens[k].for.value,
-                        debitAccount: txrow.ownAddr,
-                        debitAsset: txrow.tokens[k].for.symbol,
-                        debitAmount: txrow.tokens[k].for.value,
-                        memo: `Deposit ${txrow.tokens[k].for.value} ${txrow.tokens[k].for.symbol} ${txrow.tokens[k].from.name ? `from ${txrow.tokens[k].from.name}` : ""}`.trim()
-                     }))
-                  }
-                  else {
-                     log.e(`[ExportEtherTxs.getTxTransforms]: EE[4] zero sum operation :: tx="${txrow.txHash}"`).flog()
-                  }
-               })
-
-            }
+            posTo.forEach(k => {
+               if (txrow.tokens[k].for.value) {
+                  res.push(Object.assign({}, entry, {
+                     txType: txTranserTypes.DEPOSIT,
+                     creditAccount: `${txrow.tokens[k].from.addr} ${txrow.tokens[k].from.name ? `(${txrow.tokens[k].from.name})` : ""}`.trim(),
+                     creditAsset: txrow.tokens[k].for.symbol,
+                     creditAmount: txrow.tokens[k].for.value,
+                     debitAccount: txrow.tokens[k].to.addr,
+                     debitAsset: txrow.tokens[k].for.symbol,
+                     debitAmount: txrow.tokens[k].for.value,
+                     memo: `Deposit ${txrow.tokens[k].for.value} ${txrow.tokens[k].for.symbol} From ${txrow.tokens[k].from.name ? txrow.tokens[k].from.name : txrow.tokens[k].from.addr}`.trim()
+                  }))
+               }
+            })
 
          }
 
-         // check for LP token transfers / value can be equal to zero
-         const lpPosFrom = this.getPosOwnFromLP(txrow)
-         const lpPosTo = this.getPosOwnToLP(txrow)
-
-         // stake == withdrawal
-         lpPosFrom.forEach(k => {
-            if (txrow.tokens[k].for.value) {
-               res.push(Object.assign({}, entry, {
-                  txType: txTranserTypes.WITHDRAWAL,
-                  creditAccount: txrow.ownAddr,
-                  creditAsset: txrow.tokens[k].for.symbol,
-                  creditAmount: txrow.tokens[k].for.value,
-                  debitAccount: `${txrow.tokens[k].to.addr} ${txrow.tokens[k].to.name ? `(${txrow.tokens[k].to.name})` : ""}`.trim(),
-                  debitAsset: txrow.tokens[k].for.symbol,
-                  debitAmount: txrow.tokens[k].for.value,
-                  memo: `Stake ${txrow.tokens[k].for.value} LP tokens ${txrow.tokens[k].for.symbol}`
-               }))
-            }
-         })
-
-         // unstake == deposit
-         lpPosTo.forEach(k => {
-            if (txrow.tokens[k].for.value) {
-               res.push(Object.assign({}, entry, {
-                  txType: txTranserTypes.DEPOSIT,
-                  creditAccount: `${txrow.tokens[k].from.addr} ${txrow.tokens[k].from.name ? `(${txrow.tokens[k].from.name})` : ""}`.trim(),
-                  creditAsset: txrow.tokens[k].for.symbol,
-                  creditAmount: txrow.tokens[k].for.value,
-                  debitAccount: txrow.ownAddr,
-                  debitAsset: txrow.tokens[k].for.symbol,
-                  debitAmount: txrow.tokens[k].for.value,
-                  memo: `UnStake ${txrow.tokens[k].for.value} LP tokens ${txrow.tokens[k].for.symbol}`
-               }))
-            }
-         })
-
-         // zero sum && and no other transfers
-         if ((lpPosFrom !== false || lpPosTo !== false) && !res.length) {
-            res.push(Object.assign(entry, {
-               txType: txTranserTypes.FEE,
+         // send Ether to other
+         if (txrow.etherValue) {
+            res.push(Object.assign({}, entry, {
+               txType: txTranserTypes.WITHDRAWAL,
+               creditAccount: txrow.fromAddr,
                creditAsset: "Ether",
-               creditAccount: txrow.ownAddr,
-               creditAmount: 0,
-               debitAccount: "",
-               debitAsset: "",
-               debitAmount: 0,
-               txFeeAccount: txrow.ownAddr,
-               txFeeAsset: "Ether",
-               txFeeAmount: txrow.txFee,
-               memo: ""
+               creditAmount: txrow.etherValue,
+               debitAccount: `${txrow.toAddr} ${txrow.toName ? `(${txrow.toName})` : ""}`.trim(),
+               debitAsset: "Ether",
+               debitAmount: txrow.etherValue,
+               memo: `Withdrawal ${txrow.etherValue} Ether To ${txrow.toName ? txrow.toName : txrow.toAddr}`
             }))
-            feePushed = true
+         }
+         // could be Ether receiving
+         else {
+            const ownFrom = this.getPosOwnFromInternalTxs(txrow)
+            if (ownFrom.length) {
+               ownFrom.forEach(k => {
+                  const trx = txrow.internalTxs[k]
+                  res.push(Object.assign({}, entry, {
+                     txType: txTranserTypes.DEPOSIT,
+                     creditAccount: `${trx.fromAddr} ${trx.fromName ? `(${trx.fromName})` : ""}`,
+                     creditAsset: "Ether",
+                     creditAmount: trx.etherValue,
+                     debitAccount: trx.toAddr,
+                     debitAsset: "Ether",
+                     debitAmount: trx.etherValue,
+                     memo: `Deposit  ${txrow.etherValue} Ether From ${trx.fromName ? trx.fromName : trx.fromAddr}`
+                  }))
+               })
+            }
          }
 
+         if (!res.length) {
+            log.w(`[ExportEtherTxs.getTxTransforms]: No transforms for token list :: tx="${txrow.txHash}"`).flog()
+         }
       }
 
-      if (res.length && !feePushed) {
-         res[0].txFeeAccount = txrow.ownAddr
+      // zero sum && and no other transfers
+      if (!res.length && txrow.txFee && fromAddrIsOwn) {
+         res.push(Object.assign(entry, {
+            txType: txTranserTypes.FEE,
+            creditAsset: "Ether",
+            creditAccount: txrow.fromAddr,
+            creditAmount: 0,
+            debitAccount: "",
+            debitAsset: "",
+            debitAmount: 0,
+            txFeeAccount: txrow.fromAddr,
+            txFeeAsset: "Ether",
+            txFeeAmount: txrow.txFee,
+            memo: txrow.memo ? txrow.memo : "?11"
+         }))
+      }
+
+      else if (txrow.txFee && res.length && fromAddrIsOwn) {
+         res[0].txFeeAccount = txrow.fromAddr
          res[0].txFeeAsset = "Ether"
          res[0].txFeeAmount = txrow.txFee
       }
-      else {
+
+      if (!res.length) {
          log.e(`[ExportEtherTxs.getTxTransforms]: EE[5] no entries for tx="${txrow.txHash}"`).flog()
       }
 

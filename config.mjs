@@ -29,7 +29,4 @@ export default {
    flogMaxLines: 30000,
 
 
-   // UTC+-[this value] in minutes.  Set it for your geo location. For ex.: New York = -320, Moscow = 180
-   utcOffsetMinutes: 180,
-
 }

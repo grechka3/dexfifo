@@ -16,7 +16,6 @@ import cheerio from "cheerio"
  *    @property {string} txHash
  *    @property {number} pos
  *    @property {number} timeStamp
- *    @property {string} ownAddr
  *    @property {number} txFee
  *    @property {boolean} isError
  *    @property {string} fromAddr
@@ -24,8 +23,7 @@ import cheerio from "cheerio"
  *    @property {string} fromName
  *    @property {string} toName
  *    @property {number} etherValue
- *    @property {number} etherPriceUsd
- *    @property {boolean} tokenTrans
+ *    @property {number} etherUsdPrice
  *    @property {[string]} memo
  *    @property {[Object]} tokens
  *    @property {Object} tokens.from
@@ -58,6 +56,12 @@ import cheerio from "cheerio"
  *    @property {string} transfers.debitAccount
  *    @property {string} transfers.creditAccount
  *    @property {string} transfers.txFeeAccount
+ *    @property {[object]} internalTxs
+ *    @property {number} internalTxs.etherValue
+ *    @property {string} internalTxs.fromName
+ *    @property {string} internalTxs.fromAddr
+ *    @property {string} internalTxs.toName
+ *    @property {string} internalTxs.toAddr
  * }
 
  */
@@ -101,7 +105,7 @@ class EtherscanParser
     */
    async getDataFromTxPage(txhash, requestOpts = {})
    {
-      if (this.debug) log.d(`[EtherscanParser.getDataFromTxPage]: start tx="${txhash}" via '${requestOpts.proxy ? requestOpts.proxy : "localhost"}'`)
+      if (this.debug) log.d(`[EtherscanParser.getDataFromTxPage]: start tx="${txhash.substr(0, 10)}" via '${requestOpts.proxy ? requestOpts.proxy.match(/@([a-z0-9\.]+)/i)[1] : "localhost"}'`)
       const url = `https://etherscan.io/tx/${txhash}`
       const options = Object.assign({}, this.queryDefaults, requestOpts)
       let res = await request.get(url, options)
@@ -110,11 +114,11 @@ class EtherscanParser
       res = {}
       let $tmp
       res.etherValue = $(`#ContentPlaceHolder1_spanValue > span `).text().match(/([0-9\.\,]+)/)
-      res.etherValue = null === res.etherValue ? -1 : res.etherValue[1] * 1
-      res.etherUsdPrice = $(`#ContentPlaceHolder1_spanClosingPrice`).html().match(/([0-9\.]+)/)
-      res.etherUsdPrice = null === res.etherUsdPrice ? -1 : res.etherUsdPrice[1] * 1
+      res.etherValue = null === res.etherValue ? null : res.etherValue[1] * 1
+      res.etherUsdPrice = $(`#ContentPlaceHolder1_spanClosingPrice`).html()
+      res.etherUsdPrice = null === res.etherUsdPrice ? null : res.etherUsdPrice.match(/([0-9\.]+)/)[1] * 1
       res.txFee = $(`#ContentPlaceHolder1_spanTxFee > span`).text().match(/([0-9\.]+)/)
-      res.txFee = null === res.txFee ? -1 : res.txFee[1] * 1
+      res.txFee = null === res.txFee ? null : res.txFee[1] * 1
 
       const $addressCopy = $(`#addressCopy`)
       res.from = $addressCopy.text()
@@ -126,6 +130,33 @@ class EtherscanParser
       res.to = $contractCopy.text()
       res.toName = $contractCopy.siblings("span.mr-1").text().replace(/[\(\)]/g, "")
 
+      res.internalTxs = []
+      $tmp = $contractCopy.parent().find('ul#wrapperContent li')
+      if ($tmp.length) {
+         $tmp.each((k, li) => {
+            let trans = {
+               etherValue: null,
+               fromAddr: null,
+               fromName: null,
+               toAddr: null,
+               toName: null,
+            }
+            let row = $(li).text().match(/TRANSFER[\s]*([0-9.]+)[\s]*Ether/i)
+            if (row !== null) {
+               trans.etherValue = row[1] * 1
+               const aa = $(li).find(`a`)
+               if (aa.length === 2) {
+                  trans.fromName = $(aa[0]).text()
+                  trans.fromAddr = $(aa[0]).attr("href").match(/(0x[0-9a-z]+)/i)[1]
+                  trans.toName = $(aa[1]).text()
+                  trans.toAddr = $(aa[1]).attr("href").match(/(0x[0-9a-z]+)/i)[1]
+               }
+
+               res.internalTxs.push(trans)
+            }
+
+         })
+      }
 
       res.tokens = []
       $tmp = $(`.row i[data-content*="token transferred"]`)
@@ -163,7 +194,10 @@ class EtherscanParser
             if (vv) token.for.symbol = vv[1]
             $tmp = $($cols[5]).find(`[data-original-title]`)
             if ($tmp.length) {
-               token.for.currentPriceUsd = $($cols[5]).find(`[data-original-title]`).attr(`data-original-title`).match(/\$([0-9\.]+)/)[1] * 1
+               vv = $tmp.attr(`data-original-title`).match(/\$([0-9\.]+)/)
+               token.for.currentPriceUsd = vv ? vv[1] * 1 : 0
+            } else {
+               token.for.currentPriceUsd = 0
             }
 
             res.tokens.push(token)
@@ -199,7 +233,7 @@ class EtherscanParser
       }
 
 
-      if (this.debug) log.d(`[EtherParser.getDataFromTxPage]: finish tx=${txhash.substr(0, 10)} via '${requestOpts.proxy || "localhost"}'`)
+      if (this.debug) log.d(`[EtherParser.getDataFromTxPage]: finish tx="${txhash.substr(0, 10)}..." via '${requestOpts.proxy ? requestOpts.proxy.match(/@([a-z0-9\.]+)/i)[1] : "localhost"}'`)
 
       return res
    }

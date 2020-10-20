@@ -10,9 +10,14 @@
   "scripts": {
     "jest": "npx jest",
     "jsdoc": "npx jsdoc -c jsdoc.json && npx nodemon --watch backend/ --watch jsdoc.json --watch README.md --exec npx jsdoc -c jsdoc.json",
-    "exporttx": "npx babel-node bin/export-tx.mjs -i data/conf.txt -o data/exported",
-    "exporttx-vlad": "npx babel-node bin/export-tx.mjs -i data/vladconf.txt -o data/vlad",
-    "exporttx-vlad-debug": "npx babel-node bin/export-tx.mjs --debug -i data/vladconf.txt -o data/vlad"
+    "exporttx": "npx babel-node bin/export-tx.mjs -i data/input.conf -o data/exported",
+    "exporttx-debug": "npx babel-node bin/export-tx.mjs --debug -i data/input.conf -o data/exported",
+    "exporttx-vlad": "npx babel-node bin/export-tx.mjs -i data/vladconf.conf -o data/vlad",
+    "exporttx-vlad-debug": "npx babel-node bin/export-tx.mjs --debug -i data/vladconf.conf -o data/vladconf",
+    "exporttx-piv": "npx babel-node bin/export-tx.mjs -i data/piv.conf -o data/piv",
+    "exporttx-piv-debug": "npx babel-node bin/export-tx.mjs --debug -i data/piv.conf -o data/piv",
+    "exporttx-testdex": "npx babel-node bin/export-tx.mjs -i data/testdex.conf -o data/testdex",
+    "exporttx-testdex-debug": "npx babel-node bin/export-tx.mjs --debug -i data/testdex.conf -o data/testdex"
   },
   "author": "",
   "license": "ISC",

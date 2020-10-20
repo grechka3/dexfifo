@@ -5,3 +5,4 @@ LPDistrSymbol=UNI-V2
 LPDistrSymbol=SLP
 ClientID = 11111
 DecimalSeparator=,
+TokenRouter=Uniswap V2: Router 2

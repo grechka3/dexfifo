@@ -17,7 +17,6 @@ describe("[[ TRANSFER ASSETS ]]", () => {
 
    const getETX = (tx) => etx.memdb.get("txs").filter({txHash: tx}).value()[0]
 
-
    test("db loaded", () => {
       expect(etx.memdb.get("txs").size().value()).toBeGreaterThan(1)
    })
@@ -536,6 +535,29 @@ describe("[[ TRANSFER ASSETS ]]", () => {
    })
 
    test("no swap actions / no events / no tokens /  LP token zero sum => fee", () => {
+      const tx = "0x3384084648e2a4372a27c9a8587ecb347fcd7fc8e1118180821e36701b69a29a"
+      expect(etx.getTxTransforms(getETX(tx))).toMatchObject(
+         [
+            {
+               txHash: '0x3384084648e2a4372a27c9a8587ecb347fcd7fc8e1118180821e36701b69a29a',
+               txType: 'Fee',
+               creditAccount: '0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085',
+               creditAsset: 'Ether',
+               creditAmount: 0,
+               debitAccount: '',
+               debitAsset: '',
+               debitAmount: 0,
+               txFeeAccount: '0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085',
+               txFeeAsset: 'Ether',
+               txFeeAmount: 0.014409326,
+               memo: ''
+            }
+         ]
+      )
+   })
+
+
+   test("no swap actions / no events / have tokent but not own / zero LP => fee", () => {
       const tx = "0x3384084648e2a4372a27c9a8587ecb347fcd7fc8e1118180821e36701b69a29a"
       expect(etx.getTxTransforms(getETX(tx))).toMatchObject(
          [
