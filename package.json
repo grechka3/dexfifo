@@ -22,8 +22,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "jsm_log": "https://github.com/grechka3/jsm_log.git",
-    "jsm_xx": "https://github.com/grechka3/jsm_xx.git#25b31a0f4d43cf447b0bee9805ff33447407bd2d",
     "@babel/cli": "^7.10.5",
     "@babel/core": "^7.11.4",
     "@babel/node": "^7.10.5",
@@ -40,6 +38,7 @@
     "jsm_xx": "https://github.com/grechka3/jsm_xx.git#25b31a0f4d43cf447b0bee9805ff33447407bd2d",
     "lowdb": "^1.0.0",
     "moment": "^2.27.0",
+    "pg-pool": "^3.2.1",
     "read-last-lines": "^1.7.2"
   },
   "devDependencies": {

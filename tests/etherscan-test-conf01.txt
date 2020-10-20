@@ -1,8 +1,5 @@
 
 etheraddr=  0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085
 
-LPDistrSymbol=UNI-V2
-LPDistrSymbol=SLP
 ClientID = 11111
 DecimalSeparator=,
-TokenRouter=Uniswap V2: Router 2

@@ -570,9 +570,9 @@ class ExportEtherTxs
     * @param {EtherTxRow} txrow  for one txHash
     * @return {Array<AssetTransformEntry>}
     */
-   getTxTransforms(txrow)
+   getTxTransforms(txrow, inputAddrs= [])
    {
-      const inputAddrs = this.memdb.get("inputAddresses").value()
+      if(!inputAddrs.length) inputAddrs = this.memdb.get("inputAddresses").value()
       if (!inputAddrs) throw new Error(`[ExportEtherTxs.getTxTransforms]: input addresses not defined`)
       let entry = {
          txHash: txrow.txHash,
