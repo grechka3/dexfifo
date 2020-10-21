@@ -3704,14 +3704,16 @@
       "debitAmount": 0,
       "txFeeAccount": "0x9ad227d56a36b33407916f3293db2d298095dca9",
       "txFeeAsset": "Ether",
-      "txFeeAmount": 0.00058668,
+      "txFeeAmount": 0.0005821,
       "payee": "",
-      "memo": "Loss on fail transaction",
+      "memo": [
+         "Approved  HEX For Trade On  0x44f00918a540774b422a1a340b75e055ff816d83"
+      ],
       "filledPrice": "",
       "txType": "Fee",
       "histFMV": "",
       "basis": "",
-      "txHash": "0xcdd6efba3bf5ed1a9f6e5287123b4bf76ba6df37c58c4d752dabd7ee785e1203"
+      "txHash": "0x769f56ea37a3856bfa1334af20da0c3cf0714bbbe962c83a52bdec799ca58294"
    },
    {
       "datetime": "2020-06-05T23:40:54Z",
@@ -3724,16 +3726,14 @@
       "debitAmount": 0,
       "txFeeAccount": "0x9ad227d56a36b33407916f3293db2d298095dca9",
       "txFeeAsset": "Ether",
-      "txFeeAmount": 0.0005821,
+      "txFeeAmount": 0.00058668,
       "payee": "",
-      "memo": [
-         "Approved  HEX For Trade On  0x44f00918a540774b422a1a340b75e055ff816d83"
-      ],
+      "memo": "Loss on fail transaction",
       "filledPrice": "",
       "txType": "Fee",
       "histFMV": "",
       "basis": "",
-      "txHash": "0x769f56ea37a3856bfa1334af20da0c3cf0714bbbe962c83a52bdec799ca58294"
+      "txHash": "0xcdd6efba3bf5ed1a9f6e5287123b4bf76ba6df37c58c4d752dabd7ee785e1203"
    },
    {
       "datetime": "2020-06-06T03:29:33Z",
@@ -4188,26 +4188,6 @@
       "clientId": "11111",
       "creditAccount": "0x688d976c46ba022ab5f930a4996274fb46950a73",
       "creditAsset": "USDC",
-      "creditAmount": 10.514272,
-      "debitAccount": "0x9ad227d56a36b33407916f3293db2d298095dca9",
-      "debitAsset": "USDC",
-      "debitAmount": 10.514272,
-      "txFeeAccount": "",
-      "txFeeAsset": "",
-      "txFeeAmount": 0,
-      "payee": "",
-      "memo": "Deposit 10.514272 USDC From 0x688d976c46ba022ab5f930a4996274fb46950a73",
-      "filledPrice": "",
-      "txType": "Deposit",
-      "histFMV": "",
-      "basis": "",
-      "txHash": "0x32fa1186123e805fce3111d1429a002bcd49f906891a1729cfd437b1aefbec85"
-   },
-   {
-      "datetime": "2020-06-11T23:58:45Z",
-      "clientId": "11111",
-      "creditAccount": "0x688d976c46ba022ab5f930a4996274fb46950a73",
-      "creditAsset": "USDC",
       "creditAmount": 1.873522,
       "debitAccount": "0x9ad227d56a36b33407916f3293db2d298095dca9",
       "debitAsset": "USDC",
@@ -4222,6 +4202,26 @@
       "histFMV": "",
       "basis": "",
       "txHash": "0xb3bce0b22cfabd28b648d222b147592e99f67bb90d3f76fb312b9584f8c1e292"
+   },
+   {
+      "datetime": "2020-06-11T23:58:45Z",
+      "clientId": "11111",
+      "creditAccount": "0x688d976c46ba022ab5f930a4996274fb46950a73",
+      "creditAsset": "USDC",
+      "creditAmount": 10.514272,
+      "debitAccount": "0x9ad227d56a36b33407916f3293db2d298095dca9",
+      "debitAsset": "USDC",
+      "debitAmount": 10.514272,
+      "txFeeAccount": "",
+      "txFeeAsset": "",
+      "txFeeAmount": 0,
+      "payee": "",
+      "memo": "Deposit 10.514272 USDC From 0x688d976c46ba022ab5f930a4996274fb46950a73",
+      "filledPrice": "",
+      "txType": "Deposit",
+      "histFMV": "",
+      "basis": "",
+      "txHash": "0x32fa1186123e805fce3111d1429a002bcd49f906891a1729cfd437b1aefbec85"
    },
    {
       "datetime": "2020-06-17T15:26:00Z",
@@ -4538,16 +4538,16 @@
       "debitAmount": 0,
       "txFeeAccount": "0x9ad227d56a36b33407916f3293db2d298095dca9",
       "txFeeAsset": "Ether",
-      "txFeeAmount": 0.001157425,
+      "txFeeAmount": 0.0011317,
       "payee": "",
       "memo": [
-         "Approved  USDT For Trade On  Compound Tether"
+         "Approved  WBTC For Trade On  Compound Wrapped BTC"
       ],
       "filledPrice": "",
       "txType": "Fee",
       "histFMV": "",
       "basis": "",
-      "txHash": "0x6a0c8cf418fbd9ca168af65976b0118de7001cf34bcd4862d0d9860861088887"
+      "txHash": "0x7bd13eb243f6591cdc069ffde9ec68c91d8e5a79599d267256e10993b9a72f2c"
    },
    {
       "datetime": "2020-06-28T00:35:28Z",
@@ -4560,16 +4560,16 @@
       "debitAmount": 0,
       "txFeeAccount": "0x9ad227d56a36b33407916f3293db2d298095dca9",
       "txFeeAsset": "Ether",
-      "txFeeAmount": 0.0011317,
+      "txFeeAmount": 0.001157425,
       "payee": "",
       "memo": [
-         "Approved  WBTC For Trade On  Compound Wrapped BTC"
+         "Approved  USDT For Trade On  Compound Tether"
       ],
       "filledPrice": "",
       "txType": "Fee",
       "histFMV": "",
       "basis": "",
-      "txHash": "0x7bd13eb243f6591cdc069ffde9ec68c91d8e5a79599d267256e10993b9a72f2c"
+      "txHash": "0x6a0c8cf418fbd9ca168af65976b0118de7001cf34bcd4862d0d9860861088887"
    },
    {
       "datetime": "2020-06-28T00:35:37Z",

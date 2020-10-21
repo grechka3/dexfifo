@@ -16,6 +16,14 @@ export default {
       }
    ],
 
+   pg: {
+      host: "176.9.46.195",
+      port: 30184,
+      user: "adminuser",
+      password: "adminpassword",
+      database: "template1",
+   },
+
    // Here must be 3000 ms according to API documentation. But works with small value too.
    etherscanAPIRestDelayTS: 300,
 

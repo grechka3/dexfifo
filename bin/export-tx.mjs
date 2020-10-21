@@ -52,11 +52,11 @@ void async function () {
       log.i(`${txr.txCount} txs (incl. ${txr.tokenTxCount} txs via EtherscanTokenAPI) with ${txr.transfersCount} transfers for ${confr.addrs.length} accounts`)
 
       await exportEtherTxs.writeTransfersCSV(`${cmd.output}/transfers.csv`)
+      log(`${cmd.output}/transfers.csv saved.`)
       await exportEtherTxs.writeComputisDataFile(`${cmd.output}/computis.json`)
-      const balr = await exportEtherTxs.writeBalances(`${cmd.output}/balances`)
-      if(balr.err) {
-         log.e(`Couldn't write balance CSv file: ${balr.err.message}`)
-      }
+      log(`${cmd.output}/computis.json saved.`)
+      await exportEtherTxs.writeBalances(`${cmd.output}/balances`)
+      log(`${cmd.output}/balances.{csv|json} saved.`)
    }
    else {
       log.e(`Nothing to do. See program option: -h`)

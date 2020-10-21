@@ -8,7 +8,7 @@ import etherscanParser from "./etherscan-parser.mjs"
 import lowdb from "lowdb"
 import LowDbMemory from "lowdb/adapters/Memory.js"
 import LowDbFileAdapter from "lowdb/adapters/FileSync.js"
-import path from "path"
+import PG from "pg"
 
 /**
  * Export Ether transactions using Etherscan.io API
@@ -31,10 +31,11 @@ const txTranserTypes = {
  * The structure is Compatible with Computis json
  *
  * @typedef AssetTransformEntry {
+ *    @property {number} timeStamp
  *    @property {string} txHash
  *    @property {TxTranserTypes} txType
  *    @property {string} debitAsset
- *    @property {number} debitAmmount
+ *    @property {number} debitAmount
  *    @property {string} creditAsset
  *    @property {number} creditAmount
  *    @property {number} txFeeAmount
@@ -65,13 +66,87 @@ class ExportEtherTxs
       etherscanAPI.setDebug(debugOn)
    }
 
-   dumpMemDB(outputFile)
+   /**
+    * @return {{err:Error}}
+    */
+   async pgWriteComputedTxs()
    {
-      const fparts = path.parse(outputFile)
-      if (this.memdb.get("txs").size().value()) fs.writeFileSync(`${fparts.dir}/${fparts.name}.txs${fparts.ext}`, xx.prettyJSON(this.memdb.get("txs").sortBy("timeStamp").value()))
-      if (this.memdb.get("trans").size().value()) fs.writeFileSync(`${fparts.dir}/${fparts.name}.trans${fparts.ext}`, xx.prettyJSON(this.memdb.get("trans").value()))
+      let lastSQL
+      try {
+         const pg = new PG.Client(opt.pg)
+         await pg.connect()
+
+         await pg.query(`drop table if exists public.report_report`)
+         await pg.query(`CREATE TABLE public.report_report (
+             id SERIAL PRIMARY KEY,
+             tx_hash character varying(255) NOT NULL,
+             tx_type character varying(15) NOT NULL,
+             debit_asset character varying(255) NOT NULL,
+             debit_amount numeric(32,18) NOT NULL,
+             credit_asset character varying(255) NOT NULL,
+             credit_amount numeric(32,18) NOT NULL,
+             tx_fee numeric(32,18) NOT NULL,
+             memo character varying(255) NOT NULL,
+             debit_account character varying(255) NOT NULL,
+             credit_account character varying(255) NOT NULL,
+             tx_fee_account character varying(255) NOT NULL,
+             "timestamp" integer NOT NULL,
+             date_time timestamp with time zone NOT NULL,
+             created_time timestamp with time zone NOT NULL,
+             updated_time timestamp with time zone NOT NULL,
+             user_id integer NOT NULL
+         )`)
+
+         const txs = this.memdb.get("txs").sortBy("timeStamp").value()
+         const utcOffsetMinutes = this.memdb.get("utcOffsetMinutes").value()
+         for (let tx_i = 0; tx_i < txs.length; tx_i++) {
+            const txd = txs[tx_i]
+            const txTimeStampWZone = xx.moment(txd.timeStamp, "X").utcOffset(utcOffsetMinutes).format("YYYY-MM-DD hh:mm:ssZZ")
+            const nowTimeWZone = xx.moment().utcOffset(utcOffsetMinutes).format("YYYY-MM-DD hh:mm:ssZZ")
+            for (let tr_i = 0; tr_i < txd.transfers.length; tr_i++) {
+               const trd = txd.transfers[tr_i]
+               const el = {
+                  tx_hash: txd.txHash,
+                  tx_type: trd.txType,
+                  debit_asset: trd.debitAsset,
+                  debit_amount: trd.debitAmount,
+                  credit_asset: trd.creditAsset,
+                  credit_amount: trd.creditAmount,
+                  tx_fee: trd.txFeeAmount,
+                  memo: trd.memo,
+                  debit_account: trd.debitAccount,
+                  credit_account: trd.creditAccount,
+                  tx_fee_account: trd.txFeeAccount,
+                  timestamp: trd.timeStamp,
+                  date_time: txTimeStampWZone,
+                  created_time: nowTimeWZone,
+                  updated_time: nowTimeWZone,
+                  user_id: 4
+               }
+               const flds = Object.keys(el).map(k=> `${k}`).join(", ")
+               const vals = Object.keys(el).map(k=> `'${el[k]}'`).join(", ")
+               lastSQL = `INSERT INTO public.report_report (${flds}) VALUES(${vals})`
+               await pg.query(lastSQL)
+            }
+         }
+
+         pg.end()
+
+      }
+      catch (e) {
+         return {err: new Error(`[ExportEtherTxs.pgWriteComputedTxs]: ${e.message} ||| last SQL query: ${lastSQL}`)}
+      }
+      return {
+         err: null,
+      }
+
    }
 
+
+   /**
+    * @param {String} outputFileBase
+    * @return {{err:Error, linesCount:number}}
+    */
    async writeBalances(outputFileBase)
    {
       let lines = []
@@ -151,6 +226,10 @@ class ExportEtherTxs
       }
    }
 
+   /**
+    * @param {String} outputFile
+    * @return {Error|null} err
+    */
    async writeComputisDataFile(outputFile)
    {
       let json = []
@@ -159,7 +238,7 @@ class ExportEtherTxs
       const computisClientId = this.memdb.get("computisClientId").value()
       txs.forEach(txd => {
          txd.transfers.forEach(tr => {
-            json.push(Object.assign({}, {
+            const el = Object.assign({}, {
                datetime: xx.moment(txd.timeStamp, "X").utcOffset(utcOffsetMinutes).format("YYYY-MM-DDTHH:mm:ss") + 'Z',
                clientId: computisClientId,
                "creditAccount": "",
@@ -177,20 +256,22 @@ class ExportEtherTxs
                "txType": "",
                "histFMV": "",
                "basis": ""
-            }, tr))
+            }, tr)
+            delete el.timeStamp
+            json.push(el)
          })
       })
       fs.writeFileSync(outputFile, xx.prettyJSON(json))
 
       return {
          err: null,
-         linesCount: this.memdb.get("trans").size().value() * 1
+         linesCount: this.memdb.get("transfers").size().value() * 1
       }
    }
 
    /**
     * @param {String} outputFile     - output transactions in CSV format
-    * @return {Error|null} err
+    * @return {{err:Error}}
     */
    async writeTransfersCSV(outputFile)
    {
@@ -237,7 +318,7 @@ class ExportEtherTxs
 
       return {
          err: null,
-         linesCount: this.memdb.get("trans").size().value() * 1
+         linesCount: this.memdb.get("transfers").size().value() * 1
       }
    }
 
@@ -339,10 +420,10 @@ class ExportEtherTxs
       }
       this.memdb.set("txsraw", []).write()
       this.memdb.set("txs", []).write()
-      this.memdb.set("trans", []).write()
+      this.memdb.set("transfers", []).write()
       const txsraw = this.memdb.get("txsraw")
       const memdb_txs = this.memdb.get("txs")
-      const memdb_trans = this.memdb.get("trans")
+      const memdb_trans = this.memdb.get("transfers")
 
 
       log(`Start data collection in ${opt.etherscanAccs.length} threads...`)
@@ -568,13 +649,15 @@ class ExportEtherTxs
    /**
     *
     * @param {EtherTxRow} txrow  for one txHash
+    * @param {[]} inputAddrs
     * @return {Array<AssetTransformEntry>}
     */
-   getTxTransforms(txrow, inputAddrs= [])
+   getTxTransforms(txrow, inputAddrs = [])
    {
-      if(!inputAddrs.length) inputAddrs = this.memdb.get("inputAddresses").value()
+      if (!inputAddrs.length) inputAddrs = this.memdb.get("inputAddresses").value()
       if (!inputAddrs) throw new Error(`[ExportEtherTxs.getTxTransforms]: input addresses not defined`)
       let entry = {
+         timeStamp: txrow.timeStamp,
          txHash: txrow.txHash,
          txType: "",
          creditAccount: "",
