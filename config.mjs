@@ -7,9 +7,17 @@ export default {
          viaHost: 'localhost',
       },
       {
-         // rockmail
+         // rockmail  - al
          apiKey: "HJSP1KAUAWYC5QZBQS6B53WXKTVRSDQ56V",
          viaHost: '95.216.110.55',
+         viaPort: '3128',
+         viaUser: 'dexlifo',
+         viaPassword: '111',
+      },
+      {
+         // stok007 - dl
+         apiKey: "KTFPXCJB2SXXWA7TVEACW4YUXUCKTRG76H",
+         viaHost: '95.216.110.51',
          viaPort: '3128',
          viaUser: 'dexlifo',
          viaPassword: '111',
@@ -29,7 +37,7 @@ export default {
 
    etherscanAPIRequestTimeout: 20000,
 
-   etherscanParserRestDelayTS: 300,
+   etherscanParserRestDelayTS: 100,
 
    etherscanParseRequestTimeout: 20000,
 

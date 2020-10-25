@@ -9,6 +9,7 @@ import lowdb from "lowdb"
 import LowDbMemory from "lowdb/adapters/Memory.js"
 import LowDbFileAdapter from "lowdb/adapters/FileSync.js"
 import PG from "pg"
+import ArrayMetric from "./array-metric.mjs";
 
 /**
  * Export Ether transactions using Etherscan.io API
@@ -54,9 +55,6 @@ class ExportEtherTxs
    constructor(dbFile = null)
    {
       this.memdb = dbFile ? lowdb(new LowDbFileAdapter(dbFile)) : null
-      this.computisDefaults = {
-         clientId: "",
-      }
       this.balances = {}
    }
 
@@ -71,35 +69,35 @@ class ExportEtherTxs
     */
    async pgWriteComputedTxs(userId)
    {
-      if(!userId) throw new Error(`pgWriteComputedTxs(): user id not defined`)
+      if (!userId) throw new Error(`pgWriteComputedTxs(): user id not defined`)
       let lastSQL
       try {
          const pg = new PG.Client(opt.pg)
          await pg.connect()
 
          await pg.query(`delete from public.report_report WHERE user_id=${userId}`)
-/*
-         await pg.query(`CREATE TABLE public.report_report (
-             id SERIAL PRIMARY KEY,
-             tx_hash character varying(255) NOT NULL,
-             tx_type character varying(15) NOT NULL,
-             debit_asset character varying(255) NOT NULL,
-             debit_amount numeric(32,18) NOT NULL,
-             credit_asset character varying(255) NOT NULL,
-             credit_amount numeric(32,18) NOT NULL,
-             tx_fee numeric(32,18) NOT NULL,
-             memo character varying(255) NOT NULL,
-             debit_account character varying(255) NOT NULL,
-             credit_account character varying(255) NOT NULL,
-             tx_fee_account character varying(255) NOT NULL,
-             "timestamp" integer NOT NULL,
-             date_time timestamp with time zone NOT NULL,
-             created_time timestamp with time zone NOT NULL,
-             updated_time timestamp with time zone NOT NULL,
-             user_id integer NOT NULL
-         )`)
+         /*
+                  await pg.query(`CREATE TABLE public.report_report (
+                      id SERIAL PRIMARY KEY,
+                      tx_hash character varying(255) NOT NULL,
+                      tx_type character varying(15) NOT NULL,
+                      debit_asset character varying(255) NOT NULL,
+                      debit_amount numeric(32,18) NOT NULL,
+                      credit_asset character varying(255) NOT NULL,
+                      credit_amount numeric(32,18) NOT NULL,
+                      tx_fee numeric(32,18) NOT NULL,
+                      memo character varying(255) NOT NULL,
+                      debit_account character varying(255) NOT NULL,
+                      credit_account character varying(255) NOT NULL,
+                      tx_fee_account character varying(255) NOT NULL,
+                      "timestamp" integer NOT NULL,
+                      date_time timestamp with time zone NOT NULL,
+                      created_time timestamp with time zone NOT NULL,
+                      updated_time timestamp with time zone NOT NULL,
+                      user_id integer NOT NULL
+                  )`)
 
-*/
+         */
          const txs = this.memdb.get("txs").sortBy("timeStamp").value()
          const utcOffsetMinutes = this.memdb.get("utcOffsetMinutes").value()
          for (let tx_i = 0; tx_i < txs.length; tx_i++) {
@@ -126,8 +124,8 @@ class ExportEtherTxs
                   updated_time: nowTimeWZone,
                   user_id: userId
                }
-               const flds = Object.keys(el).map(k=> `${k}`).join(", ")
-               const vals = Object.keys(el).map(k=> `'${el[k]}'`).join(", ")
+               const flds = Object.keys(el).map(k => `${k}`).join(", ")
+               const vals = Object.keys(el).map(k => `'${el[k]}'`).join(", ")
                lastSQL = `INSERT INTO public.report_report (${flds}) VALUES(${vals})`
                await pg.query(lastSQL)
             }
@@ -427,9 +425,10 @@ class ExportEtherTxs
       const txsraw = this.memdb.get("txsraw")
       const memdb_txs = this.memdb.get("txs")
       const memdb_trans = this.memdb.get("transfers")
+      const metric_qperminutes = new ArrayMetric({duration: 1000, updateInterval: 500})
 
 
-      log(`Start data collection in ${opt.etherscanAccs.length} threads...`)
+      log(`[ExportEtherTxs.retriveTxs]: Start transaction hashes collection in ${opt.etherscanAccs.length} threads...`)
 
       let totalTxs = 0, totalTransfers = 0, tokenTxCount = 0, txHashes = []
 
@@ -505,13 +504,18 @@ class ExportEtherTxs
 
       }
 
+
       // Wait while all account queries will be done
       for (; etherscanAPI.someTaskInProgress();) {
          await xx.timeoutAsync(50)
       }
 
+      log(`[ExportEtherTxs.retriveTxs]: ${totalTxs} transaction hashes fetched ok. Starting tx pages collect...`)
+
       // parse html Tx data
       const txs = txsraw.sortBy("timeStamp").value()
+      let pageCollected = 0
+      let lastEcho = xx.tsNow()
       for (let txi = 0; txi < txs.length; txi++) {
          const txraw = txs[txi]
 
@@ -522,6 +526,12 @@ class ExportEtherTxs
          // Start parallel task for each tx
          void async function (acc, txraw) {
             const txd = await etherscanParser.getDataFromTxPage(txraw.hash, acc.__opts)
+            metric_qperminutes.push(txraw.hash)
+            pageCollected++
+            if(xx.tsNow() - lastEcho > 10000) {
+               log(`[ExportEtherTxs.retriveTxs]: ${pageCollected} of ${totalTxs} tx done :: speed=${metric_qperminutes.count()}/sec`)
+               lastEcho = xx.tsNow()
+            }
             etherscanParser.releaseAcc(acc)
 
             let txv = {
@@ -566,7 +576,7 @@ class ExportEtherTxs
          await xx.timeoutAsync(50)
       }
 
-      log(`Data collection done`)
+      log(`[ExportEtherTxs.retriveTxs]: All ${totalTxs} txpages fetched ok.`)
 
       return {
          err: null,
@@ -821,7 +831,7 @@ class ExportEtherTxs
                      debitAccount: trx.toAddr,
                      debitAsset: "Ether",
                      debitAmount: trx.etherValue,
-                     memo: `Deposit  ${txrow.etherValue} Ether From ${trx.fromName ? trx.fromName : trx.fromAddr}`
+                     memo: `Deposit  ${trx.etherValue} Ether From ${trx.fromName ? trx.fromName : trx.fromAddr}`
                   }))
                })
             }

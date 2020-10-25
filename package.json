@@ -16,6 +16,8 @@
     "exporttx-vlad-debug": "npx babel-node bin/export-tx.mjs --debug -i data/vladconf.conf -o data/vladconf",
     "exporttx-piv": "npx babel-node bin/export-tx.mjs -i data/piv.conf -o data/piv",
     "exporttx-piv-debug": "npx babel-node bin/export-tx.mjs --debug -i data/piv.conf -o data/piv",
+    "exporttx-0001": "npx babel-node bin/export-tx.mjs -i data/0001.conf -o data/0001",
+    "exporttx-0001-debug": "npx babel-node bin/export-tx.mjs --debug -i data/0001.conf -o data/0001",
     "exporttx-testdex": "npx babel-node bin/export-tx.mjs -i data/testdex.conf -o data/testdex",
     "exporttx-testdex-debug": "npx babel-node bin/export-tx.mjs --debug -i data/testdex.conf -o data/testdex"
   },
@@ -36,6 +38,7 @@
     "https-proxy-agent": "^5.0.0",
     "jsm_log": "https://github.com/grechka3/jsm_log.git",
     "jsm_xx": "https://github.com/grechka3/jsm_xx.git#25b31a0f4d43cf447b0bee9805ff33447407bd2d",
+    "jsm_loopasync": "https://github.com/grechka3/jsm-loop-async.git",
     "lowdb": "^1.0.0",
     "moment": "^2.27.0",
     "pg": "^8.4.1",
