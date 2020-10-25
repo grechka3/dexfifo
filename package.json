@@ -42,11 +42,11 @@
     "lowdb": "^1.0.0",
     "moment": "^2.27.0",
     "pg": "^8.4.1",
-    "pg-native": "^3.0.0",
     "read-last-lines": "^1.7.2"
   },
   "devDependencies": {
     "babel-jest": "^26.3.0",
+    "deep-object-diff": "^1.1.0",
     "jest": "^26.4.2",
     "jsdoc": "^3.6.5",
     "nodemon": "^2.0.4"
