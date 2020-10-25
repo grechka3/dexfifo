@@ -28,7 +28,9 @@ class Request
 {
    constructor()
    {
-      this.optsDefaults = {}
+      this.optsDefaults = {
+         dnsLookupIpVersion: "ipv4"
+      }
       this.proxyAgents = {}
    }
 
