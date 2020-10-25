@@ -76,7 +76,8 @@ class ExportEtherTxs
          const pg = new PG.Client(opt.pg)
          await pg.connect()
 
-         await pg.query(`drop table if exists public.report_report`)
+         await pg.query(`delete from public.report_report WHERE user_id=4`)
+/*
          await pg.query(`CREATE TABLE public.report_report (
              id SERIAL PRIMARY KEY,
              tx_hash character varying(255) NOT NULL,
@@ -97,6 +98,7 @@ class ExportEtherTxs
              user_id integer NOT NULL
          )`)
 
+*/
          const txs = this.memdb.get("txs").sortBy("timeStamp").value()
          const utcOffsetMinutes = this.memdb.get("utcOffsetMinutes").value()
          for (let tx_i = 0; tx_i < txs.length; tx_i++) {
@@ -162,7 +164,7 @@ class ExportEtherTxs
          ]
       })
       this.balances = {}
-      const trs = this.memdb.get("trans").sortBy("timeStamp").value()
+      const trs = this.memdb.get("transfers").sortBy("timeStamp").value()
       const inputAddrs = this.memdb.get("inputAddresses").value()
       trs.forEach(tr => {
          const debit_v = parseFloat(tr.debitAmount)

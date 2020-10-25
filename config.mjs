@@ -21,7 +21,7 @@ export default {
       port: 30184,
       user: "adminuser",
       password: "adminpassword",
-      database: "template1",
+      database: "dextax",
    },
 
    // Here must be 3000 ms according to API documentation. But works with small value too.
