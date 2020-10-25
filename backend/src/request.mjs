@@ -98,7 +98,10 @@ class Request
          }
       }
       _opts.timeout = opts.timeout || 10000
-      const res = await Q.get(url, Object.assign({}, this.optsDefaults, _opts)).catch(e => e)
+      const op = Object.assign({}, this.optsDefaults, _opts)
+      console.log(`making GOT request :: `, op, `...`)
+      const res = await Q.get(url, op).catch(e => e)
+      console.log(`GOT done`)
       return this.makeResult(res)
 
    }
