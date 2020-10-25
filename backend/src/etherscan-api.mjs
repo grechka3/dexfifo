@@ -86,7 +86,7 @@ class EtherscanApi
    {
       this.queryDefaults = {
          timeout: opt.etherscanAPIRequestTimeout,
-         proxy: null
+         responseType: 'json'
       }
       this.accs = opt.etherscanAccs.map(v => Object.assign({}, v, {
          lastHitTS: null,
@@ -271,7 +271,7 @@ class EtherscanApi
       return {
          response,
          acc,
-         data: response.error ? {} : JSON.parse(response.body)
+         data: response.error ? {} : response.body
       }
    }
 
@@ -316,7 +316,7 @@ class EtherscanApi
       return {
          response,
          acc,
-         data: response.error ? {} : JSON.parse(response.body)
+         data: response.error ? {} : response.body
       }
    }
 
@@ -352,7 +352,7 @@ class EtherscanApi
       return {
          response,
          acc,
-         data: response.error ? {} : JSON.parse(response.body)
+         data: response.error ? {} : response.body
       }
    }
 

@@ -1,4 +1,4 @@
-import Q from "got"
+import Q from "axios"
 import HttpsProxyAgent from "https-proxy-agent";
 
 
@@ -29,7 +29,7 @@ class Request
    constructor()
    {
       this.optsDefaults = {
-         dnsLookupIpVersion: "ipv4"
+         responseType: "json"
       }
       this.proxyAgents = {}
    }
@@ -49,28 +49,26 @@ class Request
          body: "",
          _response: res
       }
-      if (res.statusMessage === 'OK') {
+      if (res.status === 200) {
+
          ret.error = false
-         ret.body = res.body
-         ret.totalTime = res.timings.end - res.timings.start
+         ret.body = res.data
       }
-      else if (res.body) {
+      else if (res.data) {
          ret.error = true
-         ret.body = res.body
-         ret.errorCode = res.statusCode * 1
-         ret.totalTime = res.timings.end - res.timings.start
+         ret.body = res.data
+         ret.errorCode = res.status * 1
       }
       else {
          ret.error = true
          if (res.response) {
             // destination server error
-            ret.errorCode = res.message.split(/([0-9]{3})/)[1] * 1
+            ret.errorCode = res.response.status
             ret.errorMessage = res.message ? res.message : ""
-            ret.totalTime = res.timings.end - res.timings.start
          }
          else {
             // net error
-            ret.errorMessage = (res.code ? `[${res.code}]: `:"") + (res.message ? res.message : "")
+            ret.errorMessage = (res.code ? `[${res.code}]: ` : "") + (res.message ? res.message : "")
          }
       }
 
@@ -89,21 +87,15 @@ class Request
       let _opts = {}
       if (opts.proxy) {
          if (this.proxyAgents[opts.proxy]) {
-            _opts.agent = {
-               https: this.proxyAgents[opts.proxy]
-            }
+            _opts.httpsAgent = this.proxyAgents[opts.proxy]
          }
          else {
-            _opts.agent = {
-               https: this.proxyAgents[opts.proxy] = new HttpsProxyAgent(opts.proxy)
-            }
+            _opts.httpsAgent = this.proxyAgents[opts.proxy] = new HttpsProxyAgent(opts.proxy)
          }
       }
       _opts.timeout = opts.timeout || 10000
       const op = Object.assign({}, this.optsDefaults, _opts)
-      console.log(`making GOT request :: `, op, `...`)
       const res = await Q.get(url, op).catch(e => e)
-      console.log(`GOT done`)
       return this.makeResult(res)
 
    }
