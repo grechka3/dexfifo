@@ -69,14 +69,15 @@ class ExportEtherTxs
    /**
     * @return {{err:Error}}
     */
-   async pgWriteComputedTxs()
+   async pgWriteComputedTxs(userId)
    {
+      if(!userId) throw new Error(`pgWriteComputedTxs(): user id not defined`)
       let lastSQL
       try {
          const pg = new PG.Client(opt.pg)
          await pg.connect()
 
-         await pg.query(`delete from public.report_report WHERE user_id=4`)
+         await pg.query(`delete from public.report_report WHERE user_id=${userId}`)
 /*
          await pg.query(`CREATE TABLE public.report_report (
              id SERIAL PRIMARY KEY,
@@ -123,7 +124,7 @@ class ExportEtherTxs
                   date_time: txTimeStampWZone,
                   created_time: nowTimeWZone,
                   updated_time: nowTimeWZone,
-                  user_id: 4
+                  user_id: userId
                }
                const flds = Object.keys(el).map(k=> `${k}`).join(", ")
                const vals = Object.keys(el).map(k=> `'${el[k]}'`).join(", ")
