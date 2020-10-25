@@ -56,12 +56,14 @@ class ExportEtherTxs
    {
       this.memdb = dbFile ? lowdb(new LowDbFileAdapter(dbFile)) : null
       this.balances = {}
+      this.debug = false
    }
 
    setDebug(debugOn)
    {
       etherscanParser.setDebug(debugOn)
       etherscanAPI.setDebug(debugOn)
+      this.debug = debugOn
    }
 
    /**
@@ -432,6 +434,8 @@ class ExportEtherTxs
 
       let totalTxs = 0, totalTransfers = 0, tokenTxCount = 0, txHashes = []
 
+      if(this.debug) log.d(`[ExportEtherTxs.retriveTxs]: ethAddrList.length=${ethAddrList.length}`)
+
       for (let addr_i = 0; addr_i < ethAddrList.length; addr_i++) {
          const inputAddress = ethAddrList[addr_i]
          // wait semaphore unblocking
@@ -440,12 +444,16 @@ class ExportEtherTxs
          // Start parallel task for each ethaddr
          void async function (acc, inputAddr) {
 
+            if(this.debug) log.d(`[ExportEtherTxs.retriveTxs]: thread entered :: inputAddr=${inputAddr}`)
+
             // get all TXs for current ethaddr
             let qres = await etherscanAPI.getTxListByAddr({
                acc,
                ethaddr: inputAddr,
                sort: "desc"
             })
+            if(this.debug) log.d(`[ExportEtherTxs.retriveTxs]: getTxListByAddr done :: inputAddr=${inputAddr}`)
+
 
             if (!qres.response.error && xx.isArray(qres.data.result)) {
                for (let k = 0; k < qres.data.result.length; k++) {

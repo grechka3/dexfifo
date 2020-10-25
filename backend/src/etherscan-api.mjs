@@ -276,13 +276,14 @@ class EtherscanApi
    }
 
    /**
-    * Get page list of token transactions for specified address
+    * Get page list of ERC20 token transactions for specified address
     * @param {Object} options
     * @param {String} options.ethaddr       - ETH address
     * @param {Account} options.acc
     * @param {String} [options.sort=asc]    - sort result
     * @param {Number} [options.page=1]        - page number, started at 1
     * @param {Number} [options.limit=10000]  - results on page
+    * @param {string} [options.type=ERC20]  - token type
     * @return {Object} response
     * @return {EtherscanResponse} response.data        - etherscan result
     * @return {EtherscanTxTokenResponse[]} response.data.result - txs array
@@ -292,7 +293,7 @@ class EtherscanApi
     * @return {Account} acc
     * @return {String} queryUrl
     */
-   async getTxTokenListByAddr({ethaddr, page = null, limit = null, sort = "asc", acc})
+   async getTxTokenListByAddr({ethaddr, page = null, limit = null, sort = "asc", acc, type = "ERC20"})
    {
       if (page === null || limit === null) {
          [page, limit] = [1, 10000]
@@ -300,13 +301,49 @@ class EtherscanApi
       const url = querystring.encode({
          apikey: acc.apiKey,
          module: "account",
-         action: "tokentx",
+         action: type === "ERC721" ? "tokennfttx" : "tokentx",
          startblock: 0,
          endblock: 999999999,
          sort: sort,
          address: ethaddr,
          page: page,
          offset: limit
+      })
+
+      const options = Object.assign({}, this.queryDefaults, acc.__opts)
+      let response = await request.get(`https://api.etherscan.io/api?${url}`, options)
+
+      return {
+         response,
+         acc,
+         data: response.error ? {} : JSON.parse(response.body)
+      }
+   }
+
+
+   /**
+    * Get block balance for specified address // NEED PRO
+    * @param {Object} options
+    * @param {String} options.ethaddr       - ETH address
+    * @param {number} options.blockNo
+    * @param {Account} options.acc
+    * @return {Object} response
+    * @return {EtherscanResponse} response.data        - etherscan result
+    * @return {EtherscanTxTokenResponse[]} response.data.result - txs array
+    * @return {Number} response.status      - http or net result code (200  is ok)
+    * @return {String} response.statusText  - http or net result text
+    * @return {Object} response.request     - response object
+    * @return {Account} acc
+    * @return {String} queryUrl
+    */
+   async getBlockBalance({ethaddr, blockNo, acc})
+   {
+      const url = querystring.encode({
+         apikey: acc.apiKey,
+         module: "account",
+         action: "balancehistory",
+         address: ethaddr,
+         blockno: blockNo,
       })
 
       const options = Object.assign({}, this.queryDefaults, acc.__opts)
