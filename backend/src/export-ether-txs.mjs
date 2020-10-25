@@ -512,14 +512,14 @@ class ExportEtherTxs
 
       }
 
-      if(this.debug) log.d(`[ExportEtherTxs.retriveTxs]: wait semafore total release...`)
+      if(this.debug) log.d(`[ExportEtherTxs.retriveTxs]: api chain : wait semafore total release...`)
 
 
       // Wait while all account queries will be done
       for (; etherscanAPI.someTaskInProgress();) {
          await xx.timeoutAsync(50)
       }
-      if(this.debug) log.d(`[ExportEtherTxs.retriveTxs]: semafore released.`)
+      if(this.debug) log.d(`[ExportEtherTxs.retriveTxs]: api chain : semafore released.`)
 
       log(`[ExportEtherTxs.retriveTxs]: ${totalTxs} transaction hashes fetched ok. Starting tx pages collect...`)
 
