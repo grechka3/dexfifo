@@ -446,7 +446,33 @@ class ExportEtherTxs
 
             if(this.debug) log.d(`[ExportEtherTxs.retriveTxs]: thread entered :: inputAddr=${inputAddr}`)
 
+            // check for ERC721 tokens TXs for current ethaddr
+            if(this.debug) log.d(`[ExportEtherTxs.retriveTxs]: getTxTokenListByAddr(ERC721) start :: inputAddr=${inputAddr}`)
+            qres = await etherscanAPI.getTxTokenListByAddr({
+               acc,
+               type: "ERC721",
+               ethaddr: inputAddr,
+               sort: "desc"
+            })
+            if(this.debug) log.d(`[ExportEtherTxs.retriveTxs]: getTxTokenListByAddr(ERC721) done :: inputAddr=${inputAddr}`)
+
+            if (!qres.response.error && xx.isArray(qres.data.result)) {
+
+               if (qres.data.result.length) {
+                  for (let k = 0; k < qres.data.result.length; k++) {
+                     const v = qres.data.result[k]
+                     log.d(`[ExportEtherTxs.retriveTxs]: ERC721tx="${v.hash}"`).flog()
+                  }
+                  log.e(`[ExportEtherTxs.retriveTxs]: getTxTokenListByAddr(ERC721): The ETH address "${inputAddr}" has ERC721 txs. Terminating.`).flog()
+               }
+            }
+            else {
+               log.e(`[ExportEtherTxs.retriveTxs]: getTxTokenListByAddr(ERC721): API ERROR for ETH address "${inputAddr}" ::  code=${qres.response.errorCode}, message=${qres.response.errorMessage}, APIstatus=${qres.data.status ? qres.data.status : "---"}, APImessage=${qres.data.message ? qres.data.message : "---"}, APIResult=${qres.data.result ? qres.data.result : "---"} via ${qres.acc.viaHost}`).flog()
+               process.exit(-3)
+            }
+
             // get all TXs for current ethaddr
+            if(this.debug) log.d(`[ExportEtherTxs.retriveTxs]: getTxListByAddr start :: inputAddr=${inputAddr}`)
             let qres = await etherscanAPI.getTxListByAddr({
                acc,
                ethaddr: inputAddr,
@@ -473,12 +499,14 @@ class ExportEtherTxs
                process.exit(-2)
             }
 
-            // get all tokens TXs for current ethaddr
+            // get all ERC20 tokens TXs for current ethaddr
+            if(this.debug) log.d(`[ExportEtherTxs.retriveTxs]: getTxTokenListByAddr(ERC20) start :: inputAddr=${inputAddr}`)
             qres = await etherscanAPI.getTxTokenListByAddr({
                acc,
                ethaddr: inputAddr,
                sort: "desc"
             })
+            if(this.debug) log.d(`[ExportEtherTxs.retriveTxs]: getTxTokenListByAddr(ERC20) done :: inputAddr=${inputAddr}`)
 
             if (!qres.response.error && xx.isArray(qres.data.result)) {
                for (let k = 0; k < qres.data.result.length; k++) {
@@ -489,15 +517,15 @@ class ExportEtherTxs
                      tokenTxCount++
                      totalTxs++
                      txHashes.push(v.hash)
-                     //log.d(`[ExportEtherTxs.retriveTxs]: ttx="${v.hash}"`).flog()
+                     //log.d(`[ExportEtherTxs.retriveTxs]: ERC20tx="${v.hash}"`).flog()
                   }
                }
                if (qres.data.result.length >= 9998) {
-                  log.w(`[ExportEtherTxs.retriveTxs]: getTxTokenListByAddr: The ETH address "${inputAddr}" has more than 10000 txs`).flog()
+                  log.w(`[ExportEtherTxs.retriveTxs]: getTxTokenListByAddr(ERC20): The ETH address "${inputAddr}" has more than 10000 txs`).flog()
                }
             }
             else {
-               log.e(`[ExportEtherTxs.retriveTxs]: getTxTokenListByAddr: API ERROR for ETH address "${inputAddr}" ::  code=${qres.response.errorCode}, message=${qres.response.errorMessage}, APIstatus=${qres.data.status ? qres.data.status : "---"}, APImessage=${qres.data.message ? qres.data.message : "---"}, APIResult=${qres.data.result ? qres.data.result : "---"} via ${qres.acc.viaHost}`).flog()
+               log.e(`[ExportEtherTxs.retriveTxs]: getTxTokenListByAddr(ERC20): API ERROR for ETH address "${inputAddr}" ::  code=${qres.response.errorCode}, message=${qres.response.errorMessage}, APIstatus=${qres.data.status ? qres.data.status : "---"}, APImessage=${qres.data.message ? qres.data.message : "---"}, APIResult=${qres.data.result ? qres.data.result : "---"} via ${qres.acc.viaHost}`).flog()
                process.exit(-3)
             }
 
