@@ -187,8 +187,10 @@ class EtherscanParser
                token.for.value = $($cols[5]).text().match(/([^\s]+)/)[1].replace(/,/g, "") * 1
             }
             $tmp = $($cols[5]).next().next()
-            token.for.tokenAddr = "0x" + $tmp.attr("href").replace(/(.*)0x/, "")
-            if (!token.for.symbol) token.for.symbol = $tmp.text().trim()
+            if ($tmp.attr("href")) {
+               token.for.tokenAddr = "0x" + $tmp.attr("href").replace(/(.*)0x/, "")
+            }
+            token.for.symbol = $tmp.text().trim()
             // "Dai Stableco... (DAI)"  => DAI
             vv = token.for.symbol.match(/\(([^\)]+)\)/)
             if (vv) token.for.symbol = vv[1]
@@ -196,7 +198,8 @@ class EtherscanParser
             if ($tmp.length) {
                vv = $tmp.attr(`data-original-title`).match(/\$([0-9\.]+)/)
                token.for.currentPriceUsd = vv ? vv[1] * 1 : 0
-            } else {
+            }
+            else {
                token.for.currentPriceUsd = 0
             }
 
