@@ -148,8 +148,10 @@ class EtherscanParser
                if (aa.length === 2) {
                   trans.fromName = $(aa[0]).text()
                   trans.fromAddr = $(aa[0]).attr("href").match(/(0x[0-9a-z]+)/i)[1]
+                  if(trans.fromName === trans.fromAddr) trans.fromName = ""
                   trans.toName = $(aa[1]).text()
                   trans.toAddr = $(aa[1]).attr("href").match(/(0x[0-9a-z]+)/i)[1]
+                  if(trans.toName === trans.toAddr) trans.toName = ""
                }
 
                res.internalTxs.push(trans)

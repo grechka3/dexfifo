@@ -434,7 +434,7 @@ class ExportEtherTxs
 
       let totalTxs = 0, totalTransfers = 0, tokenTxCount = 0, txHashes = []
 
-      if(this.debug) log.d(`[ExportEtherTxs.retriveTxs]: ethAddrList.length=${ethAddrList.length}`)
+      if (this.debug) log.d(`[ExportEtherTxs.retriveTxs]: ethAddrList.length=${ethAddrList.length}`)
 
       for (let addr_i = 0; addr_i < ethAddrList.length; addr_i++) {
          const inputAddress = ethAddrList[addr_i]
@@ -444,17 +444,19 @@ class ExportEtherTxs
          // Start parallel task for each ethaddr
          void async function (acc, inputAddr) {
 
-            if(this.debug) log.d(`[ExportEtherTxs.retriveTxs]: thread entered :: inputAddr=${inputAddr}`)
+            if (this.debug) log.d(`[ExportEtherTxs.retriveTxs]: thread entered :: inputAddr=${inputAddr}`)
+
+            let qres
 
             // check for ERC721 tokens TXs for current ethaddr
-            if(this.debug) log.d(`[ExportEtherTxs.retriveTxs]: getTxTokenListByAddr(ERC721) start :: inputAddr=${inputAddr}`)
+            if (this.debug) log.d(`[ExportEtherTxs.retriveTxs]: getTxTokenListByAddr(ERC721) start :: inputAddr=${inputAddr}`)
             qres = await etherscanAPI.getTxTokenListByAddr({
                acc,
                type: "ERC721",
                ethaddr: inputAddr,
                sort: "desc"
             })
-            if(this.debug) log.d(`[ExportEtherTxs.retriveTxs]: getTxTokenListByAddr(ERC721) done :: inputAddr=${inputAddr}`)
+            if (this.debug) log.d(`[ExportEtherTxs.retriveTxs]: getTxTokenListByAddr(ERC721) done :: inputAddr=${inputAddr}`)
 
             if (!qres.response.error && xx.isArray(qres.data.result)) {
 
@@ -472,13 +474,13 @@ class ExportEtherTxs
             }
 
             // get all TXs for current ethaddr
-            if(this.debug) log.d(`[ExportEtherTxs.retriveTxs]: getTxListByAddr start :: inputAddr=${inputAddr}`)
-            let qres = await etherscanAPI.getTxListByAddr({
+            if (this.debug) log.d(`[ExportEtherTxs.retriveTxs]: getTxListByAddr start :: inputAddr=${inputAddr}`)
+            qres = await etherscanAPI.getTxListByAddr({
                acc,
                ethaddr: inputAddr,
                sort: "desc"
             })
-            if(this.debug) log.d(`[ExportEtherTxs.retriveTxs]: getTxListByAddr done :: inputAddr=${inputAddr}`)
+            if (this.debug) log.d(`[ExportEtherTxs.retriveTxs]: getTxListByAddr done :: inputAddr=${inputAddr}`)
 
 
             if (!qres.response.error && xx.isArray(qres.data.result)) {
@@ -500,13 +502,13 @@ class ExportEtherTxs
             }
 
             // get all ERC20 tokens TXs for current ethaddr
-            if(this.debug) log.d(`[ExportEtherTxs.retriveTxs]: getTxTokenListByAddr(ERC20) start :: inputAddr=${inputAddr}`)
+            if (this.debug) log.d(`[ExportEtherTxs.retriveTxs]: getTxTokenListByAddr(ERC20) start :: inputAddr=${inputAddr}`)
             qres = await etherscanAPI.getTxTokenListByAddr({
                acc,
                ethaddr: inputAddr,
                sort: "desc"
             })
-            if(this.debug) log.d(`[ExportEtherTxs.retriveTxs]: getTxTokenListByAddr(ERC20) done :: inputAddr=${inputAddr}`)
+            if (this.debug) log.d(`[ExportEtherTxs.retriveTxs]: getTxTokenListByAddr(ERC20) done :: inputAddr=${inputAddr}`)
 
             if (!qres.response.error && xx.isArray(qres.data.result)) {
                for (let k = 0; k < qres.data.result.length; k++) {
@@ -540,14 +542,14 @@ class ExportEtherTxs
 
       }
 
-      if(this.debug) log.d(`[ExportEtherTxs.retriveTxs]: api chain : wait semafore total release...`)
+      if (this.debug) log.d(`[ExportEtherTxs.retriveTxs]: api chain : wait semafore total release...`)
 
 
       // Wait while all account queries will be done
       for (; etherscanAPI.someTaskInProgress();) {
          await xx.timeoutAsync(50)
       }
-      if(this.debug) log.d(`[ExportEtherTxs.retriveTxs]: api chain : semafore released.`)
+      if (this.debug) log.d(`[ExportEtherTxs.retriveTxs]: api chain : semafore released.`)
 
       log(`[ExportEtherTxs.retriveTxs]: ${totalTxs} transaction hashes fetched ok. Starting tx pages collect...`)
 
@@ -567,7 +569,7 @@ class ExportEtherTxs
             const txd = await etherscanParser.getDataFromTxPage(txraw.hash, acc.__opts)
             metric_qperminutes.push(txraw.hash)
             pageCollected++
-            if(xx.tsNow() - lastEcho > 10000) {
+            if (xx.tsNow() - lastEcho > 10000) {
                log(`[ExportEtherTxs.retriveTxs]: ${pageCollected} of ${totalTxs} tx done :: speed=${metric_qperminutes.count()}/sec`)
                lastEcho = xx.tsNow()
             }
@@ -693,6 +695,7 @@ class ExportEtherTxs
       let res = []
       for (let k in txrow.internalTxs) {
          if (inputAddrs.includes(txrow.internalTxs[k].toAddr)) res.push(k)
+         if (inputAddrs.includes(txrow.internalTxs[k].fromAddr)) log.e(`[ExportEtherTxs.getTxTransforms]: internal tx own addr in from :: tx=${txrow.txHash}`).flog()
       }
       return res
 
@@ -748,7 +751,7 @@ class ExportEtherTxs
       }
 
       // without tokens
-      else if (!txrow.tokens.length) {
+      else if (!txrow.tokens.length && txrow.fromAddr !== txrow.toAddr /* self */) {
          // deposit/withdrawal
          if (txrow.etherValue) {
             if (fromAddrIsOwn) {
@@ -856,36 +859,35 @@ class ExportEtherTxs
                memo: `Withdrawal ${txrow.etherValue} Ether To ${txrow.toName ? txrow.toName : txrow.toAddr}`
             }))
          }
-         // could be Ether receiving
-         else {
-            const ownFrom = this.getPosOwnFromInternalTxs(txrow)
-            if (ownFrom.length) {
-               ownFrom.forEach(k => {
-                  const trx = txrow.internalTxs[k]
-                  res.push(Object.assign({}, entry, {
-                     txType: txTranserTypes.DEPOSIT,
-                     creditAccount: `${trx.fromAddr} ${trx.fromName ? `(${trx.fromName})` : ""}`,
-                     creditAsset: "Ether",
-                     creditAmount: trx.etherValue,
-                     debitAccount: trx.toAddr,
-                     debitAsset: "Ether",
-                     debitAmount: trx.etherValue,
-                     memo: `Deposit  ${trx.etherValue} Ether From ${trx.fromName ? trx.fromName : trx.fromAddr}`
-                  }))
-               })
-            }
-         }
 
          if (!res.length) {
-            log.w(`[ExportEtherTxs.getTxTransforms]: No transforms for token list :: tx="${txrow.txHash}"`).flog()
+            //log.w(`[ExportEtherTxs.getTxTransforms]: No transforms for token list :: tx="${txrow.txHash}"`).flog()
          }
+      }
+
+      // internalTxs block can be exists without tokens list
+      const ownFrom = this.getPosOwnFromInternalTxs(txrow)
+      if (ownFrom.length) {
+         ownFrom.forEach(k => {
+            const trx = txrow.internalTxs[k]
+            res.push(Object.assign({}, entry, {
+               txType: txTranserTypes.DEPOSIT,
+               creditAccount: `${trx.fromAddr} ${trx.fromName ? `(${trx.fromName})` : ""}`,
+               creditAsset: "Ether",
+               creditAmount: trx.etherValue,
+               debitAccount: trx.toAddr,
+               debitAsset: "Ether",
+               debitAmount: trx.etherValue,
+               memo: `Deposit  ${trx.etherValue} Ether From ${trx.fromName ? trx.fromName : trx.fromAddr}`
+            }))
+         })
       }
 
       // zero sum && and no other transfers
       if (!res.length && txrow.txFee && fromAddrIsOwn) {
          res.push(Object.assign(entry, {
             txType: txTranserTypes.FEE,
-            creditAsset: "Ether",
+            creditAsset: "",
             creditAccount: txrow.fromAddr,
             creditAmount: 0,
             debitAccount: "",
@@ -905,7 +907,7 @@ class ExportEtherTxs
       }
 
       if (!res.length) {
-         log.e(`[ExportEtherTxs.getTxTransforms]: EE[5] no entries for tx="${txrow.txHash}"`).flog()
+         log.w(`[ExportEtherTxs.getTxTransforms]: EE[5] no entries for tx="${txrow.txHash}"`).flog()
       }
 
       return res
