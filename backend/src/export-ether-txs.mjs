@@ -695,7 +695,7 @@ class ExportEtherTxs
       let res = []
       for (let k in txrow.internalTxs) {
          if (inputAddrs.includes(txrow.internalTxs[k].toAddr)) res.push(k)
-         if (inputAddrs.includes(txrow.internalTxs[k].fromAddr)) log.e(`[ExportEtherTxs.getTxTransforms]: internal tx own addr in from :: tx=${txrow.txHash}`).flog()
+         if (inputAddrs.includes(txrow.internalTxs[k].fromAddr)) log.e(`[ExportEtherTxs.getTxTransforms]: EE[9] internal tx own addr in from :: tx=${txrow.txHash}`).flog()
       }
       return res
 
@@ -736,7 +736,7 @@ class ExportEtherTxs
          if (txrow.txFee && fromAddrIsOwn) {
             res.push(Object.assign(entry, {
                txType: txTranserTypes.FEE,
-               creditAsset: "Ether",
+               creditAsset: "",
                creditAccount: txrow.fromAddr,
                creditAmount: 0,
                debitAccount: "",
@@ -782,7 +782,7 @@ class ExportEtherTxs
       }
 
       // With token transfers
-      else {
+      else if (txrow.tokens.length) {
 
          // Swap operation
          //const [posFrom, posTo] = this.getPosSwapTokens(txrow)
@@ -846,7 +846,7 @@ class ExportEtherTxs
 
          }
 
-         // send Ether to other
+         // send Ether to Contract/token
          if (txrow.etherValue) {
             res.push(Object.assign({}, entry, {
                txType: txTranserTypes.WITHDRAWAL,

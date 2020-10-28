@@ -37,8 +37,6 @@
     "csv-writer": "^1.6.0",
     "got": "^11.8.0",
     "https-proxy-agent": "^5.0.0",
-    "jsm-loop-async": "git+https://github.com/grechka3/jsm-loop-async.git",
-    "jsm-xx": "git+https://github.com/grechka3/jsm_xx.git#25b31a0f4d43cf447b0bee9805ff33447407bd2d",
     "jsm_log": "https://github.com/grechka3/jsm_log.git#7f12e74f18c873b1a360a50f539cafc4a61cd3be",
     "jsm_loopasync": "https://github.com/grechka3/jsm-loop-async.git",
     "jsm_xx": "https://github.com/grechka3/jsm_xx.git#25b31a0f4d43cf447b0bee9805ff33447407bd2d",
