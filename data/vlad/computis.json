@@ -1,6 +1,6 @@
 [
    {
-      "datetime": "2020-08-27T16:01:51Z",
+      "datetime": "2020-08-27T19:01:51Z",
       "clientId": "11111",
       "creditAccount": "0x564286362092d8e7936f0549571a803b203aaced (Binance 3)",
       "creditAsset": "Ether",
@@ -20,7 +20,7 @@
       "txHash": "0x1315726b765987e7f52f375ffd19d65f6fd8f9b2b16caad1642807d9127d05d1"
    },
    {
-      "datetime": "2020-08-27T20:18:07Z",
+      "datetime": "2020-08-27T23:18:07Z",
       "clientId": "11111",
       "creditAccount": "0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc (Uniswap V2: USDC 3)",
       "creditAsset": "USDC",
@@ -40,7 +40,7 @@
       "txHash": "0x563b6cd5d3f0a337db2a980eb8879b0b41bcd847f95af6d5672b064f72fce210"
    },
    {
-      "datetime": "2020-08-27T20:18:07Z",
+      "datetime": "2020-08-27T23:18:07Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "Ether",
@@ -60,10 +60,10 @@
       "txHash": "0x563b6cd5d3f0a337db2a980eb8879b0b41bcd847f95af6d5672b064f72fce210"
    },
    {
-      "datetime": "2020-08-27T20:32:55Z",
+      "datetime": "2020-08-27T23:32:55Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -80,7 +80,7 @@
       "txHash": "0x314abcebdef0f181be361f6dfeacd9b164da76cdd993561cdfd084239ab85d20"
    },
    {
-      "datetime": "2020-08-27T20:44:05Z",
+      "datetime": "2020-08-27T23:44:05Z",
       "clientId": "11111",
       "creditAccount": "0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc (Uniswap V2: USDC 3)",
       "creditAsset": "USDC",
@@ -100,7 +100,7 @@
       "txHash": "0xe333569462d3428642bb6879fa4f69faefac0ad22465277c56103e18b73fe646"
    },
    {
-      "datetime": "2020-08-27T20:44:05Z",
+      "datetime": "2020-08-27T23:44:05Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "Ether",
@@ -120,7 +120,7 @@
       "txHash": "0xe333569462d3428642bb6879fa4f69faefac0ad22465277c56103e18b73fe646"
    },
    {
-      "datetime": "2020-08-29T10:13:20Z",
+      "datetime": "2020-08-29T13:13:20Z",
       "clientId": "11111",
       "creditAccount": "0x3f5ce5fbfe3e9af3971dd833d26ba9b5c936f0be (Binance)",
       "creditAsset": "USDC",
@@ -140,10 +140,10 @@
       "txHash": "0x4f8ec354bbe5735aa65ede6260ddf599f29ea44f6db483c7c506eaf8be792867"
    },
    {
-      "datetime": "2020-08-29T10:28:33Z",
+      "datetime": "2020-08-29T13:28:33Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -162,7 +162,7 @@
       "txHash": "0x0cdef5fe098e78c7f3e9269a018a266730fe3165dfc640e047473f3e6298eb86"
    },
    {
-      "datetime": "2020-08-29T10:29:40Z",
+      "datetime": "2020-08-29T13:29:40Z",
       "clientId": "11111",
       "creditAccount": "0x0681d8db095565fe8a346fa0277bffde9c0edbbf (Binance 4)",
       "creditAsset": "Ether",
@@ -182,10 +182,10 @@
       "txHash": "0xb6b0a72354d3ad4b7e8904d5ff07902e7fea5ce552b3762c50049fa1be4258a8"
    },
    {
-      "datetime": "2020-08-29T10:56:28Z",
+      "datetime": "2020-08-29T13:56:28Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -204,7 +204,7 @@
       "txHash": "0xcfc7461e7623f26ce91494956e78e09f9b25431b91e30c5520d555209cb8bd8e"
    },
    {
-      "datetime": "2020-08-29T10:56:32Z",
+      "datetime": "2020-08-29T13:56:32Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "USDC",
@@ -224,7 +224,7 @@
       "txHash": "0x7fc71b0a603d51cbc6cb457dd1e343a6a408d201c1380267d21302c6c14eff32"
    },
    {
-      "datetime": "2020-08-29T10:56:32Z",
+      "datetime": "2020-08-29T13:56:32Z",
       "clientId": "11111",
       "creditAccount": "0xa2b47e3d5c44877cca798226b7b8118f9bfb7a56 (Curve.fi: Compound Swap)",
       "creditAsset": "DAI",
@@ -244,7 +244,7 @@
       "txHash": "0x7fc71b0a603d51cbc6cb457dd1e343a6a408d201c1380267d21302c6c14eff32"
    },
    {
-      "datetime": "2020-08-29T18:59:32Z",
+      "datetime": "2020-08-29T21:59:32Z",
       "clientId": "11111",
       "creditAccount": "0x2a9aa6b8204117920821e4bf4da94f98161efdb0",
       "creditAsset": "Ether",
@@ -264,7 +264,7 @@
       "txHash": "0x7513fadad6ae0c9af1142c6ce3b491d6fc7f4c3a0cf1b87d22fb2436fc94702f"
    },
    {
-      "datetime": "2020-08-29T19:16:51Z",
+      "datetime": "2020-08-29T22:16:51Z",
       "clientId": "11111",
       "creditAccount": "0xd551234ae421e3bcba99a0da6d736074f22192ff (Binance 2)",
       "creditAsset": "USDC",
@@ -284,10 +284,10 @@
       "txHash": "0x084f86c08007e2c2c6bae930f45344ed37314d6028487d6d10ca9f55dd341e1c"
    },
    {
-      "datetime": "2020-08-29T19:19:23Z",
+      "datetime": "2020-08-29T22:19:23Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -306,7 +306,7 @@
       "txHash": "0xd99f5079238f9c0251959d24469eb73103859e05e6fc0fd1f1bd1f0eab1c156d"
    },
    {
-      "datetime": "2020-08-29T19:19:35Z",
+      "datetime": "2020-08-29T22:19:35Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "USDC",
@@ -326,7 +326,7 @@
       "txHash": "0x55abaead72c77d41bfbaa371c6ad4ab00d57bfdcfa943cef089fbc3c6d352296"
    },
    {
-      "datetime": "2020-08-29T19:19:35Z",
+      "datetime": "2020-08-29T22:19:35Z",
       "clientId": "11111",
       "creditAccount": "0xbb7678acd5494ca06d9738dcbd2bdf1c6d58672f",
       "creditAsset": "yDAI+y...",
@@ -346,7 +346,7 @@
       "txHash": "0x55abaead72c77d41bfbaa371c6ad4ab00d57bfdcfa943cef089fbc3c6d352296"
    },
    {
-      "datetime": "2020-08-29T19:48:47Z",
+      "datetime": "2020-08-29T22:48:47Z",
       "clientId": "11111",
       "creditAccount": "0x80c5e6908368cb9db503ba968d7ec5a565bfb389 (Zapper.Fi: Uniswap V2 Zap In)",
       "creditAsset": "UNI-V2",
@@ -366,7 +366,7 @@
       "txHash": "0xaf69d4bff49854a2dd0f1140adfd93aac53ddaeccb59860e42b2dfc5ca41e3f1"
    },
    {
-      "datetime": "2020-08-29T19:48:47Z",
+      "datetime": "2020-08-29T22:48:47Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "Ether",
@@ -386,7 +386,27 @@
       "txHash": "0xaf69d4bff49854a2dd0f1140adfd93aac53ddaeccb59860e42b2dfc5ca41e3f1"
    },
    {
-      "datetime": "2020-08-29T20:26:11Z",
+      "datetime": "2020-08-29T22:48:47Z",
+      "clientId": "11111",
+      "creditAccount": "0x80c5e6908368cb9db503ba968d7ec5a565bfb389 (Zapper.Fi: Uniswap V2 Zap In)",
+      "creditAsset": "Ether",
+      "creditAmount": 1.26722812396e-7,
+      "debitAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "debitAsset": "Ether",
+      "debitAmount": 1.26722812396e-7,
+      "txFeeAccount": "",
+      "txFeeAsset": "",
+      "txFeeAmount": 0,
+      "payee": "",
+      "memo": "Deposit  1.26722812396e-7 Ether From Zapper.Fi: Uniswap V2 Zap In",
+      "filledPrice": "",
+      "txType": "Deposit",
+      "histFMV": "",
+      "basis": "",
+      "txHash": "0xaf69d4bff49854a2dd0f1140adfd93aac53ddaeccb59860e42b2dfc5ca41e3f1"
+   },
+   {
+      "datetime": "2020-08-29T23:26:11Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "UNI-V2",
@@ -406,7 +426,7 @@
       "txHash": "0x00a5f0caa1832bebf90d96e87314fd9381fef6748da605f1a430086949b8622d"
    },
    {
-      "datetime": "2020-08-29T20:38:35Z",
+      "datetime": "2020-08-29T23:38:35Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "yDAI+y...",
@@ -426,10 +446,10 @@
       "txHash": "0x7a67501853b1076014bcdb876e583cc5c01212c33475509d9d09a6f27eb1cd85"
    },
    {
-      "datetime": "2020-08-29T20:38:35Z",
+      "datetime": "2020-08-29T23:38:35Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -448,7 +468,7 @@
       "txHash": "0x39426e7c538419bf58721c7042fa37a24fe8b3ca9c835710dc739bee5ccaaa65"
    },
    {
-      "datetime": "2020-08-30T16:21:58Z",
+      "datetime": "2020-08-30T19:21:58Z",
       "clientId": "11111",
       "creditAccount": "0x2874ec5e322a6ee1358d74d9317183567ad28815",
       "creditAsset": "Ether",
@@ -468,7 +488,7 @@
       "txHash": "0x869adfa5e2ccd0d7d4981c5f2687f777cfb9815d6bec4b7f0fbcb12ce241ab24"
    },
    {
-      "datetime": "2020-08-30T16:33:23Z",
+      "datetime": "2020-08-30T19:33:23Z",
       "clientId": "11111",
       "creditAccount": "0x80c5e6908368cb9db503ba968d7ec5a565bfb389 (Zapper.Fi: Uniswap V2 Zap In)",
       "creditAsset": "UNI-V2",
@@ -488,7 +508,7 @@
       "txHash": "0x1d9e3c7963cf563d9ed501f987998e617c01fbcc9d8c3bfb3ac7bc8051887db7"
    },
    {
-      "datetime": "2020-08-30T16:33:23Z",
+      "datetime": "2020-08-30T19:33:23Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "Ether",
@@ -508,10 +528,30 @@
       "txHash": "0x1d9e3c7963cf563d9ed501f987998e617c01fbcc9d8c3bfb3ac7bc8051887db7"
    },
    {
-      "datetime": "2020-08-30T16:37:37Z",
+      "datetime": "2020-08-30T19:33:23Z",
+      "clientId": "11111",
+      "creditAccount": "0x80c5e6908368cb9db503ba968d7ec5a565bfb389 (Zapper.Fi: Uniswap V2 Zap In)",
+      "creditAsset": "Ether",
+      "creditAmount": 0.000002378518093263,
+      "debitAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "debitAsset": "Ether",
+      "debitAmount": 0.000002378518093263,
+      "txFeeAccount": "",
+      "txFeeAsset": "",
+      "txFeeAmount": 0,
+      "payee": "",
+      "memo": "Deposit  0.000002378518093263 Ether From Zapper.Fi: Uniswap V2 Zap In",
+      "filledPrice": "",
+      "txType": "Deposit",
+      "histFMV": "",
+      "basis": "",
+      "txHash": "0x1d9e3c7963cf563d9ed501f987998e617c01fbcc9d8c3bfb3ac7bc8051887db7"
+   },
+   {
+      "datetime": "2020-08-30T19:37:37Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -528,10 +568,10 @@
       "txHash": "0x925ef3bc90cb651fa43c6354dcc503e6dbf7ee15ff7f6d3bb156104eeb9984e9"
    },
    {
-      "datetime": "2020-08-30T16:43:07Z",
+      "datetime": "2020-08-30T19:43:07Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -548,7 +588,7 @@
       "txHash": "0xad1ff7bb2b79ccb8c6fc602fba520ad9d52f5e910752d99c7a69d80046f2600d"
    },
    {
-      "datetime": "2020-08-30T17:30:40Z",
+      "datetime": "2020-08-30T20:30:40Z",
       "clientId": "11111",
       "creditAccount": "0x21143a9e93c7359a24c8e29bf9cef35a65e3d59b",
       "creditAsset": "Ether",
@@ -568,10 +608,10 @@
       "txHash": "0xdcdaef506626e51fe9a60d978856d277638f36a9ea024af84a598b8d7e7701a9"
    },
    {
-      "datetime": "2020-08-30T17:42:54Z",
+      "datetime": "2020-08-30T20:42:54Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -588,10 +628,10 @@
       "txHash": "0x9970374a1ed4e2f4b97e0a5d9532cdb53572326f3724df3a1e1d03b8cc485121"
    },
    {
-      "datetime": "2020-08-30T18:52:06Z",
+      "datetime": "2020-08-30T21:52:06Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -608,7 +648,7 @@
       "txHash": "0x2f7dcaf90c1edb0d694629e2a0dc58dc6096b30517a5b842288e564d1619b102"
    },
    {
-      "datetime": "2020-08-30T19:17:22Z",
+      "datetime": "2020-08-30T22:17:22Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "UNI-V2",
@@ -628,7 +668,7 @@
       "txHash": "0xe7fae90a354d40c9d9ee7bb4f3c41881a07789ba466fcf14e24d6eb546587e2d"
    },
    {
-      "datetime": "2020-08-30T19:17:22Z",
+      "datetime": "2020-08-30T22:17:22Z",
       "clientId": "11111",
       "creditAccount": "0xc2edad668740f1aa35e4d8f227fb8e17dca888cd (SushiSwap: MasterChef LP Staking Pool)",
       "creditAsset": "SUSHI",
@@ -648,7 +688,7 @@
       "txHash": "0xe7fae90a354d40c9d9ee7bb4f3c41881a07789ba466fcf14e24d6eb546587e2d"
    },
    {
-      "datetime": "2020-09-02T12:30:21Z",
+      "datetime": "2020-09-02T15:30:21Z",
       "clientId": "11111",
       "creditAccount": "0x0681d8db095565fe8a346fa0277bffde9c0edbbf (Binance 4)",
       "creditAsset": "Ether",
@@ -668,7 +708,7 @@
       "txHash": "0x5a38f31c6ed1045b53f20fea1dbf51e1c60ad79f03fd7e2eb87667b238ab430a"
    },
    {
-      "datetime": "2020-09-02T19:54:30Z",
+      "datetime": "2020-09-02T22:54:30Z",
       "clientId": "11111",
       "creditAccount": "0xc2edad668740f1aa35e4d8f227fb8e17dca888cd (SushiSwap: MasterChef LP Staking Pool)",
       "creditAsset": "SUSHI",
@@ -688,7 +728,7 @@
       "txHash": "0x94cb2d9f2d4b6d278b0a44b4e1676ebc09807f46551176eea329e97073d23b17"
    },
    {
-      "datetime": "2020-09-02T19:54:30Z",
+      "datetime": "2020-09-02T22:54:30Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "Ether",
@@ -708,7 +748,7 @@
       "txHash": "0x0a2371d6c15b7f41a430ffeee70e43119844fda895f6f4395844d4b1ffc5e0be"
    },
    {
-      "datetime": "2020-09-02T21:00:23Z",
+      "datetime": "2020-09-03T00:00:23Z",
       "clientId": "11111",
       "creditAccount": "0x7cf22917643f15520121a6eece65be4a609cce5b",
       "creditAsset": "Ether",
@@ -728,10 +768,10 @@
       "txHash": "0x44af6afbb95b28525d2eea3019ff81805d3cbb77338ea2033f0470d12e356619"
    },
    {
-      "datetime": "2020-09-03T10:23:19Z",
+      "datetime": "2020-09-03T13:23:19Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -750,10 +790,10 @@
       "txHash": "0x7e588c96d3d3b8c8286aec3cda47140e89afdff1da216a4f0f568c6826215afb"
    },
    {
-      "datetime": "2020-09-03T20:02:39Z",
+      "datetime": "2020-09-03T23:02:39Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -770,7 +810,7 @@
       "txHash": "0xc444537433af755ec878d55e199a0f29bb1b195ba6a219a09d0bcde1dc091ca0"
    },
    {
-      "datetime": "2020-09-04T09:34:55Z",
+      "datetime": "2020-09-04T12:34:55Z",
       "clientId": "11111",
       "creditAccount": "0xc2edad668740f1aa35e4d8f227fb8e17dca888cd (SushiSwap: MasterChef LP Staking Pool)",
       "creditAsset": "SUSHI",
@@ -790,7 +830,7 @@
       "txHash": "0x6c6fa9a1589b10bd4bb6d69332a8079e3ab43953391e77a4de53d5564b524eca"
    },
    {
-      "datetime": "2020-09-04T10:49:59Z",
+      "datetime": "2020-09-04T13:49:59Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "SUSHI",
@@ -810,7 +850,7 @@
       "txHash": "0x60e86375198dc1cf717cb8fb8559479501d8acafc246b9ec02dce4592854ba1a"
    },
    {
-      "datetime": "2020-09-04T10:49:59Z",
+      "datetime": "2020-09-04T13:49:59Z",
       "clientId": "11111",
       "creditAccount": "0x80c5e6908368cb9db503ba968d7ec5a565bfb389 (Zapper.Fi: Uniswap V2 Zap In)",
       "creditAsset": "UNI-V2",
@@ -830,10 +870,10 @@
       "txHash": "0x60e86375198dc1cf717cb8fb8559479501d8acafc246b9ec02dce4592854ba1a"
    },
    {
-      "datetime": "2020-09-04T10:50:26Z",
+      "datetime": "2020-09-04T13:50:26Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -850,7 +890,7 @@
       "txHash": "0x315164253882474b9641e7bec3d1bb5b937f0e1ecd82f013a5890ab91a57fc3e"
    },
    {
-      "datetime": "2020-09-04T10:51:26Z",
+      "datetime": "2020-09-04T13:51:26Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "UNI-V2",
@@ -870,7 +910,7 @@
       "txHash": "0x6eb86e13758e49f9d8c1d8e7fb0017e1083ad07b5b7a658878c855c241900901"
    },
    {
-      "datetime": "2020-09-04T10:51:26Z",
+      "datetime": "2020-09-04T13:51:26Z",
       "clientId": "11111",
       "creditAccount": "0xc2edad668740f1aa35e4d8f227fb8e17dca888cd (SushiSwap: MasterChef LP Staking Pool)",
       "creditAsset": "SUSHI",
@@ -890,7 +930,7 @@
       "txHash": "0x6eb86e13758e49f9d8c1d8e7fb0017e1083ad07b5b7a658878c855c241900901"
    },
    {
-      "datetime": "2020-09-07T11:19:11Z",
+      "datetime": "2020-09-07T14:19:11Z",
       "clientId": "11111",
       "creditAccount": "0xc2edad668740f1aa35e4d8f227fb8e17dca888cd (SushiSwap: MasterChef LP Staking Pool)",
       "creditAsset": "SUSHI",
@@ -910,10 +950,10 @@
       "txHash": "0x3e6e27e99d0697aa1815e07150699789ce25f8ec51c6ff05882df5a7536e97c8"
    },
    {
-      "datetime": "2020-09-12T15:12:48Z",
+      "datetime": "2020-09-12T18:12:48Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -930,10 +970,10 @@
       "txHash": "0x6f74a7881d5d12a65f8b19d02a8f69a0b762acd426941a90b14d5510cea5a5b6"
    },
    {
-      "datetime": "2020-09-12T15:14:10Z",
+      "datetime": "2020-09-12T18:14:10Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -950,7 +990,7 @@
       "txHash": "0x96ab5fb3984360775702c787b7662396fa1bf7b5255859c439439f3ef2481d60"
    },
    {
-      "datetime": "2020-09-12T15:27:10Z",
+      "datetime": "2020-09-12T18:27:10Z",
       "clientId": "11111",
       "creditAccount": "0xc2edad668740f1aa35e4d8f227fb8e17dca888cd (SushiSwap: MasterChef LP Staking Pool)",
       "creditAsset": "SUSHI",
@@ -970,10 +1010,10 @@
       "txHash": "0xac3de92481b8edf890c5e8d6e7e825c5cdfcd69f4a8e9335c610d33f621d19f9"
    },
    {
-      "datetime": "2020-09-12T15:43:14Z",
+      "datetime": "2020-09-12T18:43:14Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -992,7 +1032,7 @@
       "txHash": "0xdfda4f439f7b0edda4b9d820f505c7f0f08e15cd919946ea3bac00dc76e00c6d"
    },
    {
-      "datetime": "2020-09-12T15:45:07Z",
+      "datetime": "2020-09-12T18:45:07Z",
       "clientId": "11111",
       "creditAccount": "0x0681d8db095565fe8a346fa0277bffde9c0edbbf (Binance 4)",
       "creditAsset": "Ether",
@@ -1012,7 +1052,7 @@
       "txHash": "0x6a30a8c731cf7dc39eb3572acea825ff4c82255f719a94343cea9e64f05b10bf"
    },
    {
-      "datetime": "2020-09-12T15:52:24Z",
+      "datetime": "2020-09-12T18:52:24Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "SUSHI",
@@ -1032,7 +1072,7 @@
       "txHash": "0x3cdfff583b0955cb086f87a905b6d1ab25b5dd7be70b155fd0445bdee9172e77"
    },
    {
-      "datetime": "2020-09-12T15:52:24Z",
+      "datetime": "2020-09-12T18:52:24Z",
       "clientId": "11111",
       "creditAccount": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d (Uniswap V2: Router 2)",
       "creditAsset": "Ether",
@@ -1044,7 +1084,7 @@
       "txFeeAsset": "",
       "txFeeAmount": 0,
       "payee": "",
-      "memo": "Deposit  0 Ether From Uniswap V2: Router 2",
+      "memo": "Deposit  9.739060184358754 Ether From Uniswap V2: Router 2",
       "filledPrice": "",
       "txType": "Deposit",
       "histFMV": "",
@@ -1052,7 +1092,7 @@
       "txHash": "0x3cdfff583b0955cb086f87a905b6d1ab25b5dd7be70b155fd0445bdee9172e77"
    },
    {
-      "datetime": "2020-09-12T20:13:09Z",
+      "datetime": "2020-09-12T23:13:09Z",
       "clientId": "11111",
       "creditAccount": "0x564286362092d8e7936f0549571a803b203aaced (Binance 3)",
       "creditAsset": "Ether",
@@ -1072,7 +1112,7 @@
       "txHash": "0x26526f3775e48cbceee85fb9f8155fd858a2413662f944bc0247db0d4724df9f"
    },
    {
-      "datetime": "2020-09-13T06:10:38Z",
+      "datetime": "2020-09-13T09:10:38Z",
       "clientId": "11111",
       "creditAccount": "0xbf906e2a92c71b0033e523067f1ccac279785995",
       "creditAsset": "SUSHI",
@@ -1092,7 +1132,7 @@
       "txHash": "0xa630678290047715dd76a46ca8abb54fd0881d043730fed623e0048a6f82beb4"
    },
    {
-      "datetime": "2020-09-15T20:44:59Z",
+      "datetime": "2020-09-15T23:44:59Z",
       "clientId": "11111",
       "creditAccount": "0xd551234ae421e3bcba99a0da6d736074f22192ff (Binance 2)",
       "creditAsset": "Ether",
@@ -1112,7 +1152,7 @@
       "txHash": "0x75ca1450ee090ff4a74d936ceb19e5ad525be9fb519f28d2866297f4c4ddadec"
    },
    {
-      "datetime": "2020-09-18T09:35:03Z",
+      "datetime": "2020-09-18T12:35:03Z",
       "clientId": "11111",
       "creditAccount": "0x090d4613473dee047c3f2706764f49e0821d256e (Uniswap: Token Distributor)",
       "creditAsset": "UNI",
@@ -1132,10 +1172,10 @@
       "txHash": "0x7390d227f709322fe71d4623ffa91bcf8190cc02a6fbfc9761f34570d858d334"
    },
    {
-      "datetime": "2020-09-18T09:38:11Z",
+      "datetime": "2020-09-18T12:38:11Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -1154,7 +1194,7 @@
       "txHash": "0xfae3cf346bf64dd71fdc5d6884f2003908056e9b5e772d207e576780328f7a54"
    },
    {
-      "datetime": "2020-09-18T10:30:34Z",
+      "datetime": "2020-09-18T13:30:34Z",
       "clientId": "11111",
       "creditAccount": "0xc2edad668740f1aa35e4d8f227fb8e17dca888cd (SushiSwap: MasterChef LP Staking Pool)",
       "creditAsset": "SUSHI",
@@ -1174,7 +1214,7 @@
       "txHash": "0x8e4fe5e45f196d2e4d1109b28c6694e88312562e0b5728cd2c1611de4773072d"
    },
    {
-      "datetime": "2020-09-18T10:30:34Z",
+      "datetime": "2020-09-18T13:30:34Z",
       "clientId": "11111",
       "creditAccount": "0xc2edad668740f1aa35e4d8f227fb8e17dca888cd (SushiSwap: MasterChef LP Staking Pool)",
       "creditAsset": "SLP",
@@ -1194,10 +1234,10 @@
       "txHash": "0x8e4fe5e45f196d2e4d1109b28c6694e88312562e0b5728cd2c1611de4773072d"
    },
    {
-      "datetime": "2020-09-18T10:43:29Z",
+      "datetime": "2020-09-18T13:43:29Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -1214,7 +1254,7 @@
       "txHash": "0x3384084648e2a4372a27c9a8587ecb347fcd7fc8e1118180821e36701b69a29a"
    },
    {
-      "datetime": "2020-09-18T11:04:00Z",
+      "datetime": "2020-09-18T14:04:00Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "SLP",
@@ -1234,7 +1274,7 @@
       "txHash": "0xf689483c853fbd899a598267788f6b2c6b0c1e28ffc401620d47b4f56bdcb3a5"
    },
    {
-      "datetime": "2020-09-18T11:04:00Z",
+      "datetime": "2020-09-18T14:04:00Z",
       "clientId": "11111",
       "creditAccount": "0xd9e1ce17f2641f24ae83637ab66a2cca9c378b9f (SushiSwap: Router)",
       "creditAsset": "SUSHI",
@@ -1254,7 +1294,7 @@
       "txHash": "0xf689483c853fbd899a598267788f6b2c6b0c1e28ffc401620d47b4f56bdcb3a5"
    },
    {
-      "datetime": "2020-09-18T11:04:00Z",
+      "datetime": "2020-09-18T14:04:00Z",
       "clientId": "11111",
       "creditAccount": "0xd9e1ce17f2641f24ae83637ab66a2cca9c378b9f (SushiSwap: Router)",
       "creditAsset": "Ether",
@@ -1266,7 +1306,7 @@
       "txFeeAsset": "",
       "txFeeAmount": 0,
       "payee": "",
-      "memo": "Deposit  0 Ether From SushiSwap: Router",
+      "memo": "Deposit  18.040481596796813 Ether From SushiSwap: Router",
       "filledPrice": "",
       "txType": "Deposit",
       "histFMV": "",
@@ -1274,10 +1314,10 @@
       "txHash": "0xf689483c853fbd899a598267788f6b2c6b0c1e28ffc401620d47b4f56bdcb3a5"
    },
    {
-      "datetime": "2020-09-18T11:13:49Z",
+      "datetime": "2020-09-18T14:13:49Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -1296,10 +1336,10 @@
       "txHash": "0x355ed8ada3de6245ff54982cb31b20bb491f5f3095f18b6d795d4f23c6ca11b4"
    },
    {
-      "datetime": "2020-09-18T11:17:08Z",
+      "datetime": "2020-09-18T14:17:08Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -1316,29 +1356,7 @@
       "txHash": "0x5124b54eed2ac12d36ba1e1834fd2f5815bf2849377c37c69db51a2ffe387d56"
    },
    {
-      "datetime": "2020-09-18T11:18:06Z",
-      "clientId": "11111",
-      "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
-      "creditAmount": 0,
-      "debitAccount": "",
-      "debitAsset": "",
-      "debitAmount": 0,
-      "txFeeAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "txFeeAsset": "Ether",
-      "txFeeAmount": 0.00586088203669,
-      "payee": "",
-      "memo": [
-         "Approved  SLP For Trade On  SushiSwap: MasterChef LP Staking Pool"
-      ],
-      "filledPrice": "",
-      "txType": "Fee",
-      "histFMV": "",
-      "basis": "",
-      "txHash": "0x8a7a14757577fc2c2e4771902bc0e4f0dd3c278d626e8321a2fb95a09b359706"
-   },
-   {
-      "datetime": "2020-09-18T11:18:06Z",
+      "datetime": "2020-09-18T14:18:06Z",
       "clientId": "11111",
       "creditAccount": "0x80c5e6908368cb9db503ba968d7ec5a565bfb389 (Zapper.Fi: Uniswap V2 Zap In)",
       "creditAsset": "UNI-V2",
@@ -1358,7 +1376,7 @@
       "txHash": "0x9b9bcd724873b3d20d635293451affceaa8e193ba4000765e0541d03625d2c02"
    },
    {
-      "datetime": "2020-09-18T11:18:06Z",
+      "datetime": "2020-09-18T14:18:06Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "Ether",
@@ -1378,10 +1396,52 @@
       "txHash": "0x9b9bcd724873b3d20d635293451affceaa8e193ba4000765e0541d03625d2c02"
    },
    {
-      "datetime": "2020-09-18T11:19:43Z",
+      "datetime": "2020-09-18T14:18:06Z",
+      "clientId": "11111",
+      "creditAccount": "0x80c5e6908368cb9db503ba968d7ec5a565bfb389 (Zapper.Fi: Uniswap V2 Zap In)",
+      "creditAsset": "Ether",
+      "creditAmount": 0.000053065581881699,
+      "debitAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "debitAsset": "Ether",
+      "debitAmount": 0.000053065581881699,
+      "txFeeAccount": "",
+      "txFeeAsset": "",
+      "txFeeAmount": 0,
+      "payee": "",
+      "memo": "Deposit  0.000053065581881699 Ether From Zapper.Fi: Uniswap V2 Zap In",
+      "filledPrice": "",
+      "txType": "Deposit",
+      "histFMV": "",
+      "basis": "",
+      "txHash": "0x9b9bcd724873b3d20d635293451affceaa8e193ba4000765e0541d03625d2c02"
+   },
+   {
+      "datetime": "2020-09-18T14:18:06Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
+      "creditAmount": 0,
+      "debitAccount": "",
+      "debitAsset": "",
+      "debitAmount": 0,
+      "txFeeAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "txFeeAsset": "Ether",
+      "txFeeAmount": 0.00586088203669,
+      "payee": "",
+      "memo": [
+         "Approved  SLP For Trade On  SushiSwap: MasterChef LP Staking Pool"
+      ],
+      "filledPrice": "",
+      "txType": "Fee",
+      "histFMV": "",
+      "basis": "",
+      "txHash": "0x8a7a14757577fc2c2e4771902bc0e4f0dd3c278d626e8321a2fb95a09b359706"
+   },
+   {
+      "datetime": "2020-09-18T14:19:43Z",
+      "clientId": "11111",
+      "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -1400,7 +1460,7 @@
       "txHash": "0x1d87ebfa8cec676a61da916fc973f14423a888c831ebb06dcb364a7750c50fc1"
    },
    {
-      "datetime": "2020-09-18T11:20:44Z",
+      "datetime": "2020-09-18T14:20:44Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "UNI-V2",
@@ -1420,10 +1480,10 @@
       "txHash": "0xcbdb03dc04fdd2c26fbab794bbd909ffc4788c3df6d03bb95d7aa50caf2e63ff"
    },
    {
-      "datetime": "2020-09-18T12:39:31Z",
+      "datetime": "2020-09-18T15:39:31Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -1440,7 +1500,7 @@
       "txHash": "0x2ec4019ddad80d69b6cc74ea846cf04d9f91ef456b68241d2925b9adc7acf177"
    },
    {
-      "datetime": "2020-09-18T12:51:13Z",
+      "datetime": "2020-09-18T15:51:13Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "SUSHI",
@@ -1460,7 +1520,7 @@
       "txHash": "0x3edf8395c89c3903bd625865462e1dc0d20b6170556d105b116e7506157a7372"
    },
    {
-      "datetime": "2020-09-18T12:51:13Z",
+      "datetime": "2020-09-18T15:51:13Z",
       "clientId": "11111",
       "creditAccount": "0xd3d2e2692501a5c9ca623199d38826e513033a17 (Uniswap V2: UNI 30)",
       "creditAsset": "UNI",
@@ -1480,7 +1540,7 @@
       "txHash": "0x3edf8395c89c3903bd625865462e1dc0d20b6170556d105b116e7506157a7372"
    },
    {
-      "datetime": "2020-09-18T20:21:19Z",
+      "datetime": "2020-09-18T23:21:19Z",
       "clientId": "11111",
       "creditAccount": "0xfa712ee4788c042e2b7bb55e6cb8ec569c4530c1 (Curve.fi: yCrv Gauge)",
       "creditAsset": "yDAI+y...",
@@ -1500,10 +1560,10 @@
       "txHash": "0x8a40f24b42d9df82988f488224661e5b0d863ab979fabbbf1e476cb41d4fb130"
    },
    {
-      "datetime": "2020-09-18T20:21:23Z",
+      "datetime": "2020-09-18T23:21:23Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -1522,7 +1582,7 @@
       "txHash": "0x6f40d67505031a360255f93cc3015a0bd385cb7850891b54304671e0e8a6e225"
    },
    {
-      "datetime": "2020-09-18T20:21:33Z",
+      "datetime": "2020-09-18T23:21:33Z",
       "clientId": "11111",
       "creditAccount": "0x0000000000000000000000000000000000000000",
       "creditAsset": "CRV",
@@ -1542,10 +1602,10 @@
       "txHash": "0x97ece79373ada1524ec24f9213df593bbdbbceca7a41b8f11b88d6c558ade9d1"
    },
    {
-      "datetime": "2020-09-18T20:23:35Z",
+      "datetime": "2020-09-18T23:23:35Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -1562,10 +1622,10 @@
       "txHash": "0x50b53cfba012e5351afe7029aa4ebb52696eb798da57c54174f71bd40e4d8370"
    },
    {
-      "datetime": "2020-09-18T21:30:28Z",
+      "datetime": "2020-09-19T00:30:28Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -1584,7 +1644,7 @@
       "txHash": "0xe86f8385f11ce3e77a3595448b8c8a0d8c4a5f4de5281417ae16cfda64a6ba0d"
    },
    {
-      "datetime": "2020-09-19T21:44:38Z",
+      "datetime": "2020-09-20T00:44:38Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "yDAI+y...",
@@ -1604,7 +1664,7 @@
       "txHash": "0x74643fbd73e5ec444d4dbd3d413a2860aa2130cd719982a343da67338fab137d"
    },
    {
-      "datetime": "2020-09-19T21:44:38Z",
+      "datetime": "2020-09-20T00:44:38Z",
       "clientId": "11111",
       "creditAccount": "0xbbc81d23ea2c3ec7e56d39296f0cbb648873a5d3 (Curve.fi: y Deposit)",
       "creditAsset": "DAI",
@@ -1624,7 +1684,7 @@
       "txHash": "0x74643fbd73e5ec444d4dbd3d413a2860aa2130cd719982a343da67338fab137d"
    },
    {
-      "datetime": "2020-09-20T08:25:47Z",
+      "datetime": "2020-09-20T11:25:47Z",
       "clientId": "11111",
       "creditAccount": "0xd551234ae421e3bcba99a0da6d736074f22192ff (Binance 2)",
       "creditAsset": "Ether",
@@ -1644,7 +1704,7 @@
       "txHash": "0x8988f01b0be70d5c5f645637ef2c3cbe7354513d4904867b0b70fa8330588841"
    },
    {
-      "datetime": "2020-09-23T08:43:41Z",
+      "datetime": "2020-09-23T11:43:41Z",
       "clientId": "11111",
       "creditAccount": "0xd551234ae421e3bcba99a0da6d736074f22192ff (Binance 2)",
       "creditAsset": "Ether",
@@ -1664,7 +1724,7 @@
       "txHash": "0xc14583fa03ff433ecd681b6de6e008df4517fda8cd7467548224b559688a65f9"
    },
    {
-      "datetime": "2020-09-23T08:52:44Z",
+      "datetime": "2020-09-23T11:52:44Z",
       "clientId": "11111",
       "creditAccount": "0xd551234ae421e3bcba99a0da6d736074f22192ff (Binance 2)",
       "creditAsset": "Ether",
@@ -1684,7 +1744,7 @@
       "txHash": "0xb602bae4dd7bce0af5876c8216d8db257bf22386ec921bd07122a39b46619186"
    },
    {
-      "datetime": "2020-09-23T11:10:30Z",
+      "datetime": "2020-09-23T14:10:30Z",
       "clientId": "11111",
       "creditAccount": "0xb60c12d2a4069d339f49943fc45df6785b436096",
       "creditAsset": "MOON",
@@ -1704,7 +1764,7 @@
       "txHash": "0x8113f143705d2129353a49647b201d14f6aa4a4d57540018a11b52ae79f2276e"
    },
    {
-      "datetime": "2020-09-23T11:10:30Z",
+      "datetime": "2020-09-23T14:10:30Z",
       "clientId": "11111",
       "creditAccount": "0xb60c12d2a4069d339f49943fc45df6785b436096",
       "creditAsset": "UNI-V2",
@@ -1724,7 +1784,7 @@
       "txHash": "0x8113f143705d2129353a49647b201d14f6aa4a4d57540018a11b52ae79f2276e"
    },
    {
-      "datetime": "2020-09-23T14:56:51Z",
+      "datetime": "2020-09-23T17:56:51Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "UNI-V2",
@@ -1744,7 +1804,7 @@
       "txHash": "0x2eacbc08e701dec44d81889d14e55f5c9418dd189b9ca11059222fe29741e301"
    },
    {
-      "datetime": "2020-09-23T14:56:51Z",
+      "datetime": "2020-09-23T17:56:51Z",
       "clientId": "11111",
       "creditAccount": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d (Uniswap V2: Router 2)",
       "creditAsset": "MOON",
@@ -1764,7 +1824,7 @@
       "txHash": "0x2eacbc08e701dec44d81889d14e55f5c9418dd189b9ca11059222fe29741e301"
    },
    {
-      "datetime": "2020-09-23T14:56:51Z",
+      "datetime": "2020-09-23T17:56:51Z",
       "clientId": "11111",
       "creditAccount": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d (Uniswap V2: Router 2)",
       "creditAsset": "Ether",
@@ -1776,7 +1836,7 @@
       "txFeeAsset": "",
       "txFeeAmount": 0,
       "payee": "",
-      "memo": "Deposit  0 Ether From Uniswap V2: Router 2",
+      "memo": "Deposit  11.91803129057644 Ether From Uniswap V2: Router 2",
       "filledPrice": "",
       "txType": "Deposit",
       "histFMV": "",
@@ -1784,10 +1844,10 @@
       "txHash": "0x2eacbc08e701dec44d81889d14e55f5c9418dd189b9ca11059222fe29741e301"
    },
    {
-      "datetime": "2020-09-23T15:32:46Z",
+      "datetime": "2020-09-23T18:32:46Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -1806,7 +1866,7 @@
       "txHash": "0x7f7d4fe6261b8de215adfaf77effa12c14b008b5357216607f9be24d0cc03d5d"
    },
    {
-      "datetime": "2020-09-23T15:48:33Z",
+      "datetime": "2020-09-23T18:48:33Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "MOON",
@@ -1826,7 +1886,7 @@
       "txHash": "0xf5dd98b65e39379e06aa31cca1b5fbc8d8b8229948c789579d0cb0f0d2633282"
    },
    {
-      "datetime": "2020-09-23T15:48:33Z",
+      "datetime": "2020-09-23T18:48:33Z",
       "clientId": "11111",
       "creditAccount": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d (Uniswap V2: Router 2)",
       "creditAsset": "Ether",
@@ -1838,7 +1898,7 @@
       "txFeeAsset": "",
       "txFeeAmount": 0,
       "payee": "",
-      "memo": "Deposit  0 Ether From Uniswap V2: Router 2",
+      "memo": "Deposit  13.35344518550059 Ether From Uniswap V2: Router 2",
       "filledPrice": "",
       "txType": "Deposit",
       "histFMV": "",
@@ -1846,10 +1906,10 @@
       "txHash": "0xf5dd98b65e39379e06aa31cca1b5fbc8d8b8229948c789579d0cb0f0d2633282"
    },
    {
-      "datetime": "2020-09-23T17:38:36Z",
+      "datetime": "2020-09-23T20:38:36Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -1868,7 +1928,7 @@
       "txHash": "0x973b6048825b58a5b091eaf62d80e9eaf1ffe4a92d2f90b8ba8a5933e5860108"
    },
    {
-      "datetime": "2020-09-23T17:41:12Z",
+      "datetime": "2020-09-23T20:41:12Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "UNI",
@@ -1888,7 +1948,7 @@
       "txHash": "0x72d2bd7ba36b9538d2f8dd2bddc2ce46b754f25cb2cc00891c57f9d36c4cc8e7"
    },
    {
-      "datetime": "2020-09-23T17:41:12Z",
+      "datetime": "2020-09-23T20:41:12Z",
       "clientId": "11111",
       "creditAccount": "0x80c5e6908368cb9db503ba968d7ec5a565bfb389 (Zapper.Fi: Uniswap V2 Zap In)",
       "creditAsset": "UNI-V2",
@@ -1908,10 +1968,10 @@
       "txHash": "0x72d2bd7ba36b9538d2f8dd2bddc2ce46b754f25cb2cc00891c57f9d36c4cc8e7"
    },
    {
-      "datetime": "2020-09-23T17:41:33Z",
+      "datetime": "2020-09-23T20:41:33Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -1930,7 +1990,7 @@
       "txHash": "0x150f686047e2a30e32566d727e85e827e8746cc6d002cbab235a019843e6ae0e"
    },
    {
-      "datetime": "2020-09-23T17:46:35Z",
+      "datetime": "2020-09-23T20:46:35Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "DAI",
@@ -1950,7 +2010,7 @@
       "txHash": "0xbbda9afb27b2720cfcd9e462507daae6684c18bc88bdd909ffad3aba0d0ca533"
    },
    {
-      "datetime": "2020-09-23T17:46:35Z",
+      "datetime": "2020-09-23T20:46:35Z",
       "clientId": "11111",
       "creditAccount": "0x80c5e6908368cb9db503ba968d7ec5a565bfb389 (Zapper.Fi: Uniswap V2 Zap In)",
       "creditAsset": "UNI-V2",
@@ -1970,7 +2030,7 @@
       "txHash": "0xbbda9afb27b2720cfcd9e462507daae6684c18bc88bdd909ffad3aba0d0ca533"
    },
    {
-      "datetime": "2020-09-23T17:48:29Z",
+      "datetime": "2020-09-23T20:48:29Z",
       "clientId": "11111",
       "creditAccount": "0x80c5e6908368cb9db503ba968d7ec5a565bfb389 (Zapper.Fi: Uniswap V2 Zap In)",
       "creditAsset": "UNI-V2",
@@ -1990,7 +2050,7 @@
       "txHash": "0xc813ebbe47b17a799d4892b6b14a269fb922b06d6bacd4482af8ef56b0603c72"
    },
    {
-      "datetime": "2020-09-23T17:48:29Z",
+      "datetime": "2020-09-23T20:48:29Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "Ether",
@@ -2010,10 +2070,30 @@
       "txHash": "0xc813ebbe47b17a799d4892b6b14a269fb922b06d6bacd4482af8ef56b0603c72"
    },
    {
-      "datetime": "2020-09-23T18:44:22Z",
+      "datetime": "2020-09-23T20:48:29Z",
+      "clientId": "11111",
+      "creditAccount": "0x80c5e6908368cb9db503ba968d7ec5a565bfb389 (Zapper.Fi: Uniswap V2 Zap In)",
+      "creditAsset": "Ether",
+      "creditAmount": 0.00000385403141423,
+      "debitAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "debitAsset": "Ether",
+      "debitAmount": 0.00000385403141423,
+      "txFeeAccount": "",
+      "txFeeAsset": "",
+      "txFeeAmount": 0,
+      "payee": "",
+      "memo": "Deposit  0.00000385403141423 Ether From Zapper.Fi: Uniswap V2 Zap In",
+      "filledPrice": "",
+      "txType": "Deposit",
+      "histFMV": "",
+      "basis": "",
+      "txHash": "0xc813ebbe47b17a799d4892b6b14a269fb922b06d6bacd4482af8ef56b0603c72"
+   },
+   {
+      "datetime": "2020-09-23T21:44:22Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -2032,7 +2112,7 @@
       "txHash": "0x4536f36c03ef8765df02be52e7004268f8a1235f280476a1b302f0c104069908"
    },
    {
-      "datetime": "2020-09-23T18:46:54Z",
+      "datetime": "2020-09-23T21:46:54Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "UNI-V2",
@@ -2052,10 +2132,10 @@
       "txHash": "0x3a7cee2b68202b81e1b5fc4766fa9d9e3d3c815095701084dd1170086cb81a4e"
    },
    {
-      "datetime": "2020-09-23T18:54:46Z",
+      "datetime": "2020-09-23T21:54:46Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -2074,7 +2154,7 @@
       "txHash": "0x0cbbe772e8ebb7c4a2f733f8421528ad72362c3cd3e5511144d718b48492f0f5"
    },
    {
-      "datetime": "2020-09-23T20:05:29Z",
+      "datetime": "2020-09-23T23:05:29Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "UNI-V2",
@@ -2094,7 +2174,7 @@
       "txHash": "0x97cc5ff9433d0872a0152525a5661bb0b30ef3f3ed8d595d881624dca6b3d1a4"
    },
    {
-      "datetime": "2020-09-27T21:29:34Z",
+      "datetime": "2020-09-28T00:29:34Z",
       "clientId": "11111",
       "creditAccount": "0xbd17b1ce622d73bd438b9e658aca5996dc394b0d",
       "creditAsset": "PICKLE",
@@ -2114,10 +2194,10 @@
       "txHash": "0xc7e3a81e85542b8daa98c8a06bbf6cc156c7ae9211082a1559018bf8f0531347"
    },
    {
-      "datetime": "2020-09-27T22:03:15Z",
+      "datetime": "2020-09-28T01:03:15Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -2136,7 +2216,7 @@
       "txHash": "0x843694f8926d387e05c744fcd0d90b6762d4f68ac6801b85660065d48dced92f"
    },
    {
-      "datetime": "2020-09-27T22:04:00Z",
+      "datetime": "2020-09-28T01:04:00Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "PICKLE",
@@ -2156,7 +2236,7 @@
       "txHash": "0xf7bd2371111372ae14d7f8140fe9ed48dac663220b44b3ff9e4072cc0b020d73"
    },
    {
-      "datetime": "2020-09-27T22:04:00Z",
+      "datetime": "2020-09-28T01:04:00Z",
       "clientId": "11111",
       "creditAccount": "0xdc98556ce24f007a5ef6dc1ce96322d65832a819 (Uniswap V2: PICKLE 2)",
       "creditAsset": "WETH",
@@ -2176,7 +2256,7 @@
       "txHash": "0xf7bd2371111372ae14d7f8140fe9ed48dac663220b44b3ff9e4072cc0b020d73"
    },
    {
-      "datetime": "2020-09-27T22:09:36Z",
+      "datetime": "2020-09-28T01:09:36Z",
       "clientId": "11111",
       "creditAccount": "0xa1484c3aa22a66c62b77e0ae78e15258bd0cb711 (Uniswap V2: ETH/DAI UNI Pool)",
       "creditAsset": "UNI-V2",
@@ -2196,7 +2276,7 @@
       "txHash": "0x749b9b9d9725efe84ff7185211f1c2cb3314d7905bf8c9ccd00232410d3858c3"
    },
    {
-      "datetime": "2020-09-27T22:09:36Z",
+      "datetime": "2020-09-28T01:09:36Z",
       "clientId": "11111",
       "creditAccount": "0xa1484c3aa22a66c62b77e0ae78e15258bd0cb711 (Uniswap V2: ETH/DAI UNI Pool)",
       "creditAsset": "UNI",
@@ -2216,7 +2296,7 @@
       "txHash": "0x749b9b9d9725efe84ff7185211f1c2cb3314d7905bf8c9ccd00232410d3858c3"
    },
    {
-      "datetime": "2020-09-27T22:15:45Z",
+      "datetime": "2020-09-28T01:15:45Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "UNI-V2",
@@ -2236,7 +2316,7 @@
       "txHash": "0x3d191d6d72d6e4552328f851dd71ff56474c2d182ed5ba38f5785c70466dc217"
    },
    {
-      "datetime": "2020-09-29T19:53:11Z",
+      "datetime": "2020-09-29T22:53:11Z",
       "clientId": "11111",
       "creditAccount": "0x996e90d4d81a8677cf95cb987a5eb0d2ade3aca5",
       "creditAsset": "eRSDL",
@@ -2256,7 +2336,7 @@
       "txHash": "0x8216688360d35488c072ad62919623c9facc0a887c562f3b54713060acb915f0"
    },
    {
-      "datetime": "2020-09-29T20:28:24Z",
+      "datetime": "2020-09-29T23:28:24Z",
       "clientId": "11111",
       "creditAccount": "0xa1484c3aa22a66c62b77e0ae78e15258bd0cb711 (Uniswap V2: ETH/DAI UNI Pool)",
       "creditAsset": "UNI-V2",
@@ -2276,7 +2356,7 @@
       "txHash": "0x170d81c514b6b69f4e9369c46dfe57a524607fa751df65f0b3891445b20b0e8e"
    },
    {
-      "datetime": "2020-09-29T20:28:24Z",
+      "datetime": "2020-09-29T23:28:24Z",
       "clientId": "11111",
       "creditAccount": "0xa1484c3aa22a66c62b77e0ae78e15258bd0cb711 (Uniswap V2: ETH/DAI UNI Pool)",
       "creditAsset": "UNI",
@@ -2296,10 +2376,10 @@
       "txHash": "0x170d81c514b6b69f4e9369c46dfe57a524607fa751df65f0b3891445b20b0e8e"
    },
    {
-      "datetime": "2020-09-29T20:28:55Z",
+      "datetime": "2020-09-29T23:28:55Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -2318,67 +2398,7 @@
       "txHash": "0xc448cadd4e15cdd493b706723aa9b038106c06deb7fb294d055f56507622c74b"
    },
    {
-      "datetime": "2020-09-30T14:39:24Z",
-      "clientId": "11111",
-      "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "UNI-V2",
-      "creditAmount": 61.57188600911535,
-      "debitAccount": "0xd3d2e2692501a5c9ca623199d38826e513033a17 (Uniswap V2: UNI 30)",
-      "debitAsset": "UNI-V2",
-      "debitAmount": 61.57188600911535,
-      "txFeeAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "txFeeAsset": "Ether",
-      "txFeeAmount": 0.021331332,
-      "payee": "",
-      "memo": "Withdrawal 61.57188600911535 UNI-V2 To Uniswap V2: UNI 30",
-      "filledPrice": "",
-      "txType": "Withdrawl",
-      "histFMV": "",
-      "basis": "",
-      "txHash": "0xcf77e9ddc51858002d2579a645b08c629b0255aa53aad2226fc8279e44eff155"
-   },
-   {
-      "datetime": "2020-09-30T14:39:24Z",
-      "clientId": "11111",
-      "creditAccount": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d (Uniswap V2: Router 2)",
-      "creditAsset": "UNI",
-      "creditAmount": 1043.7488656854796,
-      "debitAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "debitAsset": "UNI",
-      "debitAmount": 1043.7488656854796,
-      "txFeeAccount": "",
-      "txFeeAsset": "",
-      "txFeeAmount": 0,
-      "payee": "",
-      "memo": "Deposit 1043.7488656854796 UNI From Uniswap V2: Router 2",
-      "filledPrice": "",
-      "txType": "Deposit",
-      "histFMV": "",
-      "basis": "",
-      "txHash": "0xcf77e9ddc51858002d2579a645b08c629b0255aa53aad2226fc8279e44eff155"
-   },
-   {
-      "datetime": "2020-09-30T14:39:24Z",
-      "clientId": "11111",
-      "creditAccount": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d (Uniswap V2: Router 2)",
-      "creditAsset": "Ether",
-      "creditAmount": 11.966753282364081,
-      "debitAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "debitAsset": "Ether",
-      "debitAmount": 11.966753282364081,
-      "txFeeAccount": "",
-      "txFeeAsset": "",
-      "txFeeAmount": 0,
-      "payee": "",
-      "memo": "Deposit  0 Ether From Uniswap V2: Router 2",
-      "filledPrice": "",
-      "txType": "Deposit",
-      "histFMV": "",
-      "basis": "",
-      "txHash": "0xcf77e9ddc51858002d2579a645b08c629b0255aa53aad2226fc8279e44eff155"
-   },
-   {
-      "datetime": "2020-09-30T14:39:24Z",
+      "datetime": "2020-09-30T17:39:24Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "UNI-V2",
@@ -2398,7 +2418,7 @@
       "txHash": "0x3e70ce4282954a1a74fccf1184fdc0326fade16aeafa4118ff5458f0c10780c2"
    },
    {
-      "datetime": "2020-09-30T14:39:24Z",
+      "datetime": "2020-09-30T17:39:24Z",
       "clientId": "11111",
       "creditAccount": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d (Uniswap V2: Router 2)",
       "creditAsset": "DAI",
@@ -2418,7 +2438,7 @@
       "txHash": "0x3e70ce4282954a1a74fccf1184fdc0326fade16aeafa4118ff5458f0c10780c2"
    },
    {
-      "datetime": "2020-09-30T14:39:24Z",
+      "datetime": "2020-09-30T17:39:24Z",
       "clientId": "11111",
       "creditAccount": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d (Uniswap V2: Router 2)",
       "creditAsset": "Ether",
@@ -2430,7 +2450,7 @@
       "txFeeAsset": "",
       "txFeeAmount": 0,
       "payee": "",
-      "memo": "Deposit  0 Ether From Uniswap V2: Router 2",
+      "memo": "Deposit  1.7578490250215815 Ether From Uniswap V2: Router 2",
       "filledPrice": "",
       "txType": "Deposit",
       "histFMV": "",
@@ -2438,10 +2458,70 @@
       "txHash": "0x3e70ce4282954a1a74fccf1184fdc0326fade16aeafa4118ff5458f0c10780c2"
    },
    {
-      "datetime": "2020-09-30T14:56:05Z",
+      "datetime": "2020-09-30T17:39:24Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "creditAsset": "UNI-V2",
+      "creditAmount": 61.57188600911535,
+      "debitAccount": "0xd3d2e2692501a5c9ca623199d38826e513033a17 (Uniswap V2: UNI 30)",
+      "debitAsset": "UNI-V2",
+      "debitAmount": 61.57188600911535,
+      "txFeeAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "txFeeAsset": "Ether",
+      "txFeeAmount": 0.021331332,
+      "payee": "",
+      "memo": "Withdrawal 61.57188600911535 UNI-V2 To Uniswap V2: UNI 30",
+      "filledPrice": "",
+      "txType": "Withdrawl",
+      "histFMV": "",
+      "basis": "",
+      "txHash": "0xcf77e9ddc51858002d2579a645b08c629b0255aa53aad2226fc8279e44eff155"
+   },
+   {
+      "datetime": "2020-09-30T17:39:24Z",
+      "clientId": "11111",
+      "creditAccount": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d (Uniswap V2: Router 2)",
+      "creditAsset": "UNI",
+      "creditAmount": 1043.7488656854796,
+      "debitAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "debitAsset": "UNI",
+      "debitAmount": 1043.7488656854796,
+      "txFeeAccount": "",
+      "txFeeAsset": "",
+      "txFeeAmount": 0,
+      "payee": "",
+      "memo": "Deposit 1043.7488656854796 UNI From Uniswap V2: Router 2",
+      "filledPrice": "",
+      "txType": "Deposit",
+      "histFMV": "",
+      "basis": "",
+      "txHash": "0xcf77e9ddc51858002d2579a645b08c629b0255aa53aad2226fc8279e44eff155"
+   },
+   {
+      "datetime": "2020-09-30T17:39:24Z",
+      "clientId": "11111",
+      "creditAccount": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d (Uniswap V2: Router 2)",
       "creditAsset": "Ether",
+      "creditAmount": 11.966753282364081,
+      "debitAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "debitAsset": "Ether",
+      "debitAmount": 11.966753282364081,
+      "txFeeAccount": "",
+      "txFeeAsset": "",
+      "txFeeAmount": 0,
+      "payee": "",
+      "memo": "Deposit  11.966753282364081 Ether From Uniswap V2: Router 2",
+      "filledPrice": "",
+      "txType": "Deposit",
+      "histFMV": "",
+      "basis": "",
+      "txHash": "0xcf77e9ddc51858002d2579a645b08c629b0255aa53aad2226fc8279e44eff155"
+   },
+   {
+      "datetime": "2020-09-30T17:56:05Z",
+      "clientId": "11111",
+      "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -2460,10 +2540,10 @@
       "txHash": "0xe1c1b97504a1205b6639576a6e21198877d55f7a56e96a78d42f2b21742d269d"
    },
    {
-      "datetime": "2020-10-01T15:36:54Z",
+      "datetime": "2020-10-01T18:36:54Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -2482,7 +2562,7 @@
       "txHash": "0xa88902eb2e9f45b3017b67d5cbb10795843756031c7aa699c64f3383e98dac7d"
    },
    {
-      "datetime": "2020-10-01T15:38:31Z",
+      "datetime": "2020-10-01T18:38:31Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "eRSDL",
@@ -2502,7 +2582,7 @@
       "txHash": "0x71fcd466f26dc6c7f9fab3249619eae8394cf536c776c3337afba64bfab58d0f"
    },
    {
-      "datetime": "2020-10-01T15:38:31Z",
+      "datetime": "2020-10-01T18:38:31Z",
       "clientId": "11111",
       "creditAccount": "0x0000000000000000000000000000000000000000",
       "creditAsset": "UNI-V2",
@@ -2522,7 +2602,7 @@
       "txHash": "0x71fcd466f26dc6c7f9fab3249619eae8394cf536c776c3337afba64bfab58d0f"
    },
    {
-      "datetime": "2020-10-01T15:38:31Z",
+      "datetime": "2020-10-01T18:38:31Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "Ether",
@@ -2542,7 +2622,7 @@
       "txHash": "0x71fcd466f26dc6c7f9fab3249619eae8394cf536c776c3337afba64bfab58d0f"
    },
    {
-      "datetime": "2020-10-01T15:47:38Z",
+      "datetime": "2020-10-01T18:47:38Z",
       "clientId": "11111",
       "creditAccount": "0x996e90d4d81a8677cf95cb987a5eb0d2ade3aca5",
       "creditAsset": "eRSDL",
@@ -2562,7 +2642,7 @@
       "txHash": "0x7ce34531f3191cabfc7a7fd108dfa0922a4fde89cdb38eda2a1d03dfe311ff8c"
    },
    {
-      "datetime": "2020-10-01T22:10:46Z",
+      "datetime": "2020-10-02T01:10:46Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "eRSDL",
@@ -2582,7 +2662,7 @@
       "txHash": "0xda89de24953a7b409dbb26c635c80689dd93297e46e821d3fb9956797b0deef3"
    },
    {
-      "datetime": "2020-10-01T22:10:46Z",
+      "datetime": "2020-10-02T01:10:46Z",
       "clientId": "11111",
       "creditAccount": "0x0000000000000000000000000000000000000000",
       "creditAsset": "UNI-V2",
@@ -2602,7 +2682,7 @@
       "txHash": "0xda89de24953a7b409dbb26c635c80689dd93297e46e821d3fb9956797b0deef3"
    },
    {
-      "datetime": "2020-10-01T22:10:46Z",
+      "datetime": "2020-10-02T01:10:46Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "Ether",
@@ -2622,10 +2702,10 @@
       "txHash": "0xda89de24953a7b409dbb26c635c80689dd93297e46e821d3fb9956797b0deef3"
    },
    {
-      "datetime": "2020-10-01T22:32:50Z",
+      "datetime": "2020-10-02T01:32:50Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -2644,7 +2724,7 @@
       "txHash": "0x4088b35b289873ef493776a81baf631cf0dee23a097cf150158c17de6f35f19c"
    },
    {
-      "datetime": "2020-10-01T22:34:17Z",
+      "datetime": "2020-10-02T01:34:17Z",
       "clientId": "11111",
       "creditAccount": "0x80c5e6908368cb9db503ba968d7ec5a565bfb389 (Zapper.Fi: Uniswap V2 Zap In)",
       "creditAsset": "UNI-V2",
@@ -2664,7 +2744,7 @@
       "txHash": "0x7038dd6a0cb4b39487fe1edb282e6751214ba02281dd2d6893227a7bb3558e85"
    },
    {
-      "datetime": "2020-10-01T22:34:17Z",
+      "datetime": "2020-10-02T01:34:17Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "Ether",
@@ -2684,10 +2764,30 @@
       "txHash": "0x7038dd6a0cb4b39487fe1edb282e6751214ba02281dd2d6893227a7bb3558e85"
    },
    {
-      "datetime": "2020-10-01T22:34:47Z",
+      "datetime": "2020-10-02T01:34:17Z",
+      "clientId": "11111",
+      "creditAccount": "0x80c5e6908368cb9db503ba968d7ec5a565bfb389 (Zapper.Fi: Uniswap V2 Zap In)",
+      "creditAsset": "Ether",
+      "creditAmount": 4.57471596638e-7,
+      "debitAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "debitAsset": "Ether",
+      "debitAmount": 4.57471596638e-7,
+      "txFeeAccount": "",
+      "txFeeAsset": "",
+      "txFeeAmount": 0,
+      "payee": "",
+      "memo": "Deposit  4.57471596638e-7 Ether From Zapper.Fi: Uniswap V2 Zap In",
+      "filledPrice": "",
+      "txType": "Deposit",
+      "histFMV": "",
+      "basis": "",
+      "txHash": "0x7038dd6a0cb4b39487fe1edb282e6751214ba02281dd2d6893227a7bb3558e85"
+   },
+   {
+      "datetime": "2020-10-02T01:34:47Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -2706,7 +2806,7 @@
       "txHash": "0x844f2afaef45e03ec6594b8684dc96b9c321fe8bf2933992de1e5d57e68c4cdd"
    },
    {
-      "datetime": "2020-10-01T22:35:10Z",
+      "datetime": "2020-10-02T01:35:10Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "UNI-V2",
@@ -2726,7 +2826,7 @@
       "txHash": "0xadfccf159f73e2b8da4652ccbbabf94cb37a6f3b20ada1c020104ad453697d36"
    },
    {
-      "datetime": "2020-10-01T23:01:32Z",
+      "datetime": "2020-10-02T02:01:32Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "WETH",
@@ -2746,7 +2846,7 @@
       "txHash": "0xad52880347c92b27604397997fc6fc9a9d374aafd00b6dedac9a1307c9a4c8df"
    },
    {
-      "datetime": "2020-10-01T23:01:32Z",
+      "datetime": "2020-10-02T02:01:32Z",
       "clientId": "11111",
       "creditAccount": "0x80c5e6908368cb9db503ba968d7ec5a565bfb389 (Zapper.Fi: Uniswap V2 Zap In)",
       "creditAsset": "WETH",
@@ -2766,7 +2866,7 @@
       "txHash": "0xad52880347c92b27604397997fc6fc9a9d374aafd00b6dedac9a1307c9a4c8df"
    },
    {
-      "datetime": "2020-10-01T23:01:32Z",
+      "datetime": "2020-10-02T02:01:32Z",
       "clientId": "11111",
       "creditAccount": "0x80c5e6908368cb9db503ba968d7ec5a565bfb389 (Zapper.Fi: Uniswap V2 Zap In)",
       "creditAsset": "UNI-V2",
@@ -2786,30 +2886,10 @@
       "txHash": "0xad52880347c92b27604397997fc6fc9a9d374aafd00b6dedac9a1307c9a4c8df"
    },
    {
-      "datetime": "2020-10-01T23:09:40Z",
+      "datetime": "2020-10-02T02:09:40Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
-      "creditAmount": 0,
-      "debitAccount": "",
-      "debitAsset": "",
-      "debitAmount": 0,
-      "txFeeAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "txFeeAsset": "Ether",
-      "txFeeAmount": 0.00189698806232,
-      "payee": "",
-      "memo": "Loss on fail transaction",
-      "filledPrice": "",
-      "txType": "Fee",
-      "histFMV": "",
-      "basis": "",
-      "txHash": "0x1930b4706606b32073b684ad8394425f83a3616a7bf8a82bb8cd9a37bc09e5b6"
-   },
-   {
-      "datetime": "2020-10-01T23:09:40Z",
-      "clientId": "11111",
-      "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -2826,7 +2906,27 @@
       "txHash": "0xadeb95e291c6b72da6740c5cd20bc2f9841e9a740183cd8304d5d6b7228068f0"
    },
    {
-      "datetime": "2020-10-01T23:09:40Z",
+      "datetime": "2020-10-02T02:09:40Z",
+      "clientId": "11111",
+      "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "creditAsset": "",
+      "creditAmount": 0,
+      "debitAccount": "",
+      "debitAsset": "",
+      "debitAmount": 0,
+      "txFeeAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "txFeeAsset": "Ether",
+      "txFeeAmount": 0.00189698806232,
+      "payee": "",
+      "memo": "Loss on fail transaction",
+      "filledPrice": "",
+      "txType": "Fee",
+      "histFMV": "",
+      "basis": "",
+      "txHash": "0x1930b4706606b32073b684ad8394425f83a3616a7bf8a82bb8cd9a37bc09e5b6"
+   },
+   {
+      "datetime": "2020-10-02T02:09:40Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "UNI-V2",
@@ -2846,7 +2946,7 @@
       "txHash": "0x3202c55430ab899e2e97565156af730c311c31911b26dff908754eb5c4bed03a"
    },
    {
-      "datetime": "2020-10-01T23:09:40Z",
+      "datetime": "2020-10-02T02:09:40Z",
       "clientId": "11111",
       "creditAccount": "0xbd17b1ce622d73bd438b9e658aca5996dc394b0d",
       "creditAsset": "PICKLE",
@@ -2866,7 +2966,7 @@
       "txHash": "0x3202c55430ab899e2e97565156af730c311c31911b26dff908754eb5c4bed03a"
    },
    {
-      "datetime": "2020-10-03T19:07:03Z",
+      "datetime": "2020-10-03T22:07:03Z",
       "clientId": "11111",
       "creditAccount": "0xbd17b1ce622d73bd438b9e658aca5996dc394b0d",
       "creditAsset": "PICKLE",
@@ -2886,10 +2986,10 @@
       "txHash": "0x51baef71d666d1129b4ebbe54992447fa8e4e519a93805f7029a03299a05dddc"
    },
    {
-      "datetime": "2020-10-03T19:07:46Z",
+      "datetime": "2020-10-03T22:07:46Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -2908,7 +3008,7 @@
       "txHash": "0x02b463dc573ba34e42499f9becbfacab48ab72c01433c435f3c4d9e06410f473"
    },
    {
-      "datetime": "2020-10-03T19:09:11Z",
+      "datetime": "2020-10-03T22:09:11Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "DAI",
@@ -2928,7 +3028,7 @@
       "txHash": "0x678c1342fe303a0e1ae43763835ddbcd821a91688635bcaacf4bd996712a9e66"
    },
    {
-      "datetime": "2020-10-03T19:09:11Z",
+      "datetime": "2020-10-03T22:09:11Z",
       "clientId": "11111",
       "creditAccount": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d (Uniswap V2: Router 2)",
       "creditAsset": "Ether",
@@ -2940,7 +3040,7 @@
       "txFeeAsset": "",
       "txFeeAmount": 0,
       "payee": "",
-      "memo": "Deposit  0 Ether From Uniswap V2: Router 2",
+      "memo": "Deposit  1.7820150733151772 Ether From Uniswap V2: Router 2",
       "filledPrice": "",
       "txType": "Deposit",
       "histFMV": "",
@@ -2948,7 +3048,7 @@
       "txHash": "0x678c1342fe303a0e1ae43763835ddbcd821a91688635bcaacf4bd996712a9e66"
    },
    {
-      "datetime": "2020-10-04T14:19:22Z",
+      "datetime": "2020-10-04T17:19:22Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "PICKLE",
@@ -2968,7 +3068,7 @@
       "txHash": "0xa7cc21a84f3280be1e00336ab9d804a1fa7b84e850d107252e9eb14cda5ddfd5"
    },
    {
-      "datetime": "2020-10-04T14:19:22Z",
+      "datetime": "2020-10-04T17:19:22Z",
       "clientId": "11111",
       "creditAccount": "0x0000000000000000000000000000000000000000",
       "creditAsset": "UNI-V2",
@@ -2988,7 +3088,7 @@
       "txHash": "0xa7cc21a84f3280be1e00336ab9d804a1fa7b84e850d107252e9eb14cda5ddfd5"
    },
    {
-      "datetime": "2020-10-04T14:19:22Z",
+      "datetime": "2020-10-04T17:19:22Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "Ether",
@@ -3008,7 +3108,7 @@
       "txHash": "0xa7cc21a84f3280be1e00336ab9d804a1fa7b84e850d107252e9eb14cda5ddfd5"
    },
    {
-      "datetime": "2020-10-05T08:28:51Z",
+      "datetime": "2020-10-05T11:28:51Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "UNI-V2",
@@ -3028,7 +3128,7 @@
       "txHash": "0x0f84ddbc9ff87f126fbc5a12d65264b6f72b5ae24211971b54c891f43893fb07"
    },
    {
-      "datetime": "2020-10-05T08:28:51Z",
+      "datetime": "2020-10-05T11:28:51Z",
       "clientId": "11111",
       "creditAccount": "0xbd17b1ce622d73bd438b9e658aca5996dc394b0d",
       "creditAsset": "PICKLE",
@@ -3048,7 +3148,7 @@
       "txHash": "0x0f84ddbc9ff87f126fbc5a12d65264b6f72b5ae24211971b54c891f43893fb07"
    },
    {
-      "datetime": "2020-10-08T12:08:17Z",
+      "datetime": "2020-10-08T15:08:17Z",
       "clientId": "11111",
       "creditAccount": "0xf8377270af0c864d2b3bab73bb16c65b05767549",
       "creditAsset": "eRSDL",
@@ -3068,7 +3168,7 @@
       "txHash": "0xe71eef68c9cdbbf50b53f13cc1600cd4144c3e10a36f6937aa486ff61a8ba0ff"
    },
    {
-      "datetime": "2020-10-08T12:21:32Z",
+      "datetime": "2020-10-08T15:21:32Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "PICKLE",
@@ -3088,7 +3188,7 @@
       "txHash": "0xb205a560ed9c4f722e10d4af92eba831530b9749de20602463c7052acccac7f5"
    },
    {
-      "datetime": "2020-10-08T12:21:32Z",
+      "datetime": "2020-10-08T15:21:32Z",
       "clientId": "11111",
       "creditAccount": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d (Uniswap V2: Router 2)",
       "creditAsset": "Ether",
@@ -3100,7 +3200,7 @@
       "txFeeAsset": "",
       "txFeeAmount": 0,
       "payee": "",
-      "memo": "Deposit  0 Ether From Uniswap V2: Router 2",
+      "memo": "Deposit  0.7320056009421759 Ether From Uniswap V2: Router 2",
       "filledPrice": "",
       "txType": "Deposit",
       "histFMV": "",
@@ -3108,7 +3208,7 @@
       "txHash": "0xb205a560ed9c4f722e10d4af92eba831530b9749de20602463c7052acccac7f5"
    },
    {
-      "datetime": "2020-10-08T12:26:11Z",
+      "datetime": "2020-10-08T15:26:11Z",
       "clientId": "11111",
       "creditAccount": "0xd551234ae421e3bcba99a0da6d736074f22192ff (Binance 2)",
       "creditAsset": "Ether",
@@ -3128,7 +3228,7 @@
       "txHash": "0x43683ca9e00b82360db070620bbae1cd266fe70a81a1a92c819b5a27d0fc1c54"
    },
    {
-      "datetime": "2020-10-08T12:50:13Z",
+      "datetime": "2020-10-08T15:50:13Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "eRSDL",
@@ -3148,7 +3248,7 @@
       "txHash": "0x92cb1d3056f7a8f776773f656846edbc8e9ffcf7a1d8c58b5955abc07567d6dc"
    },
    {
-      "datetime": "2020-10-08T12:50:13Z",
+      "datetime": "2020-10-08T15:50:13Z",
       "clientId": "11111",
       "creditAccount": "0x0000000000000000000000000000000000000000",
       "creditAsset": "UNI-V2",
@@ -3168,7 +3268,7 @@
       "txHash": "0x92cb1d3056f7a8f776773f656846edbc8e9ffcf7a1d8c58b5955abc07567d6dc"
    },
    {
-      "datetime": "2020-10-08T12:50:13Z",
+      "datetime": "2020-10-08T15:50:13Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "Ether",
@@ -3188,7 +3288,7 @@
       "txHash": "0x92cb1d3056f7a8f776773f656846edbc8e9ffcf7a1d8c58b5955abc07567d6dc"
    },
    {
-      "datetime": "2020-10-08T20:51:27Z",
+      "datetime": "2020-10-08T23:51:27Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "UNI-V2",
@@ -3208,7 +3308,7 @@
       "txHash": "0x691675e7396a9a38b94c6d714a18044fa27fbf2c9cf1c96fea0e31365f711be6"
    },
    {
-      "datetime": "2020-10-08T20:51:27Z",
+      "datetime": "2020-10-08T23:51:27Z",
       "clientId": "11111",
       "creditAccount": "0xf8377270af0c864d2b3bab73bb16c65b05767549",
       "creditAsset": "eRSDL",
@@ -3228,7 +3328,7 @@
       "txHash": "0x691675e7396a9a38b94c6d714a18044fa27fbf2c9cf1c96fea0e31365f711be6"
    },
    {
-      "datetime": "2020-10-08T22:15:58Z",
+      "datetime": "2020-10-09T01:15:58Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "eRSDL",
@@ -3248,7 +3348,7 @@
       "txHash": "0x38117e7572c87e4fff9b5c7a74281714b51b7a33607dd0b2fa7e840eb72fb867"
    },
    {
-      "datetime": "2020-10-08T22:15:58Z",
+      "datetime": "2020-10-09T01:15:58Z",
       "clientId": "11111",
       "creditAccount": "0x0000000000000000000000000000000000000000",
       "creditAsset": "UNI-V2",
@@ -3268,7 +3368,7 @@
       "txHash": "0x38117e7572c87e4fff9b5c7a74281714b51b7a33607dd0b2fa7e840eb72fb867"
    },
    {
-      "datetime": "2020-10-08T22:15:58Z",
+      "datetime": "2020-10-09T01:15:58Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "Ether",
@@ -3288,7 +3388,7 @@
       "txHash": "0x38117e7572c87e4fff9b5c7a74281714b51b7a33607dd0b2fa7e840eb72fb867"
    },
    {
-      "datetime": "2020-10-08T22:16:47Z",
+      "datetime": "2020-10-09T01:16:47Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "UNI-V2",
@@ -3308,7 +3408,7 @@
       "txHash": "0xf1253614331b7bd2f5130e1396d4e06712ae68c4c5935a78718b5dadab44a50f"
    },
    {
-      "datetime": "2020-10-08T22:16:47Z",
+      "datetime": "2020-10-09T01:16:47Z",
       "clientId": "11111",
       "creditAccount": "0xf8377270af0c864d2b3bab73bb16c65b05767549",
       "creditAsset": "eRSDL",
@@ -3328,7 +3428,7 @@
       "txHash": "0xf1253614331b7bd2f5130e1396d4e06712ae68c4c5935a78718b5dadab44a50f"
    },
    {
-      "datetime": "2020-10-09T20:07:54Z",
+      "datetime": "2020-10-09T23:07:54Z",
       "clientId": "11111",
       "creditAccount": "0xbd17b1ce622d73bd438b9e658aca5996dc394b0d",
       "creditAsset": "PICKLE",
@@ -3348,7 +3448,7 @@
       "txHash": "0xa3a2078d98447c310ad1bae9b242659c45872d667dd6089aeb97634d83235af0"
    },
    {
-      "datetime": "2020-10-09T20:13:00Z",
+      "datetime": "2020-10-09T23:13:00Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "PICKLE",
@@ -3368,7 +3468,7 @@
       "txHash": "0xe0c8fa906a12dbafa072f7a2121f3ba7636cb965c8534780be1a9ac511c6a055"
    },
    {
-      "datetime": "2020-10-09T20:13:00Z",
+      "datetime": "2020-10-09T23:13:00Z",
       "clientId": "11111",
       "creditAccount": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d (Uniswap V2: Router 2)",
       "creditAsset": "Ether",
@@ -3380,7 +3480,7 @@
       "txFeeAsset": "",
       "txFeeAmount": 0,
       "payee": "",
-      "memo": "Deposit  0 Ether From Uniswap V2: Router 2",
+      "memo": "Deposit  1.9070344839938211 Ether From Uniswap V2: Router 2",
       "filledPrice": "",
       "txType": "Deposit",
       "histFMV": "",
@@ -3388,7 +3488,7 @@
       "txHash": "0xe0c8fa906a12dbafa072f7a2121f3ba7636cb965c8534780be1a9ac511c6a055"
    },
    {
-      "datetime": "2020-10-09T20:14:21Z",
+      "datetime": "2020-10-09T23:14:21Z",
       "clientId": "11111",
       "creditAccount": "0xf8377270af0c864d2b3bab73bb16c65b05767549",
       "creditAsset": "eRSDL",
@@ -3408,7 +3508,7 @@
       "txHash": "0x8a2ca924c7b0257ec02f408650df5cdcd3e1e7e1be08c8d7f237a38915d0797e"
    },
    {
-      "datetime": "2020-10-09T22:44:24Z",
+      "datetime": "2020-10-10T01:44:24Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "eRSDL",
@@ -3428,7 +3528,7 @@
       "txHash": "0x5cf8d881ef89899e748d83f366721b78400e876fa10bd1eda014a580fc21cb5e"
    },
    {
-      "datetime": "2020-10-09T22:44:24Z",
+      "datetime": "2020-10-10T01:44:24Z",
       "clientId": "11111",
       "creditAccount": "0x0000000000000000000000000000000000000000",
       "creditAsset": "UNI-V2",
@@ -3448,7 +3548,7 @@
       "txHash": "0x5cf8d881ef89899e748d83f366721b78400e876fa10bd1eda014a580fc21cb5e"
    },
    {
-      "datetime": "2020-10-09T22:44:24Z",
+      "datetime": "2020-10-10T01:44:24Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "Ether",
@@ -3468,7 +3568,7 @@
       "txHash": "0x5cf8d881ef89899e748d83f366721b78400e876fa10bd1eda014a580fc21cb5e"
    },
    {
-      "datetime": "2020-10-11T11:37:48Z",
+      "datetime": "2020-10-11T14:37:48Z",
       "clientId": "11111",
       "creditAccount": "0xf8377270af0c864d2b3bab73bb16c65b05767549",
       "creditAsset": "eRSDL",
@@ -3488,7 +3588,7 @@
       "txHash": "0xcaa1ad2dc2695ca0ac698b349cef75e8ff0b78132c978653e4a02109bc2b6507"
    },
    {
-      "datetime": "2020-10-11T11:37:50Z",
+      "datetime": "2020-10-11T14:37:50Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "UNI-V2",
@@ -3508,7 +3608,7 @@
       "txHash": "0xb985ddd847cac92ac3672e6ef0e9cc79d3e4f6da79015a5f2eeccc8f135bdc86"
    },
    {
-      "datetime": "2020-10-11T11:37:50Z",
+      "datetime": "2020-10-11T14:37:50Z",
       "clientId": "11111",
       "creditAccount": "0xf8377270af0c864d2b3bab73bb16c65b05767549",
       "creditAsset": "eRSDL",
@@ -3528,7 +3628,7 @@
       "txHash": "0xb985ddd847cac92ac3672e6ef0e9cc79d3e4f6da79015a5f2eeccc8f135bdc86"
    },
    {
-      "datetime": "2020-10-11T11:54:34Z",
+      "datetime": "2020-10-11T14:54:34Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "eRSDL",
@@ -3548,7 +3648,7 @@
       "txHash": "0xe1f56337e373b2dd2eca8d95ccb83654d9964eebea43f682872450bd427ea4ad"
    },
    {
-      "datetime": "2020-10-11T11:54:34Z",
+      "datetime": "2020-10-11T14:54:34Z",
       "clientId": "11111",
       "creditAccount": "0x0000000000000000000000000000000000000000",
       "creditAsset": "UNI-V2",
@@ -3568,7 +3668,7 @@
       "txHash": "0xe1f56337e373b2dd2eca8d95ccb83654d9964eebea43f682872450bd427ea4ad"
    },
    {
-      "datetime": "2020-10-11T11:54:34Z",
+      "datetime": "2020-10-11T14:54:34Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "Ether",
@@ -3588,7 +3688,7 @@
       "txHash": "0xe1f56337e373b2dd2eca8d95ccb83654d9964eebea43f682872450bd427ea4ad"
    },
    {
-      "datetime": "2020-10-11T12:01:56Z",
+      "datetime": "2020-10-11T15:01:56Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "UNI-V2",
@@ -3608,7 +3708,7 @@
       "txHash": "0xa5b6330448967761d1110c2a32003022c6be8513c6602ef9342b1f5ef24cb470"
    },
    {
-      "datetime": "2020-10-11T12:01:56Z",
+      "datetime": "2020-10-11T15:01:56Z",
       "clientId": "11111",
       "creditAccount": "0xf8377270af0c864d2b3bab73bb16c65b05767549",
       "creditAsset": "eRSDL",
@@ -3628,7 +3728,7 @@
       "txHash": "0xa5b6330448967761d1110c2a32003022c6be8513c6602ef9342b1f5ef24cb470"
    },
    {
-      "datetime": "2020-10-14T21:41:51Z",
+      "datetime": "2020-10-15T00:41:51Z",
       "clientId": "11111",
       "creditAccount": "0xf8377270af0c864d2b3bab73bb16c65b05767549",
       "creditAsset": "eRSDL",
@@ -3648,7 +3748,7 @@
       "txHash": "0x1d08e8f33b6cdf151b69f2cd0d486eba90df1bfd86b5225d5e9514ad4eb96663"
    },
    {
-      "datetime": "2020-10-15T20:58:12Z",
+      "datetime": "2020-10-15T23:58:12Z",
       "clientId": "11111",
       "creditAccount": "0xa2c6feb5d6ac9494c53af253cbbf73e28d021b81",
       "creditAsset": "Ether",
@@ -3668,7 +3768,7 @@
       "txHash": "0x81eaf4ed1227859f5d5a3beb1f3b4282d118b3bd37c4ca920b4cf3818ebf65fa"
    },
    {
-      "datetime": "2020-10-15T21:01:34Z",
+      "datetime": "2020-10-16T00:01:34Z",
       "clientId": "11111",
       "creditAccount": "0xf8377270af0c864d2b3bab73bb16c65b05767549",
       "creditAsset": "eRSDL",
@@ -3688,7 +3788,7 @@
       "txHash": "0xdd39772850a79d4c9d7f310db2c4dcc58cd8ba16f68638ea488ede896da45fc4"
    },
    {
-      "datetime": "2020-10-15T21:05:05Z",
+      "datetime": "2020-10-16T00:05:05Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "eRSDL",
@@ -3708,7 +3808,7 @@
       "txHash": "0x973a9d7c4aca463696a4f6981286a5f3ca6a6aec0833f25a32069e3314060260"
    },
    {
-      "datetime": "2020-10-15T21:05:05Z",
+      "datetime": "2020-10-16T00:05:05Z",
       "clientId": "11111",
       "creditAccount": "0x0000000000000000000000000000000000000000",
       "creditAsset": "UNI-V2",
@@ -3728,7 +3828,7 @@
       "txHash": "0x973a9d7c4aca463696a4f6981286a5f3ca6a6aec0833f25a32069e3314060260"
    },
    {
-      "datetime": "2020-10-15T21:05:05Z",
+      "datetime": "2020-10-16T00:05:05Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "Ether",
@@ -3748,7 +3848,7 @@
       "txHash": "0x973a9d7c4aca463696a4f6981286a5f3ca6a6aec0833f25a32069e3314060260"
    },
    {
-      "datetime": "2020-10-15T21:10:31Z",
+      "datetime": "2020-10-16T00:10:31Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "UNI-V2",
@@ -3768,7 +3868,7 @@
       "txHash": "0x3112f9f80ba740d7b4ac689d063cfc9c8db2664418dfcf69491f3a330b98eb00"
    },
    {
-      "datetime": "2020-10-15T21:10:31Z",
+      "datetime": "2020-10-16T00:10:31Z",
       "clientId": "11111",
       "creditAccount": "0xf8377270af0c864d2b3bab73bb16c65b05767549",
       "creditAsset": "eRSDL",
@@ -3788,7 +3888,7 @@
       "txHash": "0x3112f9f80ba740d7b4ac689d063cfc9c8db2664418dfcf69491f3a330b98eb00"
    },
    {
-      "datetime": "2020-10-15T21:12:51Z",
+      "datetime": "2020-10-16T00:12:51Z",
       "clientId": "11111",
       "creditAccount": "0xbd17b1ce622d73bd438b9e658aca5996dc394b0d",
       "creditAsset": "PICKLE",
@@ -3808,7 +3908,7 @@
       "txHash": "0xc53fb2450a8edfb80a04efc622d3fbc7cd90e8bc1e3f10fd9a8f62a4107b18c0"
    },
    {
-      "datetime": "2020-10-15T21:12:51Z",
+      "datetime": "2020-10-16T00:12:51Z",
       "clientId": "11111",
       "creditAccount": "0xbd17b1ce622d73bd438b9e658aca5996dc394b0d",
       "creditAsset": "UNI-V2",
@@ -3828,7 +3928,7 @@
       "txHash": "0xc53fb2450a8edfb80a04efc622d3fbc7cd90e8bc1e3f10fd9a8f62a4107b18c0"
    },
    {
-      "datetime": "2020-10-15T21:15:38Z",
+      "datetime": "2020-10-16T00:15:38Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "UNI-V2",
@@ -3848,7 +3948,7 @@
       "txHash": "0x309d871b53866033464ee91723afa3314b4477b694c951b220f54b68a4f37447"
    },
    {
-      "datetime": "2020-10-15T21:15:38Z",
+      "datetime": "2020-10-16T00:15:38Z",
       "clientId": "11111",
       "creditAccount": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d (Uniswap V2: Router 2)",
       "creditAsset": "PICKLE",
@@ -3868,7 +3968,7 @@
       "txHash": "0x309d871b53866033464ee91723afa3314b4477b694c951b220f54b68a4f37447"
    },
    {
-      "datetime": "2020-10-15T21:15:38Z",
+      "datetime": "2020-10-16T00:15:38Z",
       "clientId": "11111",
       "creditAccount": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d (Uniswap V2: Router 2)",
       "creditAsset": "Ether",
@@ -3880,7 +3980,7 @@
       "txFeeAsset": "",
       "txFeeAmount": 0,
       "payee": "",
-      "memo": "Deposit  0 Ether From Uniswap V2: Router 2",
+      "memo": "Deposit  23.069421722747176 Ether From Uniswap V2: Router 2",
       "filledPrice": "",
       "txType": "Deposit",
       "histFMV": "",
@@ -3888,7 +3988,7 @@
       "txHash": "0x309d871b53866033464ee91723afa3314b4477b694c951b220f54b68a4f37447"
    },
    {
-      "datetime": "2020-10-15T22:38:44Z",
+      "datetime": "2020-10-16T01:38:44Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "PICKLE",
@@ -3908,7 +4008,7 @@
       "txHash": "0x3d534f72b2eebc642346e17545ac2601b0ea000e60f7e0cec0f59d3cc21c90de"
    },
    {
-      "datetime": "2020-10-15T22:38:44Z",
+      "datetime": "2020-10-16T01:38:44Z",
       "clientId": "11111",
       "creditAccount": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d (Uniswap V2: Router 2)",
       "creditAsset": "Ether",
@@ -3920,7 +4020,7 @@
       "txFeeAsset": "",
       "txFeeAmount": 0,
       "payee": "",
-      "memo": "Deposit  0 Ether From Uniswap V2: Router 2",
+      "memo": "Deposit  24.824060570759688 Ether From Uniswap V2: Router 2",
       "filledPrice": "",
       "txType": "Deposit",
       "histFMV": "",
@@ -3928,10 +4028,10 @@
       "txHash": "0x3d534f72b2eebc642346e17545ac2601b0ea000e60f7e0cec0f59d3cc21c90de"
    },
    {
-      "datetime": "2020-10-15T22:38:44Z",
+      "datetime": "2020-10-16T01:38:44Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -3948,7 +4048,7 @@
       "txHash": "0x5a141ae56037940fdce4024ee5f8a39ba0bcc6b02716e8ab7f212c66802c0439"
    },
    {
-      "datetime": "2020-10-17T14:01:31Z",
+      "datetime": "2020-10-17T17:01:31Z",
       "clientId": "11111",
       "creditAccount": "0xf8377270af0c864d2b3bab73bb16c65b05767549",
       "creditAsset": "eRSDL",
@@ -3968,7 +4068,7 @@
       "txHash": "0xe8ba3d2348d5b486f85e9f32941f2faecfba188872532bc5f6b6742f424598c2"
    },
    {
-      "datetime": "2020-10-17T16:58:26Z",
+      "datetime": "2020-10-17T19:58:26Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "Ether",
@@ -3988,7 +4088,7 @@
       "txHash": "0x2090ad63132d66c104cf2d118048f12af2d214df969f6b65cbd01c5c86840524"
    },
    {
-      "datetime": "2020-10-17T16:58:26Z",
+      "datetime": "2020-10-17T19:58:26Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "eRSDL",
@@ -4008,10 +4108,10 @@
       "txHash": "0xaf87bf9709e173562de2ec98f22237376c615d1a55e4299ba19365d9d59f5b95"
    },
    {
-      "datetime": "2020-10-17T16:58:29Z",
+      "datetime": "2020-10-17T19:58:29Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
-      "creditAsset": "Ether",
+      "creditAsset": "",
       "creditAmount": 0,
       "debitAccount": "",
       "debitAsset": "",
@@ -4028,7 +4128,7 @@
       "txHash": "0x57e9b3417532396eca7cef3d2ceff054553a7ba983a57f1129726a1cfa0fc072"
    },
    {
-      "datetime": "2020-10-18T09:19:11Z",
+      "datetime": "2020-10-18T12:19:11Z",
       "clientId": "11111",
       "creditAccount": "0xf8377270af0c864d2b3bab73bb16c65b05767549",
       "creditAsset": "eRSDL",
@@ -4048,7 +4148,7 @@
       "txHash": "0x8815f65a81c1720a6a4aa46f7b7fd3afec94797490465e7adbc9d7c041895e50"
    },
    {
-      "datetime": "2020-10-18T09:30:47Z",
+      "datetime": "2020-10-18T12:30:47Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "eRSDL",
@@ -4068,7 +4168,7 @@
       "txHash": "0x60de569914157ad4e567785a218d676cb45617f7b079b2c7767ff9e657eabdcd"
    },
    {
-      "datetime": "2020-10-18T09:30:47Z",
+      "datetime": "2020-10-18T12:30:47Z",
       "clientId": "11111",
       "creditAccount": "0x0000000000000000000000000000000000000000",
       "creditAsset": "UNI-V2",
@@ -4088,7 +4188,7 @@
       "txHash": "0x60de569914157ad4e567785a218d676cb45617f7b079b2c7767ff9e657eabdcd"
    },
    {
-      "datetime": "2020-10-18T09:30:47Z",
+      "datetime": "2020-10-18T12:30:47Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "Ether",
@@ -4108,7 +4208,7 @@
       "txHash": "0x60de569914157ad4e567785a218d676cb45617f7b079b2c7767ff9e657eabdcd"
    },
    {
-      "datetime": "2020-10-18T09:56:04Z",
+      "datetime": "2020-10-18T12:56:04Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "UNI-V2",
@@ -4128,7 +4228,7 @@
       "txHash": "0x38a54bef106d651f40847b70b2acae3b5aa4970a980875b92a2f0b5ccf884c18"
    },
    {
-      "datetime": "2020-10-18T09:56:04Z",
+      "datetime": "2020-10-18T12:56:04Z",
       "clientId": "11111",
       "creditAccount": "0xf8377270af0c864d2b3bab73bb16c65b05767549",
       "creditAsset": "eRSDL",
@@ -4148,7 +4248,7 @@
       "txHash": "0x38a54bef106d651f40847b70b2acae3b5aa4970a980875b92a2f0b5ccf884c18"
    },
    {
-      "datetime": "2020-10-19T19:11:14Z",
+      "datetime": "2020-10-19T22:11:14Z",
       "clientId": "11111",
       "creditAccount": "0xf8377270af0c864d2b3bab73bb16c65b05767549",
       "creditAsset": "eRSDL",
@@ -4168,7 +4268,7 @@
       "txHash": "0xb27bf316a1447048e230695db7c87323b34bf572f7853c7dc4df74b56b85f96c"
    },
    {
-      "datetime": "2020-10-19T20:38:35Z",
+      "datetime": "2020-10-19T23:38:35Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "eRSDL",
@@ -4188,7 +4288,7 @@
       "txHash": "0x5431051868063e150a91467b49254a7779a1d7816b5fd3cfb06282a57c5d6c23"
    },
    {
-      "datetime": "2020-10-19T20:38:35Z",
+      "datetime": "2020-10-19T23:38:35Z",
       "clientId": "11111",
       "creditAccount": "0x0000000000000000000000000000000000000000",
       "creditAsset": "UNI-V2",
@@ -4208,7 +4308,7 @@
       "txHash": "0x5431051868063e150a91467b49254a7779a1d7816b5fd3cfb06282a57c5d6c23"
    },
    {
-      "datetime": "2020-10-19T20:38:35Z",
+      "datetime": "2020-10-19T23:38:35Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "Ether",
@@ -4228,7 +4328,7 @@
       "txHash": "0x5431051868063e150a91467b49254a7779a1d7816b5fd3cfb06282a57c5d6c23"
    },
    {
-      "datetime": "2020-10-19T20:38:57Z",
+      "datetime": "2020-10-19T23:38:57Z",
       "clientId": "11111",
       "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
       "creditAsset": "UNI-V2",
@@ -4248,7 +4348,7 @@
       "txHash": "0xa7174df537b8bd397d9af203c1d5a64d3266983b98e9775e0c3ad5e5b7f1b55e"
    },
    {
-      "datetime": "2020-10-19T20:38:57Z",
+      "datetime": "2020-10-19T23:38:57Z",
       "clientId": "11111",
       "creditAccount": "0xf8377270af0c864d2b3bab73bb16c65b05767549",
       "creditAsset": "eRSDL",
@@ -4266,5 +4366,325 @@
       "histFMV": "",
       "basis": "",
       "txHash": "0xa7174df537b8bd397d9af203c1d5a64d3266983b98e9775e0c3ad5e5b7f1b55e"
+   },
+   {
+      "datetime": "2020-10-20T21:17:13Z",
+      "clientId": "11111",
+      "creditAccount": "0x0286ab4c526c0f28ec31dbb08755c999f441a58f",
+      "creditAsset": "WETH",
+      "creditAmount": 1e-18,
+      "debitAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "debitAsset": "WETH",
+      "debitAmount": 1e-18,
+      "txFeeAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "txFeeAsset": "Ether",
+      "txFeeAmount": 0.01647174,
+      "payee": "",
+      "memo": "Deposit 1e-18 WETH From 0x0286ab4c526c0f28ec31dbb08755c999f441a58f",
+      "filledPrice": "",
+      "txType": "Deposit",
+      "histFMV": "",
+      "basis": "",
+      "txHash": "0xe2b51840ed8764501033d32f835d5af8c6997fedd23c61fd9640162f68230d6b"
+   },
+   {
+      "datetime": "2020-10-20T21:17:13Z",
+      "clientId": "11111",
+      "creditAccount": "0x0286ab4c526c0f28ec31dbb08755c999f441a58f",
+      "creditAsset": "UNI-V2",
+      "creditAmount": 92.94074255333932,
+      "debitAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "debitAsset": "UNI-V2",
+      "debitAmount": 92.94074255333932,
+      "txFeeAccount": "",
+      "txFeeAsset": "",
+      "txFeeAmount": 0,
+      "payee": "",
+      "memo": "Deposit 92.94074255333932 UNI-V2 From 0x0286ab4c526c0f28ec31dbb08755c999f441a58f",
+      "filledPrice": "",
+      "txType": "Deposit",
+      "histFMV": "",
+      "basis": "",
+      "txHash": "0xe2b51840ed8764501033d32f835d5af8c6997fedd23c61fd9640162f68230d6b"
+   },
+   {
+      "datetime": "2020-10-20T21:17:13Z",
+      "clientId": "11111",
+      "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "creditAsset": "Ether",
+      "creditAmount": 45.7168,
+      "debitAccount": "0x0286ab4c526c0f28ec31dbb08755c999f441a58f",
+      "debitAsset": "Ether",
+      "debitAmount": 45.7168,
+      "txFeeAccount": "",
+      "txFeeAsset": "",
+      "txFeeAmount": 0,
+      "payee": "",
+      "memo": "Withdrawal 45.7168 Ether To 0x0286ab4c526c0f28ec31dbb08755c999f441a58f",
+      "filledPrice": "",
+      "txType": "Withdrawl",
+      "histFMV": "",
+      "basis": "",
+      "txHash": "0xe2b51840ed8764501033d32f835d5af8c6997fedd23c61fd9640162f68230d6b"
+   },
+   {
+      "datetime": "2020-10-20T21:18:57Z",
+      "clientId": "11111",
+      "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "creditAsset": "UNI-V2",
+      "creditAmount": 92.94074255333932,
+      "debitAccount": "0xbd17b1ce622d73bd438b9e658aca5996dc394b0d",
+      "debitAsset": "UNI-V2",
+      "debitAmount": 92.94074255333932,
+      "txFeeAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "txFeeAsset": "Ether",
+      "txFeeAmount": 0.0066986181,
+      "payee": "",
+      "memo": "Withdrawal 92.94074255333932 UNI-V2 To 0xbd17b1ce622d73bd438b9e658aca5996dc394b0d",
+      "filledPrice": "",
+      "txType": "Withdrawl",
+      "histFMV": "",
+      "basis": "",
+      "txHash": "0xe0de07064f4534260ba9cb55abca5dc018ba4c4d6c9b6feb8368edc2ae5ccc2b"
+   },
+   {
+      "datetime": "2020-10-25T12:43:35Z",
+      "clientId": "11111",
+      "creditAccount": "0xf8377270af0c864d2b3bab73bb16c65b05767549",
+      "creditAsset": "eRSDL",
+      "creditAmount": 353371.06217085785,
+      "debitAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "debitAsset": "eRSDL",
+      "debitAmount": 353371.06217085785,
+      "txFeeAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "txFeeAsset": "Ether",
+      "txFeeAmount": 0.00291506417721,
+      "payee": "",
+      "memo": "Deposit 353371.06217085785 eRSDL From 0xf8377270af0c864d2b3bab73bb16c65b05767549",
+      "filledPrice": "",
+      "txType": "Deposit",
+      "histFMV": "",
+      "basis": "",
+      "txHash": "0x188b7eeab1f3e5be3c0e9794b25859cd66270f88d707c0640a7f04b23e73d504"
+   },
+   {
+      "datetime": "2020-10-25T12:43:35Z",
+      "clientId": "11111",
+      "creditAccount": "0xbd17b1ce622d73bd438b9e658aca5996dc394b0d",
+      "creditAsset": "PICKLE",
+      "creditAmount": 20.658695815941336,
+      "debitAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "debitAsset": "PICKLE",
+      "debitAmount": 20.658695815941336,
+      "txFeeAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "txFeeAsset": "Ether",
+      "txFeeAmount": 0.00329675,
+      "payee": "",
+      "memo": "Deposit 20.658695815941336 PICKLE From 0xbd17b1ce622d73bd438b9e658aca5996dc394b0d",
+      "filledPrice": "",
+      "txType": "Deposit",
+      "histFMV": "",
+      "basis": "",
+      "txHash": "0x78d5a91318842783f5f3a977a4b222dbef22f20622f5025b1fa95263e670f973"
+   },
+   {
+      "datetime": "2020-10-25T12:45:49Z",
+      "clientId": "11111",
+      "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "creditAsset": "eRSDL",
+      "creditAmount": 374628.9266469057,
+      "debitAccount": "0x7ba9b94127d434182287de708643932ec036d365 (Uniswap V2: eRSDL 2)",
+      "debitAsset": "eRSDL",
+      "debitAmount": 374628.9266469057,
+      "txFeeAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "txFeeAsset": "Ether",
+      "txFeeAmount": 0.00322684819616,
+      "payee": "",
+      "memo": "Withdrawal 374628.9266469057 eRSDL To Uniswap V2: eRSDL 2",
+      "filledPrice": "",
+      "txType": "Withdrawl",
+      "histFMV": "",
+      "basis": "",
+      "txHash": "0xc02f5605859e10be8caa636a011b7eb6d5a7871c7787bfe24422f0dec8cb8f8e"
+   },
+   {
+      "datetime": "2020-10-25T12:45:49Z",
+      "clientId": "11111",
+      "creditAccount": "0x0000000000000000000000000000000000000000",
+      "creditAsset": "UNI-V2",
+      "creditAmount": 454.4126042957481,
+      "debitAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "debitAsset": "UNI-V2",
+      "debitAmount": 454.4126042957481,
+      "txFeeAccount": "",
+      "txFeeAsset": "",
+      "txFeeAmount": 0,
+      "payee": "",
+      "memo": "Deposit 454.4126042957481 UNI-V2 From 0x0000000000000000000000000000000000000000",
+      "filledPrice": "",
+      "txType": "Deposit",
+      "histFMV": "",
+      "basis": "",
+      "txHash": "0xc02f5605859e10be8caa636a011b7eb6d5a7871c7787bfe24422f0dec8cb8f8e"
+   },
+   {
+      "datetime": "2020-10-25T12:45:49Z",
+      "clientId": "11111",
+      "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "creditAsset": "Ether",
+      "creditAmount": 0.585362182573222,
+      "debitAccount": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d (Uniswap V2: Router 2)",
+      "debitAsset": "Ether",
+      "debitAmount": 0.585362182573222,
+      "txFeeAccount": "",
+      "txFeeAsset": "",
+      "txFeeAmount": 0,
+      "payee": "",
+      "memo": "Withdrawal 0.585362182573222 Ether To Uniswap V2: Router 2",
+      "filledPrice": "",
+      "txType": "Withdrawl",
+      "histFMV": "",
+      "basis": "",
+      "txHash": "0xc02f5605859e10be8caa636a011b7eb6d5a7871c7787bfe24422f0dec8cb8f8e"
+   },
+   {
+      "datetime": "2020-10-25T12:48:31Z",
+      "clientId": "11111",
+      "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "creditAsset": "PICKLE",
+      "creditAmount": 20.658695815941336,
+      "debitAccount": "0xdc98556ce24f007a5ef6dc1ce96322d65832a819 (Uniswap V2: PICKLE 2)",
+      "debitAsset": "PICKLE",
+      "debitAmount": 20.658695815941336,
+      "txFeeAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "txFeeAsset": "Ether",
+      "txFeeAmount": 0.0029063027,
+      "payee": "",
+      "memo": "Withdrawal 20.658695815941336 PICKLE To Uniswap V2: PICKLE 2",
+      "filledPrice": "",
+      "txType": "Withdrawl",
+      "histFMV": "",
+      "basis": "",
+      "txHash": "0xe210da10e251db796418f6323c63167a3169639ca364155a52bc58131949d545"
+   },
+   {
+      "datetime": "2020-10-25T12:48:31Z",
+      "clientId": "11111",
+      "creditAccount": "0x0000000000000000000000000000000000000000",
+      "creditAsset": "UNI-V2",
+      "creditAmount": 3.7944057757215743,
+      "debitAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "debitAsset": "UNI-V2",
+      "debitAmount": 3.7944057757215743,
+      "txFeeAccount": "",
+      "txFeeAsset": "",
+      "txFeeAmount": 0,
+      "payee": "",
+      "memo": "Deposit 3.7944057757215743 UNI-V2 From 0x0000000000000000000000000000000000000000",
+      "filledPrice": "",
+      "txType": "Deposit",
+      "histFMV": "",
+      "basis": "",
+      "txHash": "0xe210da10e251db796418f6323c63167a3169639ca364155a52bc58131949d545"
+   },
+   {
+      "datetime": "2020-10-25T12:48:31Z",
+      "clientId": "11111",
+      "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "creditAsset": "Ether",
+      "creditAmount": 0.8107488813678031,
+      "debitAccount": "0x7a250d5630b4cf539739df2c5dacb4c659f2488d (Uniswap V2: Router 2)",
+      "debitAsset": "Ether",
+      "debitAmount": 0.8107488813678031,
+      "txFeeAccount": "",
+      "txFeeAsset": "",
+      "txFeeAmount": 0,
+      "payee": "",
+      "memo": "Withdrawal 0.8107488813678031 Ether To Uniswap V2: Router 2",
+      "filledPrice": "",
+      "txType": "Withdrawl",
+      "histFMV": "",
+      "basis": "",
+      "txHash": "0xe210da10e251db796418f6323c63167a3169639ca364155a52bc58131949d545"
+   },
+   {
+      "datetime": "2020-10-25T12:52:54Z",
+      "clientId": "11111",
+      "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "creditAsset": "UNI-V2",
+      "creditAmount": 3.7944057757215743,
+      "debitAccount": "0xbd17b1ce622d73bd438b9e658aca5996dc394b0d",
+      "debitAsset": "UNI-V2",
+      "debitAmount": 3.7944057757215743,
+      "txFeeAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "txFeeAsset": "Ether",
+      "txFeeAmount": 0.0019835361,
+      "payee": "",
+      "memo": "Withdrawal 3.7944057757215743 UNI-V2 To 0xbd17b1ce622d73bd438b9e658aca5996dc394b0d",
+      "filledPrice": "",
+      "txType": "Withdrawl",
+      "histFMV": "",
+      "basis": "",
+      "txHash": "0xf11f536dd787c4dc94b0c377f1f695d079be382953cb8a5182e0daa49b4d48a3"
+   },
+   {
+      "datetime": "2020-10-25T12:52:54Z",
+      "clientId": "11111",
+      "creditAccount": "0xbd17b1ce622d73bd438b9e658aca5996dc394b0d",
+      "creditAsset": "PICKLE",
+      "creditAmount": 0.027114806872405455,
+      "debitAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "debitAsset": "PICKLE",
+      "debitAmount": 0.027114806872405455,
+      "txFeeAccount": "",
+      "txFeeAsset": "",
+      "txFeeAmount": 0,
+      "payee": "",
+      "memo": "Deposit 0.027114806872405455 PICKLE From 0xbd17b1ce622d73bd438b9e658aca5996dc394b0d",
+      "filledPrice": "",
+      "txType": "Deposit",
+      "histFMV": "",
+      "basis": "",
+      "txHash": "0xf11f536dd787c4dc94b0c377f1f695d079be382953cb8a5182e0daa49b4d48a3"
+   },
+   {
+      "datetime": "2020-10-25T12:52:54Z",
+      "clientId": "11111",
+      "creditAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "creditAsset": "UNI-V2",
+      "creditAmount": 454.4126042957481,
+      "debitAccount": "0xf8377270af0c864d2b3bab73bb16c65b05767549",
+      "debitAsset": "UNI-V2",
+      "debitAmount": 454.4126042957481,
+      "txFeeAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "txFeeAsset": "Ether",
+      "txFeeAmount": 0.0029114673,
+      "payee": "",
+      "memo": "Withdrawal 454.4126042957481 UNI-V2 To 0xf8377270af0c864d2b3bab73bb16c65b05767549",
+      "filledPrice": "",
+      "txType": "Withdrawl",
+      "histFMV": "",
+      "basis": "",
+      "txHash": "0x75e87be09ea5d859ea74ce22e8180ca9c0a41729d3bef207bd1037b79b635a18"
+   },
+   {
+      "datetime": "2020-10-25T12:52:54Z",
+      "clientId": "11111",
+      "creditAccount": "0xf8377270af0c864d2b3bab73bb16c65b05767549",
+      "creditAsset": "eRSDL",
+      "creditAmount": 284.8792091282412,
+      "debitAccount": "0x915f68fdfe1970fc94daa5d1c0dcc89ab6f9f085",
+      "debitAsset": "eRSDL",
+      "debitAmount": 284.8792091282412,
+      "txFeeAccount": "",
+      "txFeeAsset": "",
+      "txFeeAmount": 0,
+      "payee": "",
+      "memo": "Deposit 284.8792091282412 eRSDL From 0xf8377270af0c864d2b3bab73bb16c65b05767549",
+      "filledPrice": "",
+      "txType": "Deposit",
+      "histFMV": "",
+      "basis": "",
+      "txHash": "0x75e87be09ea5d859ea74ce22e8180ca9c0a41729d3bef207bd1037b79b635a18"
    }
 ]
