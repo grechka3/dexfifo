@@ -11,7 +11,7 @@ void async function () {
    if (0) {
       exporttx = new ExportEtherTxs("../data/vlad/db.json")
       res = await exporttx.memdb.read()
-      exporttx.loadConfFromFile("../data/vladconf.conf")
+      exporttx.loadConfFromFile("../data/vlad.conf")
       res = await exporttx.pgWriteComputedTxs(/*userId*/)
       if (res.err) {
          throw res.err

@@ -5,7 +5,6 @@ Phase 1
 npm install
 ```
 
-
 #### ****How to run****
 
 Export transaction to files 
@@ -22,6 +21,26 @@ In data/exported directory will be tree files:\
 ```
 npx jest
 ```
+
+
+#### ****Config input file**** ####
+
+EtherAddr - ethereum address\
+ClientID - Computis Client ID\
+DecimalSeparator - decimal separator in CSV export file. Default "."\
+UTCOffsetMinutes - UTC + this value. Used for time output in report files. Default 0.
+
+#####Example:
+
+````
+ClientID = 11111
+DecimalSeparator=,
+UtcOffsetMinutes=0
+
+# this is a comment
+#etheraddr = 0x29bf6652e795c360f7605be0fcd8b8e4f29a52d4
+etheraddr = 0x9ad227d56a36b33407916f3293db2d298095dca9
+````
 
 #### ****Program options**** ####
 ```

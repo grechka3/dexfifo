@@ -21,7 +21,6 @@ import ArrayMetric from "./array-metric.mjs";
  * @typedef TxTranserTypes {{trade: string, fee: string, deposit: string, withdrawl: string}}
  */
 const txTranserTypes = {
-   FEE: "Fee",
    TRADE: "Trade",
    DEPOSIT: "Deposit",
    WITHDRAWAL: "Withdrawl"
@@ -183,7 +182,7 @@ class ExportEtherTxs
          }
          this.balances[debit_bk].debit += debit_v
 
-         let credit_bk = `${tr.creditAccount}_${tr.debitAsset}`
+         let credit_bk = `${tr.creditAccount}_${tr.creditAsset}`
          if (!xx.isDefined(this.balances[credit_bk])) {
             this.balances[credit_bk] = {
                addr: tr.creditAccount,
@@ -730,20 +729,22 @@ class ExportEtherTxs
 
       const fromAddrIsOwn = inputAddrs.includes(txrow.fromAddr)
       const toAddrIsOwn = inputAddrs.includes(txrow.toAddr)
+      let feeRecorded = false
 
       // fail tx || no tokens && zero ether value && have fee
       if (txrow.isError) {
          if (txrow.txFee && fromAddrIsOwn) {
             res.push(Object.assign(entry, {
-               txType: txTranserTypes.FEE,
-               creditAsset: "",
+               txType: txTranserTypes.WITHDRAWAL,
+               creditAsset: "Ether",
                creditAccount: txrow.fromAddr,
-               creditAmount: 0,
+               creditAmount: txrow.txFee,
                debitAccount: "",
                debitAsset: "",
                debitAmount: 0,
                memo: txrow.isError ? "Loss on fail transaction" : (txrow.memo.length ? txrow.memo.join(", ") : "")
             }))
+            feeRecorded = true
          }
          else {
             log.e(`[ExportEtherTxs.getTxTransforms]: EE[8] fail TX misses :: tx="${txrow.txHash}"`).flog()
@@ -884,30 +885,33 @@ class ExportEtherTxs
       }
 
       // zero sum && and no other transfers
-      if (!res.length && txrow.txFee && fromAddrIsOwn) {
+      if (!feeRecorded && !res.length && txrow.txFee && fromAddrIsOwn) {
          res.push(Object.assign(entry, {
-            txType: txTranserTypes.FEE,
-            creditAsset: "",
+            txType: txTranserTypes.WITHDRAWAL,
+            creditAsset: "Ether",
             creditAccount: txrow.fromAddr,
-            creditAmount: 0,
+            creditAmount: txrow.txFee,
             debitAccount: "",
             debitAsset: "",
             debitAmount: 0,
-            txFeeAccount: txrow.fromAddr,
-            txFeeAsset: "Ether",
-            txFeeAmount: txrow.txFee,
             memo: txrow.memo ? txrow.memo : "?11"
          }))
+         feeRecorded = true
       }
 
-      else if (txrow.txFee && res.length && fromAddrIsOwn) {
+      else if (!feeRecorded && txrow.txFee && res.length && fromAddrIsOwn) {
          res[0].txFeeAccount = txrow.fromAddr
          res[0].txFeeAsset = "Ether"
          res[0].txFeeAmount = txrow.txFee
+         feeRecorded = true
       }
 
       if (!res.length) {
          log.w(`[ExportEtherTxs.getTxTransforms]: EE[5] no entries for tx="${txrow.txHash}"`).flog()
+      }
+
+      if (!feeRecorded && fromAddrIsOwn) {
+         log.w(`[ExportEtherTxs.getTxTransforms]: EE[9] fee not recorded for tx="${txrow.txHash}"`).flog()
       }
 
       return res
