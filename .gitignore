@@ -16,3 +16,4 @@ yarn-error.log*
 
 /jsdoc
 /package-lock.json
+log
